@@ -7,6 +7,7 @@ const app = express();
 
 initDb().catch(err => console.error('[DB] Erro ao inicializar:', err));
 
+app.set('trust proxy', 1);
 app.use(cors({ origin: '*' }));
 app.use(express.json({ limit: '10mb' }));
 
