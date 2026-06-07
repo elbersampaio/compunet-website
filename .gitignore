@@ -1,0 +1,8 @@
+node_modules
+.agents
+.opencode
+*.log
+*.bat
+*.ps1
+server/mobiliza.db-shm
+server/mobiliza.db-wal

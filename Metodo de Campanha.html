@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/><link rel="icon" type="image/x-icon" href="favicon.ico"/>
+<link rel="icon" type="image/png" sizes="16x16" href="favicon16.png"/>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon32.png"/>
+<link rel="icon" type="image/png" sizes="48x48" href="favicon48.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+<link rel="manifest" href="manifest.json"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Compunet - Método de Campanha</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;900&amp;family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@300;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#0F172A",
+                    "on-primary": "#FFFFFF",
+                    "primary-container": "#0F172A",
+                    "on-primary-container": "#94A3B8",
+                    "secondary": "#2563EB",
+                    "on-secondary": "#FFFFFF",
+                    "secondary-container": "#3B82F6",
+                    "on-secondary-container": "#FFFFFF",
+                    "surface": "#F8FAFC",
+                    "on-surface": "#0F172A",
+                    "surface-container": "#FFFFFF",
+                    "surface-container-low": "#F8FAFC",
+                    "surface-container-lowest": "#FFFFFF",
+                    "surface-container-high": "#F1F5F9",
+                    "on-surface-variant": "#475569",
+                    "cyan-accent": "#06B6D4",
+                    "purple-accent": "#7C3AED",
+                    "orange-accent": "#F97316",
+                    "slate-gray": "#CBD5E1",
+                    "outline-variant": "#E2E8F0",
+                    "outline": "#94A3B8",
+                    "error": "#DC2626",
+                    "on-error": "#FFFFFF",
+                    "background": "#F8FAFC",
+                    "inverse-surface": "#0F172A",
+                    "inverse-on-surface": "#F8FAFC"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "max-width": "1280px",
+                    "gutter": "24px",
+                    "margin-mobile": "20px",
+                    "margin-desktop": "64px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Inter Tight", "Space Grotesk", "sans-serif"],
+                    "display-lg-mobile": ["Inter Tight", "Space Grotesk", "sans-serif"],
+                    "headline-lg": ["Inter Tight", "Space Grotesk", "sans-serif"],
+                    "headline-lg-mobile": ["Inter Tight", "Space Grotesk", "sans-serif"],
+                    "headline-md": ["Inter Tight", "Space Grotesk", "sans-serif"],
+                    "body-lg": ["Inter", "sans-serif"],
+                    "body-md": ["Inter", "sans-serif"],
+                    "label-md": ["Inter", "sans-serif"],
+                    "caption": ["Inter", "sans-serif"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                    "display-lg-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .canvas-bg {
+            background-image: radial-gradient(circle at 2px 2px, #CBD5E1 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: spin-slow 8s linear infinite;
+        }
+        .connector-line {
+            stroke: #CBD5E1;
+            stroke-width: 1;
+            stroke-dasharray: 4;
+            fill: none;
+        }
+        .pillar-node:hover .connector-line {
+            stroke: #0051d5;
+            stroke-dasharray: 0;
+            stroke-width: 2;
+        }
+            .docked {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .full-width {
+            width: 100%;
+        }
+
+        /* === Accordion Moderno === */
+        .accordion-root {
+            --acc-radius: 20px;
+            --acc-transition: 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .accordion-item {
+            border-radius: var(--acc-radius);
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            overflow: hidden;
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .accordion-item:hover {
+            border-color: #CBD5E1;
+        }
+        .accordion-item[data-open="true"] {
+            box-shadow: 0 8px 32px rgba(15, 23, 42, 0.08);
+            border-color: transparent;
+        }
+        .accordion-trigger {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 24px 28px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: "Inter Tight", "Space Grotesk", sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: #0F172A;
+            text-align: left;
+            transition: background 0.25s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .accordion-trigger:hover {
+            background: #F8FAFC;
+        }
+        .accordion-trigger:focus-visible {
+            outline: 2px solid #2563EB;
+            outline-offset: -2px;
+        }
+        .accordion-trigger .trigger-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .accordion-trigger .trigger-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 22px;
+            color: #fff;
+            transition: transform 0.3s ease;
+        }
+        .accordion-item[data-open="true"] .trigger-icon {
+            transform: scale(1.08);
+        }
+        .accordion-trigger .trigger-step {
+            font-size: 14px;
+            font-weight: 500;
+            color: #94A3B8;
+            font-family: "Inter", sans-serif;
+            min-width: 28px;
+        }
+        .accordion-chevron {
+            font-size: 24px;
+            color: #94A3B8;
+            transition: transform var(--acc-transition);
+            flex-shrink: 0;
+        }
+        .accordion-item[data-open="true"] .accordion-chevron {
+            transform: rotate(180deg);
+        }
+        .accordion-panel {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows var(--acc-transition);
+        }
+        .accordion-item[data-open="true"] .accordion-panel {
+            grid-template-rows: 1fr;
+        }
+        .accordion-panel-inner {
+            overflow: hidden;
+        }
+        .accordion-content {
+            padding: 0 28px 28px;
+            color: #475569;
+            font-family: "Inter", sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .accordion-content .acc-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding-top: 16px;
+            border-top: 1px solid #F1F5F9;
+        }
+        @media (min-width: 768px) {
+            .accordion-content .acc-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .acc-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            background: #F8FAFC;
+            transition: background 0.2s ease;
+        }
+        .acc-feature:hover {
+            background: #F1F5F9;
+        }
+        .acc-feature .f-icon {
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        .acc-feature .f-text {
+            font-size: 15px;
+            font-weight: 500;
+            color: #0F172A;
+        }
+        .acc-feature .f-desc {
+            font-size: 13px;
+            color: #64748B;
+            margin-top: 2px;
+        }
+        .accordion-content .acc-desc {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #475569;
+            margin-bottom: 16px;
+        }
+        @media (max-width: 767px) {
+            .accordion-trigger {
+                padding: 18px 20px;
+                font-size: 17px;
+            }
+            .accordion-trigger .trigger-icon {
+                width: 34px;
+                height: 34px;
+                font-size: 18px;
+            }
+            .accordion-trigger .trigger-step {
+                font-size: 12px;
+                min-width: 22px;
+            }
+            .accordion-content {
+                padding: 0 20px 20px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-secondary-fixed">
+<div id="nav-container"></div>
+<main class="relative overflow-hidden">
+<!-- Hero Header -->
+<section class="pt-24 pb-12 px-margin-desktop max-w-max-width mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end gap-8">
+<div class="max-w-2xl">
+<h1 class="font-display-lg text-display-lg text-primary leading-tight mb-4">
+                        Vá além das táticas<br/>usuais de crescimento.
+                    </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
+                        Nossa metodologia transforma dados em territórios conquistados. Veja como nossa abordagem orientada por especialistas dá a você a vantagem em novos mercados políticos.
+                    </p>
+</div>
+<div class="hidden md:block">
+<button class="bg-primary text-on-primary px-8 py-4 rounded-xl font-label-md text-label-md flex items-center gap-2 hover:scale-105 transition-transform">
+                        Agendar Consultoria Estratégica
+                        <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- The Strategic Map Canvas -->
+<section class="canvas-bg min-h-[800px] relative w-full py-12">
+<!-- Floating Elements / The Flow -->
+<div class="max-w-max-width mx-auto relative px-margin-desktop">
+<!-- SVG Connectors Background -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none opacity-40" viewbox="0 0 1200 600">
+<path class="connector-line" d="M150,150 Q300,50 450,180"></path>
+<path class="connector-line" d="M450,180 Q600,300 750,180"></path>
+<path class="connector-line" d="M750,180 Q900,50 1050,150"></path>
+<circle cx="150" cy="150" fill="#0051d5" r="4"></circle>
+<circle cx="450" cy="180" fill="#0051d5" r="4"></circle>
+<circle cx="750" cy="180" fill="#0051d5" r="4"></circle>
+<circle cx="1050" cy="150" fill="#0051d5" r="4"></circle>
+</svg>
+<!-- Grid of 5 Pillars -->
+<div class="grid grid-cols-1 md:grid-cols-5 gap-12 relative z-10">
+<!-- Pillar 1: Estratégia -->
+<div id="estrategia-politica" class="pillar-node group">
+<div class="mb-24 relative h-48">
+<!-- Visual Logic -->
+<div class="absolute top-10 left-4 glass px-3 py-1 rounded-full text-xs font-bold text-on-tertiary-container shadow-sm border-tertiary-fixed border flex items-center gap-2 animate-pulse">
+<span class="w-2 h-2 bg-on-tertiary-container rounded-full"></span> Pesquisa
+                            </div>
+<div class="absolute bottom-4 right-2 glass p-2 rounded-xl shadow-lg border border-outline-variant/30">
+<img class="w-16 h-16 rounded-lg object-cover" alt="A clean, high-tech dashboard displaying intricate data visualizations and heat maps. The interface is sleek with a minimalist light mode aesthetic, featuring soft cyan and purple accents against a pristine white background. The mood is professional and analytical, representing high-level political strategy and market segmentation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWRjMSK0fnw9L42qnirgsn6BZKs8WFTbQD3sk20qWw9VKiLAL5_5UEsuxXbY4_AUOeCtGEhQRxffMOg9aDuNNwgKEMiECI1nw86HZLoZ4hXwyceQHgD1TSYPuzrZN3nbpK002-Qs6-buqYeJLrafMIgRl-Io1pBxh-9n2UVM8PXj1ZVfhMyB96ziYFra-0MZ6Pt1Pp56qYHp0-gCNsswGpGLwWurOO9A-mdyd1m2k6L4EY8oAKaTQB8ji-7biJbY9TIUVulmLTL5o"/>
+</div>
+</div>
+<div class="space-y-4">
+<span class="font-headline-md text-headline-md text-primary opacity-30">01.</span>
+<h3 class="font-headline-md text-headline-md text-primary">Estratégia Política</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                                Diagnóstico profundo através de pesquisas qualitativas e segmentação psicográfica avançada.
+                            </p>
+<ul class="space-y-2 mt-4">
+<li class="flex items-center gap-2 text-label-md font-label-md text-secondary">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+                                    Análise de Cenário
+                                </li>
+<li class="flex items-center gap-2 text-label-md font-label-md text-secondary">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+                                    Micro-targeting
+                                </li>
+</ul>
+</div>
+</div>
+<!-- Pillar 2: Comunicação -->
+<div id="comunicacao" class="pillar-node group">
+<div class="mb-24 relative h-48">
+<div class="absolute top-4 left-0 glass p-2 rounded-xl shadow-lg border border-outline-variant/30 -rotate-6">
+<span class="material-symbols-outlined text-secondary text-4xl">campaign</span>
+</div>
+<div class="absolute top-20 right-8 glass px-3 py-1 rounded-full text-xs font-bold text-purple-accent shadow-sm border-purple-accent/20 flex items-center gap-2">
+<span class="w-2 h-2 bg-purple-accent rounded-full"></span> Narrativa
+                            </div>
+</div>
+<div class="space-y-4">
+<span class="font-headline-md text-headline-md text-primary opacity-30">02.</span>
+<h3 class="font-headline-md text-headline-md text-primary">Comunicação</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                                Criação de narrativas potentes que ressoam nos canais digitais e tradicionais com agilidade.
+                            </p>
+<ul class="space-y-2 mt-4">
+<li class="flex items-center gap-2 text-label-md font-label-md text-secondary">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+                                    Branding Político
+                                </li>
+<li class="flex items-center gap-2 text-label-md font-label-md text-secondary">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+                                    Social Ads 360
+                                </li>
+</ul>
+</div>
+</div>
+<!-- Pillar 3: Mobilização -->
+<div id="mobilizacao" class="pillar-node group">
+<div class="mb-24 relative h-48">
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="relative">
+<div class="w-16 h-16 rounded-full border-2 border-dashed border-secondary animate-spin-slow"></div>
+<img class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full object-cover" alt="A portrait of a diverse group of focused young leaders collaborating in a modern, sunlit workspace. The atmosphere is energetic and purpose-driven, with a premium minimalist aesthetic. The lighting is soft and natural, emphasizing a sense of community and strategic mobilization." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiXIowaruurO9PQTbHTrnmYEKGeCz_UqOEpOtmnSRvLLdyPojn9krKoMIGSktDLUE9AEnet7vD6Iqi7pvNjTPiFXvR2ym57MENnRO4LcqhYTdA20qY5AsP0SZSDWAj6KjF9rL_jqpr78JxkBzwyQB_-9kYSTVmIBgj7j5l5mOTad7nBhtlACVm1RiLQxLcVPPU5GLLOn0B94wDjbM350LH_NsxPDtLLtDN3zvLoIvHIomL6bmN9ocIRrHWHWKLg3EArPyOLYDRL_o"/>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<span class="font-headline-md text-headline-md text-primary opacity-30">03.</span>
+<h3 class="font-headline-md text-headline-md text-primary">Mobilização</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                                Gestão de lideranças e expansão territorial baseada em células de engajamento orgânico.
+                            </p>
+<ul class="space-y-2 mt-4">
+<li class="flex items-center gap-2 text-label-md font-label-md text-secondary">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+                                    Treinamento
+                                </li>
+<li class="flex items-center gap-2 text-label-md font-label-md text-secondary">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+                                    Gestão de Voluntários
+                                </li>
+</ul>
+</div>
+</div>
+<!-- Pillar 4: Tecnologia -->
+<div id="tecnologia" class="pillar-node group">
+<div class="mb-24 relative h-48">
+<div class="absolute bottom-10 left-2 glass px-3 py-1 rounded-full text-xs font-bold text-cyan-accent shadow-sm border-cyan-accent/20 flex items-center gap-2">
+<span class="w-2 h-2 bg-cyan-accent rounded-full"></span> IA Ativa
+                            </div>
+<div class="absolute top-4 right-4 bg-primary-container text-white p-3 rounded-2xl shadow-2xl">
+<span class="material-symbols-outlined text-[32px]">biotech</span>
+</div>
+</div>
+<div class="space-y-4">
+<span class="font-headline-md text-headline-md text-primary opacity-30">04.</span>
+<h3 class="font-headline-md text-headline-md text-primary">Tecnologia</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                                CRM proprietário e inteligência artificial para monitoramento de humor social em tempo real.
+                            </p>
+<ul class="space-y-2 mt-4">
+<li class="flex items-center gap-2 text-label-md font-label-md text-secondary">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+                                    Big Data Político
+                                </li>
+<li class="flex items-center gap-2 text-label-md font-label-md text-secondary">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+                                    CRM Eleitoral
+                                </li>
+</ul>
+</div>
+</div>
+<!-- Pillar 5: Rua -->
+<div id="rua" class="pillar-node group">
+<div class="mb-24 relative h-48">
+<img class="w-full h-32 rounded-2xl object-cover grayscale group-hover:grayscale-0 transition-all duration-500 shadow-lg" alt="A wide-angle shot of a vibrant, organized outdoor public event during golden hour. People are engaged in conversation, holding modern, well-designed campaign materials. The lighting is warm and cinematic, creating a sense of momentum and grassroots energy within a professional, high-end context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0xJNf9E5MkZsVGgRbZWIuer49U__O0hChAZtDLCC1VxQSjjRhTUyqXZL-ZxlIyn4BDLL4WDJ64DGtGbAUE3zHVTW-_YCDNSgAr7js4ly0RNxAumUvLWsu8-4CvovHE2Y4j-V0BfRwn3w3tHU8_RWV21n6RsSoYwVl6cuMM68wRaUrzHo_lAtf0yNNq9xJuJXw2DF1-KtNj5RgoZYfLP4w04VLcpuMnnRvPgvCjOGPYrYtSLTr4Mcc-DAup6ZmHjhaTqCKPu_58EI"/>
+</div>
+<div class="space-y-4">
+<span class="font-headline-md text-headline-md text-primary opacity-30">05.</span>
+<h3 class="font-headline-md text-headline-md text-primary">Operação de Rua</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                                Ações de campo coordenadas via geoprocessamento para máxima eficiência em eventos.
+                            </p>
+<ul class="space-y-2 mt-4">
+<li class="flex items-center gap-2 text-label-md font-label-md text-secondary">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+                                    Ativismo Territorial
+                                </li>
+<li class="flex items-center gap-2 text-label-md font-label-md text-secondary">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+                                    Logística de Eventos
+                                </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Map Graphic -->
+<div class="absolute bottom-0 left-0 w-full opacity-10 pointer-events-none">
+<div class="w-full h-64 bg-repeat-x" style="background-image: radial-gradient(#F97316 2px, transparent 0); background-size: 24px 24px;"></div>
+</div>
+</section>
+<!-- Accordion Section -->
+<section class="py-24 px-margin-desktop max-w-max-width mx-auto accordion-root" aria-label="Detalhamento do Método de Campanha">
+<div class="mb-16 max-w-2xl">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-widest mb-4 block">A Metodologia</span>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-4">Cada pilar, uma engrenagem essencial.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Explore cada dimensão da nossa metodologia e entenda como integramos estratégia, comunicação e tecnologia para vencer eleições.</p>
+</div>
+<div class="flex flex-col gap-4" role="region" id="metodo-accordion">
+<div class="accordion-item" data-open="false" role="heading" aria-level="3">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="acc-panel-1" id="acc-btn-1">
+<span class="trigger-left">
+<span class="trigger-icon" style="background:#2563EB;" aria-hidden="true">🧠</span>
+<span class="trigger-step">01</span>
+<span>Estratégia Política</span>
+</span>
+<span class="material-symbols-outlined accordion-chevron" aria-hidden="true">expand_more</span>
+</button>
+<div class="accordion-panel" id="acc-panel-1" role="region" aria-labelledby="acc-btn-1">
+<div class="accordion-panel-inner">
+<div class="accordion-content">
+<p class="acc-desc">Diagnóstico profundo através de pesquisas qualitativas e quantitativas, segmentação psicográfica avançada e análise de cenários para construção de um plano de campanha vencedor.</p>
+<div class="acc-grid">
+<div class="acc-feature">
+<div class="f-icon" style="background:#DBEAFE;color:#2563EB;">📊</div>
+<div><div class="f-text">Análise de Cenário</div><div class="f-desc">Mapeamento completo do ambiente político e social</div></div>
+</div>
+<div class="acc-feature">
+<div class="f-icon" style="background:#DBEAFE;color:#2563EB;">🎯</div>
+<div><div class="f-text">Micro-targeting</div><div class="f-desc">Segmentação precisa do eleitorado por perfil e comportamento</div></div>
+</div>
+<div class="acc-feature">
+<div class="f-icon" style="background:#DBEAFE;color:#2563EB;">📋</div>
+<div><div class="f-text">Pesquisas Qualitativas</div><div class="f-desc">Groups focais e entrevistas para entender o eleitor</div></div>
+</div>
+<div class="acc-feature">
+<div class="f-icon" style="background:#DBEAFE;color:#2563EB;">🗺️</div>
+<div><div class="f-text">Planejamento Estratégico</div><div class="f-desc">Roteiro completo de ações para toda a campanha</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="accordion-item" data-open="false" role="heading" aria-level="3">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="acc-panel-2" id="acc-btn-2">
+<span class="trigger-left">
+<span class="trigger-icon" style="background:#06B6D4;" aria-hidden="true">📢</span>
+<span class="trigger-step">02</span>
+<span>Comunicação</span>
+</span>
+<span class="material-symbols-outlined accordion-chevron" aria-hidden="true">expand_more</span>
+</button>
+<div class="accordion-panel" id="acc-panel-2" role="region" aria-labelledby="acc-btn-2">
+<div class="accordion-panel-inner">
+<div class="accordion-content">
+<p class="acc-desc">Criação de narrativas potentes que ressoam nos canais digitais e tradicionais. Construímos a identidade visual e verbal da campanha com agilidade e consistência.</p>
+<div class="acc-grid">
+<div class="acc-feature">
+<div class="f-icon" style="background:#CFFAFE;color:#06B6D4;">🎨</div>
+<div><div class="f-text">Branding Político</div><div class="f-desc">Identidade visual e verbal da campanha</div></div>
+</div>
+<div class="acc-feature">
+<div class="f-icon" style="background:#CFFAFE;color:#06B6D4;">📱</div>
+<div><div class="f-text">Social Ads 360</div><div class="f-desc">Gestão completa de tráfego pago e orgânico</div></div>
+</div>
+<div class="acc-feature">
+<div class="f-icon" style="background:#CFFAFE;color:#06B6D4;">📝</div>
+<div><div class="f-text">Conteúdo Estratégico</div><div class="f-desc">Produção de conteúdo alinhado à narrativa da campanha</div></div>
+</div>
+<div class="acc-feature">
+<div class="f-icon" style="background:#CFFAFE;color:#06B6D4;">🛡️</div>
+<div><div class="f-text">Gestão de Crises</div><div class="f-desc">Monitoramento e resposta rápida para proteger a imagem</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="accordion-item" data-open="false" role="heading" aria-level="3">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="acc-panel-3" id="acc-btn-3">
+<span class="trigger-left">
+<span class="trigger-icon" style="background:#7C3AED;" aria-hidden="true">👥</span>
+<span class="trigger-step">03</span>
+<span>Mobilização</span>
+</span>
+<span class="material-symbols-outlined accordion-chevron" aria-hidden="true">expand_more</span>
+</button>
+<div class="accordion-panel" id="acc-panel-3" role="region" aria-labelledby="acc-btn-3">
+<div class="accordion-panel-inner">
+<div class="accordion-content">
+<p class="acc-desc">Gestão de lideranças e expansão territorial baseada em células de engajamento orgânico. Ativamos a base militante para multiplicar o alcance da campanha.</p>
+<div class="acc-grid">
+<div class="acc-feature">
+<div class="f-icon" style="background:#EDE9FE;color:#7C3AED;">🎓</div>
+<div><div class="f-text">Treinamento</div><div class="f-desc">Capacitação de lideranças e coordenadores de campanha</div></div>
+</div>
+<div class="acc-feature">
+<div class="f-icon" style="background:#EDE9FE;color:#7C3AED;">🤝</div>
+<div><div class="f-text">Gestão de Voluntários</div><div class="f-desc">Plataforma de engajamento e gamificação da militância</div></div>
+</div>
+<div class="acc-feature">
+<div class="f-icon" style="background:#EDE9FE;color:#7C3AED;">📈</div>
+<div><div class="f-text">Expansão Territorial</div><div class="f-desc">Estratégia de crescimento por células e núcleos regionais</div></div>
+</div>
+<div class="acc-feature">
+<div class="f-icon" style="background:#EDE9FE;color:#7C3AED;">🔗</div>
+<div><div class="f-text">Redes de Apoio</div><div class="f-desc">Conexão entre lideranças locais e comitê central</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="accordion-item" data-open="false" role="heading" aria-level="3">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="acc-panel-4" id="acc-btn-4">
+<span class="trigger-left">
+<span class="trigger-icon" style="background:#F97316;" aria-hidden="true">💻</span>
+<span class="trigger-step">04</span>
+<span>Tecnologia</span>
+</span>
+<span class="material-symbols-outlined accordion-chevron" aria-hidden="true">expand_more</span>
+</button>
+<div class="accordion-panel" id="acc-panel-4" role="region" aria-labelledby="acc-btn-4">
+<div class="accordion-panel-inner">
+<div class="accordion-content">
+<p class="acc-desc">CRM proprietário e inteligência artificial para monitoramento de humor social em tempo real. Automatizamos processos para que sua equipe foque no que realmente importa.</p>
+<div class="acc-grid">
+<div class="acc-feature">
+<div class="f-icon" style="background:#FED7AA;color:#F97316;">📡</div>
+<div><div class="f-text">Big Data Político</div><div class="f-desc">Análise de grandes volumes de dados eleitorais</div></div>
+</div>
+<div class="acc-feature">
+<div class="f-icon" style="background:#FED7AA;color:#F97316;">📊</div>
+<div><div class="f-text">CRM Eleitoral</div><div class="f-desc">Gestão integrada do relacionamento com o eleitor</div></div>
+</div>
+<div class="acc-feature">
+<div class="f-icon" style="background:#FED7AA;color:#F97316;">🤖</div>
+<div><div class="f-text">Inteligência Artificial</div><div class="f-desc">IA aplicada a monitoramento e tomada de decisão</div></div>
+</div>
+<div class="acc-feature">
+<div class="f-icon" style="background:#FED7AA;color:#F97316;">📱</div>
+<div><div class="f-text">Automação</div><div class="f-desc">Processos automatizados para comunicação e gestão</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="accordion-item" data-open="false" role="heading" aria-level="3">
+<button class="accordion-trigger" aria-expanded="false" aria-controls="acc-panel-5" id="acc-btn-5">
+<span class="trigger-left">
+<span class="trigger-icon" style="background:#2563EB;" aria-hidden="true">🏃</span>
+<span class="trigger-step">05</span>
+<span>Operação de Rua</span>
+</span>
+<span class="material-symbols-outlined accordion-chevron" aria-hidden="true">expand_more</span>
+</button>
+<div class="accordion-panel" id="acc-panel-5" role="region" aria-labelledby="acc-btn-5">
+<div class="accordion-panel-inner">
+<div class="accordion-content">
+<p class="acc-desc">Ações de campo coordenadas via geoprocessamento para máxima eficiência em eventos. Integramos o digital ao físico para uma presença territorial imbatível.</p>
+<div class="acc-grid">
+<div class="acc-feature">
+<div class="f-icon" style="background:#DBEAFE;color:#2563EB;">📍</div>
+<div><div class="f-text">Ativismo Territorial</div><div class="f-desc">Ações coordenadas de campo com georreferenciamento</div></div>
+</div>
+<div class="acc-feature">
+<div class="f-icon" style="background:#DBEAFE;color:#2563EB;">🎪</div>
+<div><div class="f-text">Logística de Eventos</div><div class="f-desc">Planejamento e execução de eventos de grande porte</div></div>
+</div>
+<div class="acc-feature">
+<div class="f-icon" style="background:#DBEAFE;color:#2563EB;">🚶</div>
+<div><div class="f-text">Ações de Rua</div><div class="f-desc">Bandeiraços, caminhadas e adesivaços estratégicos</div></div>
+</div>
+<div class="acc-feature">
+<div class="f-icon" style="background:#DBEAFE;color:#2563EB;">🗣️</div>
+<div><div class="f-text">Corpo a Corpo</div><div class="f-desc">Abordagem direta ao eleitor com equipes treinadas</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CTA Feature Section -->
+<section class="py-24 px-margin-desktop bg-primary text-on-primary">
+<div class="max-w-max-width mx-auto flex flex-col md:flex-row items-center gap-16">
+<div class="flex-1">
+<h2 class="font-display-lg text-display-lg-mobile md:text-display-lg mb-6 leading-tight">Pronto para transformar sua presença territorial?</h2>
+<p class="font-body-lg text-body-lg opacity-80 mb-10">
+                        Nossa metodologia já impulsionou mais de 150 campanhas vitoriosas. Deixe nossa tecnologia e inteligência trabalharem para o seu crescimento.
+                    </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-secondary-container text-white px-8 py-4 rounded-xl font-label-md text-label-md hover:scale-105 transition-transform flex items-center gap-2">
+                            Começar agora
+                            <span class="material-symbols-outlined">rocket_launch</span>
+</button>
+<button class="border border-white/20 px-8 py-4 rounded-xl font-label-md text-label-md hover:bg-white/10 transition-colors">
+                            Ver cases de sucesso
+                        </button>
+</div>
+</div>
+<div class="flex-1 relative">
+<div class="glass p-8 rounded-3xl border-white/10 shadow-2xl">
+<div class="space-y-6">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md opacity-60">Status da Mobilização</span>
+<span class="text-secondary-fixed font-bold">+24.8% este mês</span>
+</div>
+<div class="h-32 flex items-end gap-2">
+<div class="flex-1 bg-secondary-container/40 rounded-t-lg h-12"></div>
+<div class="flex-1 bg-secondary-container/40 rounded-t-lg h-20"></div>
+<div class="flex-1 bg-secondary-container/40 rounded-t-lg h-16"></div>
+<div class="flex-1 bg-secondary-container/40 rounded-t-lg h-28"></div>
+<div class="flex-1 bg-secondary-container rounded-t-lg h-32 animate-pulse"></div>
+</div>
+<div class="grid grid-cols-2 gap-4 pt-4 border-t border-white/10">
+<div>
+<div class="text-caption opacity-60">Células Ativas</div>
+<div class="font-headline-md">1,248</div>
+</div>
+<div>
+<div class="text-caption opacity-60">Impacto Direto</div>
+<div class="font-headline-md">2.4M</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop py-12 max-w-max-width mx-auto">
+<div class="space-y-4">
+<span class="font-headline-lg text-headline-lg font-black text-primary">Compunet</span>
+<p class="font-body-md text-body-md text-on-surface-variant">A plataforma definitiva para mobilização de alta performance.</p>
+</div>
+<div>
+<h4 class="font-label-md text-label-md mb-6 uppercase tracking-widest text-primary">Plataforma</h4>
+<ul class="space-y-4">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Metodo de Campanha.html">Método</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Centro de Inteligencia Eleitoral.html">Inteligência</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Centro de Inteligencia Eleitoral.html">Monitoramento</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md mb-6 uppercase tracking-widest text-primary">Recursos</h4>
+<ul class="space-y-4">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Noticias.html">Notícias</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Sobre Nos.html">Sobre Nós</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Contato.html">Contato</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md mb-6 uppercase tracking-widest text-primary">Legal</h4>
+<ul class="space-y-4">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Privacidade.html">Privacidade</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Termos de Uso.html">Termos de Uso</a></li>
+</ul>
+</div>
+</div>
+<div class="px-margin-desktop py-8 border-t border-outline-variant/30 text-center">
+<p class="font-caption text-caption text-on-surface-variant">© 2024 Compunet Platform. Todos os direitos reservados.</p>
+</div>
+</footer>
+<script>
+        // Micro-interactions
+        document.querySelectorAll('.pillar-node').forEach(node => {
+            node.addEventListener('mouseenter', () => {
+                node.style.transform = 'translateY(-8px)';
+                node.style.transition = 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            });
+            node.addEventListener('mouseleave', () => {
+                node.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Simple parallax for canvas background
+        window.addEventListener('scroll', () => {
+            const canvas = document.querySelector('.canvas-bg');
+            const scrolled = window.pageYOffset;
+            canvas.style.backgroundPositionY = (scrolled * 0.1) + 'px';
+        });
+
+        // === Accordion Controller ===
+        const accordionItems = document.querySelectorAll('.accordion-item');
+        function closeAccordionItem(item) {
+            const btn = item.querySelector('.accordion-trigger');
+            const panel = item.querySelector('.accordion-panel');
+            item.dataset.open = 'false';
+            btn.setAttribute('aria-expanded', 'false');
+        }
+        function openAccordionItem(item) {
+            accordionItems.forEach(i => { if (i !== item) closeAccordionItem(i); });
+            const btn = item.querySelector('.accordion-trigger');
+            const panel = item.querySelector('.accordion-panel');
+            item.dataset.open = 'true';
+            btn.setAttribute('aria-expanded', 'true');
+        }
+        accordionItems.forEach(item => {
+            const btn = item.querySelector('.accordion-trigger');
+            btn.addEventListener('click', () => {
+                const isOpen = item.dataset.open === 'true';
+                if (isOpen) { closeAccordionItem(item); return; }
+                openAccordionItem(item);
+            });
+            btn.addEventListener('keydown', (e) => {
+                const items = [...accordionItems];
+                const idx = items.indexOf(item);
+                if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    const next = items[(idx + 1) % items.length];
+                    next.querySelector('.accordion-trigger').focus();
+                }
+                if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    const prev = items[(idx - 1 + items.length) % items.length];
+                    prev.querySelector('.accordion-trigger').focus();
+                }
+                if (e.key === 'Home') {
+                    e.preventDefault();
+                    items[0].querySelector('.accordion-trigger').focus();
+                }
+                if (e.key === 'End') {
+                    e.preventDefault();
+                    items[items.length - 1].querySelector('.accordion-trigger').focus();
+                }
+            });
+        });
+    </script>
+<script src="nav.js?v=2"></script>
+</body></html>

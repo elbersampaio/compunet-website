@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-BR">
+<head>
+<meta charset="utf-8"/><link rel="icon" type="image/x-icon" href="favicon.ico"/>
+<link rel="icon" type="image/png" sizes="16x16" href="favicon16.png"/>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon32.png"/>
+<link rel="icon" type="image/png" sizes="48x48" href="favicon48.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+<link rel="manifest" href="manifest.json"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Compunet - Mobilização Inteligente para Vencer Eleições</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;900&amp;family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@300;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+              "primary": "#0F172A",
+              "on-primary": "#FFFFFF",
+              "primary-container": "#0F172A",
+              "on-primary-container": "#94A3B8",
+              "secondary": "#2563EB",
+              "on-secondary": "#FFFFFF",
+              "secondary-container": "#3B82F6",
+              "on-secondary-container": "#FFFFFF",
+              "surface": "#FFEBCC",
+              "on-surface": "#0F172A",
+              "surface-container": "#FFFFFF",
+              "surface-container-low": "#F8FAFC",
+              "surface-container-lowest": "#FFFFFF",
+              "surface-container-high": "#F1F5F9",
+              "on-surface-variant": "#475569",
+              "cyan-accent": "#06B6D4",
+              "purple-accent": "#7C3AED",
+              "orange-accent": "#F97316",
+              "slate-gray": "#CBD5E1",
+              "outline-variant": "#E2E8F0",
+              "outline": "#94A3B8",
+              "error": "#DC2626",
+              "on-error": "#FFFFFF",
+              "background": "#FFEBCC",
+              "inverse-surface": "#0F172A",
+              "inverse-on-surface": "#F8FAFC"
+            },
+            "borderRadius": {
+              "DEFAULT": "0.25rem",
+              "lg": "0.5rem",
+              "xl": "0.75rem",
+              "full": "9999px"
+            },
+            "spacing": {
+              "base": "8px",
+              "max-width": "1280px",
+              "gutter": "24px",
+              "margin-mobile": "20px",
+              "margin-desktop": "64px"
+            },
+            "fontFamily": {
+              "display-lg": ["Inter Tight", "Space Grotesk", "sans-serif"],
+              "display-lg-mobile": ["Inter Tight", "Space Grotesk", "sans-serif"],
+              "headline-lg": ["Inter Tight", "Space Grotesk", "sans-serif"],
+              "headline-lg-mobile": ["Inter Tight", "Space Grotesk", "sans-serif"],
+              "headline-md": ["Inter Tight", "Space Grotesk", "sans-serif"],
+              "body-lg": ["Inter", "sans-serif"],
+              "body-md": ["Inter", "sans-serif"],
+              "label-md": ["Inter", "sans-serif"],
+              "caption": ["Inter", "sans-serif"]
+            },
+            "fontSize": {
+              "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+              "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+              "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+              "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}],
+              "display-lg-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+              "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+              "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+              "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+              "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .docked {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+      }
+      .full-width {
+        width: 100%;
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .bento-card {
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .bento-card:hover {
+        transform: translateY(-4px);
+      }
+      .hover-lift {
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .hover-lift:hover {
+        transform: translateY(-2px);
+      }
+      .gradient-border {
+        position: relative;
+      }
+      .gradient-border::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(6, 182, 212, 0.1), rgba(124, 58, 237, 0.15));
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+      }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden antialiased">
+<div id="nav-container"></div>
+
+<main class="hero-cinema">
+<div class="hero-glow-a"></div>
+<div class="hero-glow-b"></div>
+<div class="hero-glow-c"></div>
+<div class="relative max-w-[1280px] mx-auto px-5 md:px-16 w-full grid md:grid-cols-2 gap-12 items-center min-h-[100vh]">
+<div class="flex flex-col gap-10 z-10 py-24 md:py-0" data-reveal>
+<div class="flex flex-col gap-6">
+<span class="font-label-md text-label-md text-secondary tracking-widest uppercase" style="font-size:13px;">Plataforma de Inteligência Eleitoral</span>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg leading-tight tracking-tight text-primary" style="font-size:clamp(2.5rem,5vw,4rem);">
+Inteligência Política<br/>
+<span class="text-secondary">para Vencer</span><br/>
+Eleições.
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl leading-relaxed" style="font-size:clamp(1rem,1.4vw,1.125rem);">
+Transformamos estratégia, dados, mobilização e tecnologia em resultados eleitorais concretos para sua campanha.
+</p>
+</div>
+<div class="flex flex-wrap gap-4 items-center">
+<a href="Metodo de Campanha.html" class="inline-flex items-center gap-2 px-8 py-4 bg-[#0F172A] text-white rounded-full font-semibold text-sm hover:scale-[1.03] transition-all shadow-xl shadow-[#0F172A]/20 no-underline group">
+<span>Conheça a Metodologia</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+<a href="Contato.html" class="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#0F172A] border border-[#CBD5E1] rounded-full font-semibold text-sm hover:bg-[#F8FAFC] transition-all no-underline group">
+<span>Fale com Especialistas</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+<div class="pt-10 border-t border-[#E2E8F0]/40 flex flex-col gap-6">
+<p class="font-label-md text-label-md text-on-surface-variant opacity-50 text-xs tracking-[0.15em]">CONFIADO POR LIDERANÇAS EM TODO O PAÍS</p>
+<div class="flex flex-wrap gap-8 md:gap-12 items-center opacity-30 grayscale hover:grayscale-0 hover:opacity-50 transition-all duration-500">
+<img alt="Parceiro" class="h-7 md:h-8 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA426TC4zvTkNvCHUWm4uCuAndbBmCmVWADAT-IRs9K3CuHZZDW-7fm6H5j10thQdgg3zdxHcWOPtEk5nBQVuLq4ySGnoYbYypFr0aS03vLROGvdbFhmNSt1peORZp66IWPINSeU-6UAAnqwCIy3nTnw5JqgxVuTFdprFMCA4xrwZGMemFTkUceX3dD7fy-dZDGKc5mtndbm_v61wJ-eBGbbgBwjUAwvx74gtFOhQqO9Oa63AYBQ0Tts-qsJny5NBPnEQP1lGvbWlg"/>
+<img alt="Parceiro" class="h-7 md:h-8 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNEQ4zeTXt6825uN_0jLXcQ09SYSgXrCPHSJCan0LKEZotRCuSN5uOuQBwtMbB2JJ961MlXIJy6aKQU9-zSMDcjq9e_2xOLiqdcdzZODqbovpsZ9I-mYZh3r2Lvh6bMIFsMzE9o-FupDMgXW-6JP-5InkbUWvYHa0OQn__qsPykHiS7_z5t00g2_S9lFopYQRHI0PgUwBkiND7bgeisZzepytEnKU9SssfjeSx1zsuuiMI0jogAMBkIPzSxqJtXAnPd6Y6LMFfMCU"/>
+<img alt="Parceiro" class="h-7 md:h-8 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTmsyoC8rfGmFPVSUATfVHlAiYST7PkTmxbvJe4hlSiiJloBhZEkUexuPUNCdRbtATmKWGlGXAZFL_8OZid7S9ipD2Iy-uFIaCYuQ4lCkKL2bVwb_QwLtgN9CDusE-dJAoZwNLHLPFVvXy-dVGP62PH1ZNTINai9brcYElAjaSvvLNkJrwcXmSgWqczmTaq3QgELKI5JPxmQtuWSgOfhf_3sJODze7b_xnpi-tfkqvaOzjBUo0R79oTEiug282kKBu0dV-yH1BPqA"/>
+</div>
+</div>
+</div>
+<div class="relative hidden md:flex items-center justify-center" data-reveal data-reveal-delay="200">
+<div class="relative w-full aspect-square max-w-[520px] flex items-center justify-center">
+<div class="absolute inset-0 bg-gradient-to-br from-[#2563EB]/8 to-[#06B6D4]/5 rounded-full blur-[120px]"></div>
+<div class="relative w-full aspect-square rounded-3xl overflow-hidden shadow-2xl shadow-[#0F172A]/10 border border-white/20">
+<img alt="Estratégia" class="w-full h-full object-cover mix-blend-multiply opacity-85 scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpapLRrHfnM67cfFp3vnGu5hMSbxQKEXN1boofVMjS3H3AuBlRYRvLxJ_ZWqAvcnDK7sfHoKp2cq7wVzeDHQi_zn3dITh_NSntxw-B1iHRnERsmiGkPm8MZfNBndywEuzpxzEGeiiUvZ_UZkHspqw3ZSqtAX2HqHEf1a0jBkYZUe1SLNwOFB3RJpUYTyO1UCwjsuxJxH6Y52ZOa3cIftjI6iWyHJqNeN5wPeQEXgAFYhYsP6aB1HwCmLpghQUZxrrx7pEIO0qwb2k"/>
+</div>
+<div class="absolute bottom-6 -left-6 bg-white/80 backdrop-blur-xl p-5 rounded-2xl shadow-xl border border-white/30 flex flex-col gap-1" style="min-width:120px;">
+<span class="font-bold text-2xl text-[#2563EB]" style="font-family:Space Grotesk,sans-serif;">10k+</span>
+<span class="text-xs text-[#475569] font-medium">Militantes Ativos</span>
+</div>
+<div class="absolute top-6 -right-6 bg-white/80 backdrop-blur-xl p-5 rounded-2xl shadow-xl border border-white/30 flex flex-col gap-1" style="min-width:120px;">
+<span class="font-bold text-2xl text-[#0F172A]" style="font-family:Space Grotesk,sans-serif;">85%</span>
+<span class="text-xs text-[#475569] font-medium">Taxa de Conversão</span>
+</div>
+</div>
+</div>
+</div>
+<div class="scroll-indicator">
+<span>Role para explorar</span>
+<span class="material-symbols-outlined" style="font-size:18px;">expand_more</span>
+</div>
+</main>
+
+<section class="py-24 bg-surface-container-lowest">
+<div class="max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="mb-16 max-w-2xl">
+<span class="font-label-md text-label-md text-secondary tracking-widest uppercase mb-4 block">Plataforma Completa</span>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-4">A operação completa do seu comitê de campanha.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Integramos inteligência de dados com execução territorial de ponta para garantir que cada voto seja conquistado com precisão cirúrgica.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<a href="Centro de Inteligencia Eleitoral.html" class="md:col-span-2 relative group overflow-hidden rounded-3xl bg-primary h-[380px] bento-card no-underline">
+<div class="absolute inset-0 opacity-30 bg-gradient-to-br from-secondary/20 to-transparent"></div>
+<div class="absolute inset-0 opacity-40">
+<img alt="Inteligência de Dados" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnFO2je21YryZn4_RQ9ELaKuiw7tls_jPuCis6ecHtGl8o8uyf--w2urr3bHuWEVdKByqd9Vd6dmF8FgnZE418ere_l0a91eKRZ_0-LrkW0QuiJPdydG5MC4aJk9aWpXTHoQuBgmcMOpqFBeni8tVUG7EjfB9oug76lif6ofbl-z4Fr1-MK2ji7swSdUoKXVlthTdc-vyZ-sDbuKGSxUt95zIYNsb6uBo5JsENjb4gWy6CsBzDxaYDv-jr0SB2tNiZsLJduepM5to"/>
+</div>
+<div class="relative h-full p-8 md:p-12 flex flex-col justify-end gap-3">
+<div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center backdrop-blur-sm mb-2">
+          <span class="material-symbols-outlined text-white text-xl">stacked_bar_chart</span>
+          </div>
+          <h3 class="font-headline-lg text-headline-lg text-white">Inteligência de Dados Georreferenciados</h3>
+          <p class="font-body-md text-body-md text-white/70 max-w-lg">Identificamos o potencial de votos rua a rua, permitindo alocação de recursos cirúrgica e eficiente.</p>
+</div>
+</a>
+<a href="Mobilizacao Territorial.html" class="glass-card p-8 rounded-3xl border border-outline-variant hover:border-secondary/40 transition-all bento-card no-underline group flex flex-col justify-between">
+<div class="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl">groups</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3 text-primary">Gestão de Militância</h3>
+<p class="font-body-md text-body-md text-on-surface-variant flex-1">Gamificação e ferramentas de controle para engajar sua base e multiplicar seu alcance orgânico.</p>
+<div class="mt-6 flex items-center gap-1 text-secondary font-label-md text-label-md group-hover:gap-2 transition-all">
+<span>Explorar</span>
+<span class="material-symbols-outlined text-[16px]">arrow_right_alt</span>
+</div>
+</a>
+<a href="Centro de Inteligencia Eleitoral.html" class="glass-card p-8 rounded-3xl border border-outline-variant hover:border-secondary/40 transition-all bento-card no-underline group flex flex-col justify-between">
+<div class="w-12 h-12 rounded-xl bg-cyan-accent/10 flex items-center justify-center text-cyan-accent mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl">campaign</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3 text-primary">Mobilização Digital</h3>
+<p class="font-body-md text-body-md text-on-surface-variant flex-1">Estratégias de conteúdo e canais de comunicação direta para blindar sua narrativa e rebater fake news.</p>
+<div class="mt-6 flex items-center gap-1 text-secondary font-label-md text-label-md group-hover:gap-2 transition-all">
+<span>Explorar</span>
+<span class="material-symbols-outlined text-[16px]">arrow_right_alt</span>
+</div>
+</a>
+<a href="Universidade de Campanha.html" class="md:col-span-3 glass-card p-8 md:p-12 rounded-3xl border border-outline-variant hover:border-secondary/40 transition-all bento-card no-underline group">
+<div class="flex flex-col md:flex-row gap-8 items-center">
+<div class="flex-1">
+<div class="w-12 h-12 rounded-xl bg-purple-accent/10 flex items-center justify-center text-purple-accent mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl">school</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg mb-4 text-primary">Mobiliza Training Center</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-6">Treinamento intensivo para sua equipe de campo e coordenadores, focados em performance e resultados eleitorais mensuráveis.</p>
+<div class="flex items-center gap-2 text-secondary font-label-md text-label-md group-hover:gap-3 transition-all">
+<span>Ver cursos disponíveis</span>
+<span class="material-symbols-outlined text-[18px]">arrow_right_alt</span>
+</div>
+</div>
+<div class="w-full md:w-1/3 aspect-video rounded-2xl overflow-hidden shadow-lg">
+<img alt="Training Center" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_IYHI5427363GfZRLif7dlN8kDiSTejIZzbRj9nBgicIRkDewnvkrOhgibDOl2Yq0jHz-ZC-PZpcJSlt2vZQNqd-3NiglluhOCSv9oPyfX2ftW4-OkI3TswRECQ4xhgokp7sAlDCe07vO0LjwrIezXmQR669gWPDtTxdRqm9Fk4tT_rwaYdjL8Sg1g8uOJljjKJ-N_Un-YOra0wvn0oxtsDY9JxL02RM-4ZJvuFj3DD4KOFF4BB_AMR22IdAYz8iSiKn4EeAi3FY"/>
+</div>
+</div>
+</a>
+</div>
+</div>
+</section>
+
+<section class="py-24 bg-surface">
+<div class="max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop text-center">
+<div class="max-w-2xl mx-auto mb-16">
+<span class="font-label-md text-label-md text-secondary tracking-widest uppercase mb-4 block">Por que a Compunet</span>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-4">Tecnologia que transforma votos em vitória</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Nossa plataforma combina ciência de dados, inteligência territorial e capacitação de militantes em um ecossistema integrado.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="text-left p-8 rounded-2xl bg-surface-container-lowest border border-outline-variant/50 hover-lift">
+<div class="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary mb-5">
+<span class="material-symbols-outlined text-2xl">humidity_high</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3 text-primary">Dados em Tempo Real</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Acompanhe a evolução da sua campanha com dashboards atualizados em tempo real, georreferenciamento e análise preditiva.</p>
+</div>
+<div class="text-left p-8 rounded-2xl bg-surface-container-lowest border border-outline-variant/50 hover-lift">
+<div class="w-12 h-12 rounded-xl bg-cyan-accent/10 flex items-center justify-center text-cyan-accent mb-5">
+<span class="material-symbols-outlined text-2xl">group_work</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3 text-primary">Coordenação Total</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Do comitê central ao militante de rua, todos conectados na mesma plataforma com metas claras e resultados mensuráveis.</p>
+</div>
+<div class="text-left p-8 rounded-2xl bg-surface-container-lowest border border-outline-variant/50 hover-lift">
+<div class="w-12 h-12 rounded-xl bg-purple-accent/10 flex items-center justify-center text-purple-accent mb-5">
+<span class="material-symbols-outlined text-2xl">auto_graph</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3 text-primary">ROI Comprovado</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Campanhas que utilizam nossa metodologia registram aumento médio de 40% na eficiência da mobilização territorial.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="py-24 bg-primary text-on-primary">
+<div class="max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop text-center">
+<div class="max-w-2xl mx-auto">
+<h2 class="font-headline-lg text-headline-lg mb-4">Pronto para transformar sua campanha?</h2>
+<p class="font-body-lg text-body-lg text-on-primary-container/80 mb-10">Solicite um diagnóstico gratuito e descubra como a Compunet pode potencializar sua estratégia eleitoral.</p>
+<div class="flex flex-wrap justify-center gap-4">
+<a href="Contato.html" class="px-8 py-4 bg-on-primary text-primary rounded-full font-label-md text-label-md hover:scale-105 transition-transform shadow-xl no-underline inline-flex items-center gap-2 group">
+<span>Solicitar Diagnóstico Gratuito</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+<a href="Metodo de Campanha.html" class="px-8 py-4 bg-transparent text-on-primary border border-white/20 rounded-full font-label-md text-label-md hover:bg-white/10 transition-all no-underline">Conhecer Metodologia</a>
+</div>
+</div>
+</div>
+</section>
+
+<footer class="bg-surface-container-lowest border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop py-12 max-w-max-width mx-auto">
+<div class="md:col-span-1 flex flex-col gap-6">
+<a href="index.html" class="font-headline-lg text-headline-lg font-black text-primary no-underline">Compunet</a>
+<p class="font-body-md text-body-md text-on-surface-variant">Plataforma líder em mobilização política e inteligência eleitoral na América Latina.</p>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-secondary hover:text-on-secondary transition-all" href="Contato.html" aria-label="Site">
+<span class="material-symbols-outlined text-[20px]">public</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-secondary hover:text-on-secondary transition-all" href="Contato.html" aria-label="Email">
+<span class="material-symbols-outlined text-[20px]">alternate_email</span>
+</a>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-md text-label-md text-primary">Soluções</h4>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors no-underline" href="Centro de Inteligencia Eleitoral.html">Inteligência Territorial</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors no-underline" href="Mobilizacao Territorial.html">Gestão de Militantes</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors no-underline" href="Centro de Inteligencia Eleitoral.html">Monitoramento Digital</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors no-underline" href="Contato.html">Diagnóstico Eleitoral</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-md text-label-md text-primary">Empresa</h4>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors no-underline" href="Sobre Nos.html">Sobre Nós</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors no-underline" href="Noticias.html">Notícias</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors no-underline" href="Termos de Uso.html">Termos de Uso</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors no-underline" href="Privacidade.html">Privacidade</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-md text-label-md text-primary">Contato</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">compuneteadtreinamento@gmail.com</p>
+<p class="font-body-md text-body-md text-on-surface-variant">+55 (62) 98171-7609</p>
+<div class="mt-4 p-4 rounded-xl bg-surface-container-low border border-outline-variant/30">
+<p class="font-caption text-caption text-on-surface-variant">Receba insights semanais:</p>
+<div class="mt-2 flex gap-2">
+<input class="flex-1 px-3 py-2 rounded-lg bg-surface border border-outline-variant focus:ring-2 focus:ring-secondary focus:border-transparent text-sm outline-none" placeholder="Email" type="email"/>
+<button class="p-2 bg-primary text-on-primary rounded-lg transition-transform active:scale-90 hover:bg-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="px-margin-mobile md:px-margin-desktop py-8 border-t border-outline-variant max-w-max-width mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<span class="font-caption text-caption text-on-surface-variant">© 2026 Compunet Plataforma. Todos os direitos reservados.</span>
+<div class="flex gap-8">
+<span class="font-caption text-caption text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+Goiänia, GO - Brasil
+</span>
+</div>
+</div>
+</footer>
+<script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('opacity-100', 'translate-y-0');
+              entry.target.classList.remove('opacity-0', 'translate-y-10');
+            }
+          });
+        }, observerOptions);
+        document.querySelectorAll('section, .glass-card, .bento-card, [class*="rounded-2xl"]').forEach(el => {
+          if (!el.classList.contains('bento-card') && !el.classList.contains('glass-card')) return;
+          el.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
+          observer.observe(el);
+        });
+      });
+    </script>
+<script src="nav.js?v=2"></script>
+</body>
+</html>

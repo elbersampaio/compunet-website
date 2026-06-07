@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/><link rel="icon" type="image/x-icon" href="favicon.ico"/>
+<link rel="icon" type="image/png" sizes="16x16" href="favicon16.png"/>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon32.png"/>
+<link rel="icon" type="image/png" sizes="48x48" href="favicon48.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+<link rel="manifest" href="manifest.json"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Compunet - Cases de Sucesso</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;900&amp;family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@300;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "primary": "#0F172A",
+        "on-primary": "#FFFFFF",
+        "primary-container": "#0F172A",
+        "on-primary-container": "#94A3B8",
+        "secondary": "#2563EB",
+        "on-secondary": "#FFFFFF",
+        "secondary-container": "#3B82F6",
+        "on-secondary-container": "#FFFFFF",
+        "surface": "#F8FAFC",
+        "on-surface": "#0F172A",
+        "surface-container": "#FFFFFF",
+        "surface-container-low": "#F8FAFC",
+        "surface-container-lowest": "#FFFFFF",
+        "surface-container-high": "#F1F5F9",
+        "on-surface-variant": "#475569",
+        "cyan-accent": "#06B6D4",
+        "purple-accent": "#7C3AED",
+        "orange-accent": "#F97316",
+        "slate-gray": "#CBD5E1",
+        "outline-variant": "#E2E8F0",
+        "outline": "#94A3B8",
+        "error": "#DC2626",
+        "on-error": "#FFFFFF",
+        "background": "#F8FAFC",
+        "inverse-surface": "#0F172A",
+        "inverse-on-surface": "#F8FAFC"
+      },
+      fontFamily: {
+        "display-lg": ["Inter Tight", "Space Grotesk", "sans-serif"],
+        "display-lg-mobile": ["Inter Tight", "Space Grotesk", "sans-serif"],
+        "headline-lg": ["Inter Tight", "Space Grotesk", "sans-serif"],
+        "headline-lg-mobile": ["Inter Tight", "Space Grotesk", "sans-serif"],
+        "headline-md": ["Inter Tight", "Space Grotesk", "sans-serif"],
+        "body-lg": ["Inter", "sans-serif"],
+        "body-md": ["Inter", "sans-serif"],
+        "label-md": ["Inter", "sans-serif"],
+        "caption": ["Inter", "sans-serif"]
+      },
+      fontSize: {
+        "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+        "display-lg-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+        "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+        "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}]
+      },
+      spacing: {
+        "base": "8px",
+        "max-width": "1280px",
+        "gutter": "24px",
+        "margin-mobile": "20px",
+        "margin-desktop": "64px"
+      }
+    }
+  }
+}
+</script>
+<style>
+.glass-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.canvas-bg {
+  background-image: radial-gradient(circle at 2px 2px, #CBD5E1 1px, transparent 0);
+  background-size: 40px 40px;
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.stat-number {
+  font-size: 40px;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-secondary/20">
+<div id="nav-container"></div>
+<main class="relative overflow-hidden">
+<section class="pt-28 pb-16 px-margin-desktop max-w-max-width mx-auto">
+<div class="max-w-3xl">
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary leading-tight mb-6">Cases de Sucesso</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Conheça campanhas que transformaram estratégia em vitória com nossa metodologia.</p>
+</div>
+</section>
+<section class="canvas-bg py-16 px-margin-desktop">
+<div class="max-w-max-width mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="glass-card rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Candidato A • São Paulo</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Campanha de Grande Porte</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Reestruturação completa da estratégia territorial com células de mobilização em 47 bairros da capital paulista.</p>
+<div class="grid grid-cols-2 gap-4 pt-4 border-t border-outline-variant">
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">Votação</span>
+<span class="stat-number text-secondary">+32%</span>
+</div>
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">Militantes ativos</span>
+<span class="stat-number text-primary">15k</span>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-secondary/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">location_city</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Prefeitura • Interior SP</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Eleição Municipal</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Campanha de rua com cobertura de 100% da zona urbana e 80% da zona rural em cidade de médio porte.</p>
+<div class="grid grid-cols-2 gap-4 pt-4 border-t border-outline-variant">
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">Votação</span>
+<span class="stat-number text-secondary">+47%</span>
+</div>
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">Cobertura territorial</span>
+<span class="stat-number text-primary">100%</span>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-cyan-accent/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-cyan-accent">group_work</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Movimento Social • Nordeste</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Mobilização Comunitária</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Ativação de rede de lideranças comunitárias em 12 municípios com coordenação descentralizada e dados em tempo real.</p>
+<div class="grid grid-cols-2 gap-4 pt-4 border-t border-outline-variant">
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">Lideranças ativas</span>
+<span class="stat-number text-secondary">840</span>
+</div>
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">Municípios</span>
+<span class="stat-number text-primary">12</span>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-purple-accent/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-purple-accent">campaign</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Deputado Estadual • RJ</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Campanha Legislativa</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Estratégia digital-offline integrada com panfletagem inteligente e segmentação por zonas eleitorais.</p>
+<div class="grid grid-cols-2 gap-4 pt-4 border-t border-outline-variant">
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">Votos de média</span>
+<span class="stat-number text-secondary">+28%</span>
+</div>
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">Zonas alcançadas</span>
+<span class="stat-number text-primary">36</span>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-orange-accent/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-orange-accent">diversity_3</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Vereador • MG</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Campanha de Base</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Construção de rede capilar com mais de 200 reuniões populares e eventos comunitários em bairros periféricos.</p>
+<div class="grid grid-cols-2 gap-4 pt-4 border-t border-outline-variant">
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">Reuniões realizadas</span>
+<span class="stat-number text-secondary">200+</span>
+</div>
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">Eleitores engajados</span>
+<span class="stat-number text-primary">5.2k</span>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">public</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Governo • Região Norte</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Campanha Majoritária</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Operação territorial em 62 municípios com logística fluvial e aérea, coordenada por plataforma de geoprocessamento.</p>
+<div class="grid grid-cols-2 gap-4 pt-4 border-t border-outline-variant">
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">Municípios cobertos</span>
+<span class="stat-number text-secondary">62</span>
+</div>
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">Equipe de campo</span>
+<span class="stat-number text-primary">1.2k</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 px-margin-desktop bg-primary text-on-primary">
+<div class="max-w-max-width mx-auto flex flex-col md:flex-row items-center gap-12 text-center md:text-left">
+<div class="flex-1">
+<h2 class="font-display-lg text-display-lg-mobile md:text-display-lg mb-6 leading-tight">Seu próximo case pode ser aqui</h2>
+<p class="font-body-lg text-body-lg opacity-80 mb-10 max-w-lg">Sua campanha merece uma estratégia que funciona. Agende um diagnóstico gratuito e descubra como podemos transformar sua presença territorial.</p>
+<a href="Contato.html"><button class="bg-secondary-container text-white px-8 py-4 rounded-xl font-label-md text-label-md hover:scale-105 transition-transform flex items-center gap-2 mx-auto md:mx-0">
+Quero transformar minha campanha
+<span class="material-symbols-outlined">arrow_forward</span>
+</button></a>
+</div>
+<div class="flex-1 grid grid-cols-2 gap-6">
+<div class="glass-card rounded-3xl p-6 border-white/10 shadow-2xl text-center">
+<div class="stat-number text-secondary">150+</div>
+<div class="font-body-md text-body-md text-on-surface-variant mt-1">Campanhas vitoriosas</div>
+</div>
+<div class="glass-card rounded-3xl p-6 border-white/10 shadow-2xl text-center">
+<div class="stat-number text-secondary">23</div>
+<div class="font-body-md text-body-md text-on-surface-variant mt-1">Estados atendidos</div>
+</div>
+<div class="glass-card rounded-3xl p-6 border-white/10 shadow-2xl text-center">
+<div class="stat-number text-secondary">98%</div>
+<div class="font-body-md text-body-md text-on-surface-variant mt-1">Aprovação dos clientes</div>
+</div>
+<div class="glass-card rounded-3xl p-6 border-white/10 shadow-2xl text-center">
+<div class="stat-number text-secondary">12</div>
+<div class="font-body-md text-body-md text-on-surface-variant mt-1">Anos de expertise</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-surface-container-lowest border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop py-12 max-w-max-width mx-auto">
+<div class="space-y-4">
+<span class="font-headline-lg text-headline-lg font-black text-primary">Compunet</span>
+<p class="font-body-md text-body-md text-on-surface-variant">A plataforma definitiva para mobilização de alta performance.</p>
+</div>
+<div>
+<h4 class="font-label-md text-label-md mb-6 uppercase tracking-widest text-primary">Plataforma</h4>
+<ul class="space-y-4">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Metodo de Campanha.html">Método</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Centro de Inteligencia Eleitoral.html">Inteligência</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Mobilizacao Territorial.html">Mobilização</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md mb-6 uppercase tracking-widest text-primary">Institucional</h4>
+<ul class="space-y-4">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Sobre Nos.html">Sobre Nós</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Noticias.html">Notícias</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Contato.html">Contato</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md mb-6 uppercase tracking-widest text-primary">Legal</h4>
+<ul class="space-y-4">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Privacidade.html">Privacidade</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Termos de Uso.html">Termos de Uso</a></li>
+</ul>
+</div>
+</div>
+<div class="px-margin-desktop py-8 border-t border-outline-variant/30 text-center">
+<p class="font-caption text-caption text-on-surface-variant">&copy; 2024 Compunet Platform. Todos os direitos reservados.</p>
+</div>
+</footer>
+<script>
+document.querySelectorAll('.glass-card').forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    card.style.transition = 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+  });
+});
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.glass-card, section > div > h2, section > div > p').forEach(el => {
+  el.classList.add('reveal');
+  observer.observe(el);
+});
+</script>
+<script src="nav.js?v=2"></script>
+</body></html>

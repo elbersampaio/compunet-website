@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compunet - Observatório Político</title>
+  <meta name="description" content="Análises, tendências e insights sobre o cenário eleitoral brasileiro." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;900&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#0F172A",
+            "on-primary": "#FFFFFF",
+            "primary-container": "#0F172A",
+            "on-primary-container": "#94A3B8",
+            "secondary": "#2563EB",
+            "on-secondary": "#FFFFFF",
+            "secondary-container": "#3B82F6",
+            "on-secondary-container": "#FFFFFF",
+            "surface": "#F8FAFC",
+            "on-surface": "#0F172A",
+            "surface-container": "#FFFFFF",
+            "surface-container-low": "#F8FAFC",
+            "surface-container-lowest": "#FFFFFF",
+            "surface-container-high": "#F1F5F9",
+            "on-surface-variant": "#475569",
+            "cyan-accent": "#06B6D4",
+            "purple-accent": "#7C3AED",
+            "orange-accent": "#F97316",
+            "slate-gray": "#CBD5E1",
+            "outline-variant": "#E2E8F0",
+            "outline": "#94A3B8",
+            "error": "#DC2626",
+            "on-error": "#FFFFFF",
+            "background": "#F8FAFC",
+            "inverse-surface": "#0F172A",
+            "inverse-on-surface": "#F8FAFC"
+          },
+          fontFamily: {
+            "display-lg": ["Inter Tight", "Space Grotesk", "sans-serif"],
+            "display-lg-mobile": ["Inter Tight", "Space Grotesk", "sans-serif"],
+            "headline-lg": ["Inter Tight", "Space Grotesk", "sans-serif"],
+            "headline-lg-mobile": ["Inter Tight", "Space Grotesk", "sans-serif"],
+            "headline-md": ["Inter Tight", "Space Grotesk", "sans-serif"],
+            "body-lg": ["Inter", "sans-serif"],
+            "body-md": ["Inter", "sans-serif"],
+            "label-md": ["Inter", "sans-serif"],
+            "caption": ["Inter", "sans-serif"]
+          },
+          fontSize: {
+            "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "display-lg-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+            "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+            "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+            "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+            "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+            "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+            "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}]
+          },
+          spacing: {
+            "base": "8px",
+            "max-width": "1280px",
+            "gutter": "24px",
+            "margin-mobile": "20px",
+            "margin-desktop": "64px"
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #F8FAFC; color: #0F172A; overflow-x: hidden; }
+    .glass { background: rgba(255,255,255,0.72); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(226,232,240,0.6); }
+    .glass-card { background: rgba(255,255,255,0.68); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(226,232,240,0.5); border-radius: 20px; transition: all 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .glass-card:hover { transform: translateY(-4px); box-shadow: 0 20px 56px -12px rgba(15,23,42,0.12); border-color: rgba(37,99,235,0.15); }
+    .glass-card-featured { background: rgba(255,255,255,0.72); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(226,232,240,0.5); border-radius: 24px; transition: all 0.5s cubic-bezier(0.22,1,0.36,1); }
+    .glass-card-featured:hover { transform: translateY(-6px); box-shadow: 0 28px 64px -16px rgba(15,23,42,0.16); border-color: rgba(37,99,235,0.15); }
+    .tag { display: inline-flex; align-items: center; padding: 4px 14px; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+    .hero-gradient { background: linear-gradient(135deg, #0F172A 0%, #1e293b 50%, #0F172A 100%); }
+    .filter-btn { padding: 8px 20px; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent; background: transparent; color: #475569; }
+    .filter-btn:hover { background: rgba(15,23,42,0.06); color: #0F172A; }
+    .filter-btn.active { background: #0F172A; color: #FFFFFF; }
+    .reveal { opacity: 0; transform: translateY(32px); transition: all 0.7s cubic-bezier(0.22,1,0.36,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .img-placeholder { width: 100%; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-family: 'Inter Tight', sans-serif; font-weight: 600; color: rgba(255,255,255,0.6); position: relative; overflow: hidden; }
+    .img-placeholder::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 50%); pointer-events: none; }
+    .newsletter-input { border: 1px solid #E2E8F0; border-radius: 14px; padding: 12px 16px; font-family: 'Inter', sans-serif; font-size: 15px; width: 100%; outline: none; transition: all 0.3s ease; background: #FFFFFF; }
+    .newsletter-input:focus { border-color: #2563EB; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+    .newsletter-btn { background: #0F172A; color: #FFFFFF; border: none; border-radius: 14px; padding: 12px 24px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 15px; cursor: pointer; transition: all 0.3s ease; width: 100%; }
+    .newsletter-btn:hover { background: #1e293b; transform: translateY(-1px); }
+    .category-bar { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0; scrollbar-width: none; -ms-overflow-style: none; }
+    .category-bar::-webkit-scrollbar { display: none; }
+    @media (max-width: 768px) { .category-bar { gap: 6px; } }
+    .read-time { font-size: 12px; color: #94A3B8; font-weight: 500; display: flex; align-items: center; gap: 4px; }
+    nav a { position: relative; transition: color 0.3s ease; }
+    nav a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: #2563EB; border-radius: 2px; transition: width 0.3s ease; }
+    nav a:hover::after { width: 100%; }
+    .footer-link { transition: color 0.3s ease; position: relative; }
+    .footer-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: #2563EB; border-radius: 1px; transition: width 0.3s ease; }
+    .footer-link:hover::after { width: 100%; }
+    .gradient-1 { background: linear-gradient(135deg, #0F172A 0%, #1e293b 100%); }
+    .gradient-2 { background: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%); }
+    .gradient-3 { background: linear-gradient(135deg, #06B6D4 0%, #2563EB 100%); }
+    .gradient-4 { background: linear-gradient(135deg, #F97316 0%, #DC2626 100%); }
+    .gradient-5 { background: linear-gradient(135deg, #7C3AED 0%, #2563EB 100%); }
+    .gradient-6 { background: linear-gradient(135deg, #1e293b 0%, #0F172A 100%); }
+    .gradient-7 { background: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%); }
+    .gradients { background: linear-gradient(135deg, #0F172A 0%, #1e293b 100%); }
+  </style>
+</head>
+<body>
+<div id="nav-container"></div>
+
+  <main class="pt-[68px]">
+
+    <section class="hero-gradient relative overflow-hidden px-5 md:px-16 py-20 md:py-28">
+      <div class="absolute inset-0 opacity-[0.04]" style="background-image: radial-gradient(circle at 25% 50%, #FFFFFF 0.5px, transparent 0.5px); background-size: 28px 28px;"></div>
+      <div class="max-w-[1280px] mx-auto text-center relative z-10">
+        <div class="reveal">
+          <span class="tag bg-white/10 text-white/80 backdrop-blur-sm mb-5 border border-white/10">Observatório</span>
+        </div>
+        <h1 class="font-['Inter_Tight'] font-[700] text-[40px] md:text-[64px] leading-[1.1] tracking-[-0.02em] text-white reveal">Observatório Político</h1>
+        <p class="font-['Inter'] text-[18px] md:text-[20px] text-[#94A3B8] leading-[1.6] max-w-[640px] mx-auto mt-5 reveal">Análises, tendências e insights sobre o cenário eleitoral brasileiro.</p>
+      </div>
+    </section>
+
+    <section class="max-w-[1280px] mx-auto px-5 md:px-16 -mt-16 md:-mt-20 relative z-20">
+      <div class="glass-card-featured overflow-hidden reveal">
+        <div class="grid md:grid-cols-2 gap-0">
+          <div class="img-placeholder gradient-1 min-h-[280px] md:min-h-[420px] rounded-none md:rounded-l-[24px]">
+            <span class="text-white/40 text-lg font-['Inter_Tight'] font-[600]">Imagem em Destaque</span>
+          </div>
+          <div class="p-6 md:p-10 flex flex-col justify-center">
+            <span class="tag bg-[#2563EB]/10 text-[#2563EB] mb-4 w-fit">Análise</span>
+            <h2 class="font-['Inter_Tight'] font-[600] text-[24px] md:text-[28px] leading-[1.3] text-[#0F172A] mb-3">Reforma Política 2026: O impacto das novas regras nas eleições municipais</h2>
+            <p class="font-['Inter'] text-[15px] md:text-[16px] text-[#475569] leading-[1.6] mb-5">Uma análise aprofundada das mudanças legislativas e como elas devem redesenhar o mapa político brasileiro nos próximos pleitos.</p>
+            <div class="flex items-center justify-between">
+              <span class="font-['Inter'] text-[13px] font-[500] text-[#94A3B8]">15 Maio 2026</span>
+              <a href="#" class="font-['Inter'] text-[14px] font-[600] text-[#2563EB] no-underline hover:text-[#1d4ed8] transition-colors">Ler artigo →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-[1280px] mx-auto px-5 md:px-16 mt-16 md:mt-20">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="font-['Inter_Tight'] font-[600] text-[24px] text-[#0F172A] reveal">Últimas Publicações</h2>
+      </div>
+      <div class="category-bar mb-8 reveal">
+        <button class="filter-btn active" data-category="all">Todos</button>
+        <button class="filter-btn" data-category="analise">Análise</button>
+        <button class="filter-btn" data-category="estrategia">Estratégia</button>
+        <button class="filter-btn" data-category="tecnologia">Tecnologia</button>
+        <button class="filter-btn" data-category="mobilizacao">Mobilização</button>
+        <button class="filter-btn" data-category="legislacao">Legislação</button>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="postsGrid">
+        <article class="glass-card overflow-hidden reveal" data-category="analise">
+          <div class="img-placeholder gradient-2 h-[200px]"><span class="text-white/40 text-sm font-['Inter_Tight'] font-[600]">Análise</span></div>
+          <div class="p-5">
+            <span class="tag bg-[#2563EB]/10 text-[#2563EB] mb-3">Análise</span>
+            <h3 class="font-['Inter_Tight'] font-[600] text-[18px] leading-[1.3] text-[#0F172A] mb-2">O novo perfil do eleitor brasileiro</h3>
+            <p class="font-['Inter'] text-[14px] text-[#475569] leading-[1.6] mb-4">Dados recentes mostram mudanças significativas no comportamento e nas prioridades do eleitorado nacional.</p>
+            <div class="flex items-center justify-between">
+              <span class="read-time"><span class="material-symbols-outlined text-[14px]">schedule</span> 8 min</span>
+              <span class="font-['Inter'] text-[12px] text-[#94A3B8]">12 Maio 2026</span>
+            </div>
+          </div>
+        </article>
+        <article class="glass-card overflow-hidden reveal" data-category="estrategia">
+          <div class="img-placeholder gradient-3 h-[200px]"><span class="text-white/40 text-sm font-['Inter_Tight'] font-[600]">Estratégia</span></div>
+          <div class="p-5">
+            <span class="tag bg-[#06B6D4]/10 text-[#06B6D4] mb-3">Estratégia</span>
+            <h3 class="font-['Inter_Tight'] font-[600] text-[18px] leading-[1.3] text-[#0F172A] mb-2">Marketing digital para campanhas de 2026</h3>
+            <p class="font-['Inter'] text-[14px] text-[#475569] leading-[1.6] mb-4">Estratégias comprovadas de engajamento digital para candidatos em todos os níveis.</p>
+            <div class="flex items-center justify-between">
+              <span class="read-time"><span class="material-symbols-outlined text-[14px]">schedule</span> 6 min</span>
+              <span class="font-['Inter'] text-[12px] text-[#94A3B8]">10 Maio 2026</span>
+            </div>
+          </div>
+        </article>
+        <article class="glass-card overflow-hidden reveal" data-category="tecnologia">
+          <div class="img-placeholder gradient-4 h-[200px]"><span class="text-white/40 text-sm font-['Inter_Tight'] font-[600]">Tecnologia</span></div>
+          <div class="p-5">
+            <span class="tag bg-[#F97316]/10 text-[#F97316] mb-3">Tecnologia</span>
+            <h3 class="font-['Inter_Tight'] font-[600] text-[18px] leading-[1.3] text-[#0F172A] mb-2">IA na política: ferramentas que estão transformando campanhas</h3>
+            <p class="font-['Inter'] text-[14px] text-[#475569] leading-[1.6] mb-4">Como inteligência artificial está sendo usada para segmentação de eleitores e otimização de recursos.</p>
+            <div class="flex items-center justify-between">
+              <span class="read-time"><span class="material-symbols-outlined text-[14px]">schedule</span> 10 min</span>
+              <span class="font-['Inter'] text-[12px] text-[#94A3B8]">8 Maio 2026</span>
+            </div>
+          </div>
+        </article>
+        <article class="glass-card overflow-hidden reveal" data-category="mobilizacao">
+          <div class="img-placeholder gradient-5 h-[200px]"><span class="text-white/40 text-sm font-['Inter_Tight'] font-[600]">Mobilização</span></div>
+          <div class="p-5">
+            <span class="tag bg-[#7C3AED]/10 text-[#7C3AED] mb-3">Mobilização</span>
+            <h3 class="font-['Inter_Tight'] font-[600] text-[18px] leading-[1.3] text-[#0F172A] mb-2">Mobilização territorial: como ativar sua base</h3>
+            <p class="font-['Inter'] text-[14px] text-[#475569] leading-[1.6] mb-4">Técnicas de campo para transformar apoiadores em voluntários ativos em sua região.</p>
+            <div class="flex items-center justify-between">
+              <span class="read-time"><span class="material-symbols-outlined text-[14px]">schedule</span> 7 min</span>
+              <span class="font-['Inter'] text-[12px] text-[#94A3B8]">5 Maio 2026</span>
+            </div>
+          </div>
+        </article>
+        <article class="glass-card overflow-hidden reveal" data-category="legislacao">
+          <div class="img-placeholder gradient-6 h-[200px]"><span class="text-white/40 text-sm font-['Inter_Tight'] font-[600]">Legislação</span></div>
+          <div class="p-5">
+            <span class="tag bg-[#475569]/10 text-[#475569] mb-3">Legislação</span>
+            <h3 class="font-['Inter_Tight'] font-[600] text-[18px] leading-[1.3] text-[#0F172A] mb-2">Novas regras de prestação de contas eleitorais</h3>
+            <p class="font-['Inter'] text-[14px] text-[#475569] leading-[1.6] mb-4">Guia completo sobre as atualizações na legislação de financiamento e prestação de contas.</p>
+            <div class="flex items-center justify-between">
+              <span class="read-time"><span class="material-symbols-outlined text-[14px]">schedule</span> 9 min</span>
+              <span class="font-['Inter'] text-[12px] text-[#94A3B8]">3 Maio 2026</span>
+            </div>
+          </div>
+        </article>
+        <article class="glass-card overflow-hidden reveal" data-category="analise">
+          <div class="img-placeholder gradient-7 h-[200px]"><span class="text-white/40 text-sm font-['Inter_Tight'] font-[600]">Análise</span></div>
+          <div class="p-5">
+            <span class="tag bg-[#2563EB]/10 text-[#2563EB] mb-3">Análise</span>
+            <h3 class="font-['Inter_Tight'] font-[600] text-[18px] leading-[1.3] text-[#0F172A] mb-2">Pesquisas eleitorais: como interpretar os números</h3>
+            <p class="font-['Inter'] text-[14px] text-[#475569] leading-[1.6] mb-4">Entenda as metodologias, margens de erro e como usar dados de pesquisa na sua estratégia.</p>
+            <div class="flex items-center justify-between">
+              <span class="read-time"><span class="material-symbols-outlined text-[14px]">schedule</span> 11 min</span>
+              <span class="font-['Inter'] text-[12px] text-[#94A3B8]">1 Maio 2026</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="max-w-[1280px] mx-auto px-5 md:px-16 mt-16 md:mt-20 mb-20">
+      <div class="grid md:grid-cols-[1fr_320px] gap-10">
+        <div class="grid md:grid-cols-2 gap-6">
+          <article class="glass-card overflow-hidden reveal" data-category="estrategia">
+            <div class="img-placeholder gradient-4 h-[180px]"><span class="text-white/40 text-sm font-['Inter_Tight'] font-[600]">Estratégia</span></div>
+            <div class="p-5">
+              <span class="tag bg-[#F97316]/10 text-[#F97316] mb-3">Estratégia</span>
+              <h3 class="font-['Inter_Tight'] font-[600] text-[17px] leading-[1.3] text-[#0F172A] mb-2">Comunicação não-verbal na campanha</h3>
+              <p class="font-['Inter'] text-[14px] text-[#475569] leading-[1.6] mb-3">O impacto da linguagem corporal e da oratória na percepção do eleitor.</p>
+              <div class="flex items-center justify-between">
+                <span class="read-time"><span class="material-symbols-outlined text-[14px]">schedule</span> 5 min</span>
+                <span class="font-['Inter'] text-[12px] text-[#94A3B8]">29 Abr 2026</span>
+              </div>
+            </div>
+          </article>
+          <article class="glass-card overflow-hidden reveal" data-category="tecnologia">
+            <div class="img-placeholder gradient-1 h-[180px]"><span class="text-white/40 text-sm font-['Inter_Tight'] font-[600]">Tecnologia</span></div>
+            <div class="p-5">
+              <span class="tag bg-[#0F172A]/10 text-[#0F172A] mb-3">Tecnologia</span>
+              <h3 class="font-['Inter_Tight'] font-[600] text-[17px] leading-[1.3] text-[#0F172A] mb-2">Big data e microsegmentação eleitoral</h3>
+              <p class="font-['Inter'] text-[14px] text-[#475569] leading-[1.6] mb-3">Como utilizar dados para criar mensagens personalizadas para cada perfil de eleitor.</p>
+              <div class="flex items-center justify-between">
+                <span class="read-time"><span class="material-symbols-outlined text-[14px]">schedule</span> 8 min</span>
+                <span class="font-['Inter'] text-[12px] text-[#94A3B8]">27 Abr 2026</span>
+              </div>
+            </div>
+          </article>
+        </div>
+        <aside class="reveal">
+          <div class="glass-card p-6 md:p-8 sticky top-24">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="material-symbols-outlined text-[#2563EB] text-[28px]">mail</span>
+              <h3 class="font-['Inter_Tight'] font-[600] text-[20px] text-[#0F172A]">Newsletter</h3>
+            </div>
+            <p class="font-['Inter'] text-[14px] text-[#475569] leading-[1.6] mb-5">Receba análises exclusivas e conteúdos selecionados toda semana.</p>
+            <form class="flex flex-col gap-3" onsubmit="event.preventDefault(); alert('Inscrição realizada com sucesso!')">
+              <input type="text" placeholder="Seu nome" class="newsletter-input" required />
+              <input type="email" placeholder="Seu melhor e-mail" class="newsletter-input" required />
+              <button type="submit" class="newsletter-btn">Inscrever-se</button>
+            </form>
+            <p class="font-['Inter'] text-[11px] text-[#94A3B8] mt-3 leading-[1.4]">Ao se inscrever, você concorda com nossa Política de Privacidade.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-[#0F172A] px-5 md:px-16 py-14 md:py-18">
+    <div class="max-w-[1280px] mx-auto">
+      <div class="grid md:grid-cols-4 gap-10 mb-10">
+        <div>
+          <a href="index.html" class="font-['Inter_Tight'] font-[700] text-[22px] text-white no-letter-spacing no-underline">Compunet</a>
+          <p class="font-['Inter'] text-[14px] text-[#94A3B8] leading-[1.6] mt-4 max-w-[240px]">Plataforma de inteligência e treinamento para campanhas políticas.</p>
+        </div>
+        <div>
+          <h4 class="font-['Inter'] text-[12px] font-[600] text-[#CBD5E1] uppercase tracking-[0.08em] mb-4">Plataforma</h4>
+          <div class="flex flex-col gap-3">
+            <a href="Metodo%20de%20Campanha.html" class="font-['Inter'] text-[14px] text-[#94A3B8] no-underline footer-link">Método</a>
+            <a href="Centro%20de%20Inteligencia%20Eleitoral.html" class="font-['Inter'] text-[14px] text-[#94A3B8] no-underline footer-link">Inteligência</a>
+            <a href="Mobilizacao%20Territorial.html" class="font-['Inter'] text-[14px] text-[#94A3B8] no-underline footer-link">Mobilização</a>
+            <a href="Universidade%20de%20Campanha.html" class="font-['Inter'] text-[14px] text-[#94A3B8] no-underline footer-link">Universidade</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-['Inter'] text-[12px] font-[600] text-[#CBD5E1] uppercase tracking-[0.08em] mb-4">Empresa</h4>
+          <div class="flex flex-col gap-3">
+            <a href="Sobre%20Nos.html" class="font-['Inter'] text-[14px] text-[#94A3B8] no-underline footer-link">Sobre Nós</a>
+            <a href="Noticias.html" class="font-['Inter'] text-[14px] text-[#94A3B8] no-underline footer-link">Notícias</a>
+            <a href="Contato.html" class="font-['Inter'] text-[14px] text-[#94A3B8] no-underline footer-link">Contato</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-['Inter'] text-[12px] font-[600] text-[#CBD5E1] uppercase tracking-[0.08em] mb-4">Legal</h4>
+          <div class="flex flex-col gap-3">
+            <a href="Termos%20de%20Uso.html" class="font-['Inter'] text-[14px] text-[#94A3B8] no-underline footer-link">Termos de Uso</a>
+            <a href="Privacidade.html" class="font-['Inter'] text-[14px] text-[#94A3B8] no-underline footer-link">Privacidade</a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-[#1e293b] pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="font-['Inter'] text-[13px] text-[#475569]">&copy; 2026 Compunet. Todos os direitos reservados.</p>
+        <div class="flex items-center gap-4">
+          <a href="#" class="text-[#475569] hover:text-[#94A3B8] transition-colors no-underline"><span class="material-symbols-outlined text-[20px]">alternate_email</span></a>
+          <a href="#" class="text-[#475569] hover:text-[#94A3B8] transition-colors no-underline"><span class="material-symbols-outlined text-[20px]">captive_portal</span></a>
+          <a href="#" class="text-[#475569] hover:text-[#94A3B8] transition-colors no-underline"><span class="material-symbols-outlined text-[20px]">smart_display</span></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('menuToggle')?.addEventListener('click', function(){
+      document.getElementById('mobileMenu')?.classList.toggle('hidden');
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', function(){
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        const cat = this.dataset.category;
+        document.querySelectorAll('#postsGrid article').forEach(card => {
+          if (cat === 'all' || card.dataset.category === cat) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+
+<script src="nav.js?v=2"></script>
+</body>
+</html>

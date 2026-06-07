@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Logs & Auditoria | Mobiliza</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@20..48,100..700,0..1" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #F8FAFC; color: #0F172A; }
+    .sidebar {
+      position: fixed; top: 0; left: 0; bottom: 0; width: 260px;
+      background: #0F172A; color: #fff; z-index: 100;
+      display: flex; flex-direction: column;
+    }
+    .sidebar-header { padding: 24px 20px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .sidebar-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; margin: 0; }
+    .sidebar-header span { font-size: 12px; color: #64748B; }
+    .sidebar-nav { flex: 1; padding: 12px; }
+    .sidebar-nav a {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px; border-radius: 10px;
+      color: #94A3B8; text-decoration: none; font-size: 14px; font-weight: 500;
+      transition: all 0.15s; margin-bottom: 2px;
+    }
+    .sidebar-nav a:hover { background: rgba(255,255,255,0.05); color: #fff; }
+    .sidebar-nav a.active { background: rgba(239,68,68,0.12); color: #fca5a5; }
+    .sidebar-nav a .material-symbols-outlined { font-size: 20px; }
+    .sidebar-footer { padding: 16px 20px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .sidebar-footer .user-info { display: flex; align-items: center; gap: 10px; }
+    .sidebar-footer .avatar {
+      width: 36px; height: 36px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; color: #fff;
+    }
+    .sidebar-footer .user-name { font-size: 13px; font-weight: 600; color: #fff; }
+    .sidebar-footer .user-role { font-size: 11px; color: #64748B; }
+    .main { margin-left: 260px; min-height: 100vh; }
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 32px; background: #fff; border-bottom: 1px solid #E2E8F0;
+    }
+    .topbar h3 { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; margin: 0; }
+    .topbar-right { display: flex; align-items: center; gap: 16px; }
+    .btn-logout {
+      padding: 8px 16px; border-radius: 10px; border: 1px solid #E2E8F0;
+      background: #fff; font-size: 13px; font-weight: 500; cursor: pointer;
+    }
+    .btn-logout:hover { background: #F1F5F9; }
+    .content { padding: 32px; }
+    .filtro-section {
+      background: #fff; border-radius: 16px; padding: 20px 24px;
+      border: 1px solid #E2E8F0; margin-bottom: 20px;
+    }
+    .table-custom {
+      background: #fff; border-radius: 16px; overflow: hidden;
+      border: 1px solid #E2E8F0;
+    }
+    .table-custom table { margin-bottom: 0; }
+    .table-custom th {
+      font-size: 12px; font-weight: 600; color: #64748B;
+      padding: 14px 20px; background: #F8FAFC;
+      border-bottom: 1px solid #E2E8F0; text-transform: uppercase; letter-spacing: 0.03em;
+    }
+    .table-custom td { padding: 14px 20px; font-size: 13px; border-bottom: 1px solid #E2E8F0; vertical-align: middle; }
+    .table-custom tr:last-child td { border-bottom: none; }
+    .btn-export {
+      padding: 8px 16px; border-radius: 10px; border: 1px solid #E2E8F0;
+      background: #fff; font-size: 13px; font-weight: 500; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 6px; transition: all 0.15s;
+      text-decoration: none; color: inherit;
+    }
+    .btn-export:hover { background: #F1F5F9; }
+    .pagination-custom {
+      display: flex; align-items: center; justify-content: center; gap: 4px; padding: 20px;
+    }
+    .pagination-custom button {
+      padding: 8px 14px; border: 1px solid #E2E8F0; border-radius: 8px;
+      background: #fff; font-size: 13px; cursor: pointer;
+    }
+    .pagination-custom button:hover { background: #F1F5F9; }
+    .pagination-custom button.active { background: #0F172A; color: #fff; border-color: #0F172A; }
+    .pagination-custom button:disabled { opacity: 0.4; cursor: not-allowed; }
+    .nav-tabs-custom {
+      display: flex; gap: 0; border-bottom: 1px solid #E2E8F0; margin-bottom: 24px;
+    }
+    .nav-tabs-custom button {
+      padding: 12px 24px; border: none; background: none;
+      font-size: 14px; font-weight: 500; color: #64748B; cursor: pointer;
+      border-bottom: 2px solid transparent; transition: all 0.15s;
+    }
+    .nav-tabs-custom button.active { color: #0F172A; border-bottom-color: #2563EB; }
+    .nav-tabs-custom button:hover { color: #0F172A; background: #F1F5F9; }
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .main { margin-left: 0; }
+      .content { padding: 16px; }
+      .topbar { padding: 12px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Mobiliza</h2>
+      <span>Admin</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html"><span class="material-symbols-outlined">dashboard</span> Dashboard</a>
+      <a href="#" class="active"><span class="material-symbols-outlined">monitoring</span> Logs & Auditoria</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="avatar" id="avatarInicial" style="background:linear-gradient(135deg,#DC2626,#EF4444);">A</div>
+        <div>
+          <div class="user-name" id="userNome">Carregando...</div>
+          <div class="user-role">admin</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="sidebar-toggle" style="display:none;background:none;border:none;" onclick="document.getElementById('sidebar').classList.toggle('open')">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+        <h3>Logs & Auditoria</h3>
+      </div>
+      <div class="topbar-right">
+        <span class="badge-role" style="font-size:11px;padding:4px 12px;border-radius:100px;background:rgba(239,68,68,0.1);color:#DC2626;font-weight:600;">Admin</span>
+        <button class="btn-logout" onclick="logout()">Sair</button>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="nav-tabs-custom">
+        <button class="active" onclick="switchTab('auditoria',this)">Auditoria</button>
+        <button onclick="switchTab('acessos',this)">Logs de Acesso</button>
+      </div>
+
+      <div class="filtro-section" id="filtros">
+        <div class="row g-3 align-items-end">
+          <div class="col-md-3">
+            <label style="font-size:12px;font-weight:600;color:#475569;display:block;margin-bottom:4px;">Usuário ID</label>
+            <input type="text" class="form-control form-control-sm" id="filtroUsuario" placeholder="ID do usuário" style="border-radius:8px;border:1.5px solid #E2E8F0;font-size:13px;padding:8px 12px;">
+          </div>
+          <div class="col-md-3">
+            <label style="font-size:12px;font-weight:600;color:#475569;display:block;margin-bottom:4px;">Data Início</label>
+            <input type="date" class="form-control form-control-sm" id="filtroDataInicio" style="border-radius:8px;border:1.5px solid #E2E8F0;font-size:13px;padding:8px 12px;">
+          </div>
+          <div class="col-md-3">
+            <label style="font-size:12px;font-weight:600;color:#475569;display:block;margin-bottom:4px;">Data Fim</label>
+            <input type="date" class="form-control form-control-sm" id="filtroDataFim" style="border-radius:8px;border:1.5px solid #E2E8F0;font-size:13px;padding:8px 12px;">
+          </div>
+          <div class="col-md-3">
+            <label style="font-size:12px;font-weight:600;color:#475569;display:block;margin-bottom:4px;">Ação</label>
+            <input type="text" class="form-control form-control-sm" id="filtroAcao" placeholder="Ex: Login" style="border-radius:8px;border:1.5px solid #E2E8F0;font-size:13px;padding:8px 12px;">
+          </div>
+          <div class="col-md-3">
+            <label style="font-size:12px;font-weight:600;color:#475569;display:block;margin-bottom:4px;">IP</label>
+            <input type="text" class="form-control form-control-sm" id="filtroIP" placeholder="Ex: 192.168" style="border-radius:8px;border:1.5px solid #E2E8F0;font-size:13px;padding:8px 12px;">
+          </div>
+          <div class="col-md-9 d-flex gap-2">
+            <button class="btn btn-primary-custom" style="padding:8px 20px;border:none;border-radius:10px;background:#0F172A;color:#fff;font-weight:600;font-size:13px;" onclick="carregarLogs(1)">Filtrar</button>
+            <button class="btn-export" onclick="exportarCSV()"><span class="material-symbols-outlined" style="font-size:16px;">download</span> Exportar CSV</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-custom">
+        <div style="overflow-x:auto;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Usuário</th>
+                <th>Email</th>
+                <th>Perfil</th>
+                <th>Ação</th>
+                <th>IP</th>
+                <th>Data/Hora</th>
+              </tr>
+            </thead>
+            <tbody id="tabelaLogs"></tbody>
+          </table>
+        </div>
+        <div class="pagination-custom" id="paginacao"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API = '/api';
+    let paginaAtual = 1;
+    let abaAtual = 'auditoria';
+
+    function getToken() { return localStorage.getItem('mobiliza_token'); }
+    function getUsuario() { return JSON.parse(localStorage.getItem('mobiliza_usuario') || '{}'); }
+
+    async function apiFetch(url, opts = {}) {
+      const token = getToken();
+      if (!token) { window.location.href = '../../login.html'; return; }
+      opts.headers = { ...opts.headers, 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
+      const res = await fetch(API + url, opts);
+      if (res.status === 401) { localStorage.clear(); window.location.href = '../../login.html'; }
+      return res.json();
+    }
+
+    function logout() {
+      apiFetch('/auth/logout', { method: 'POST' }).finally(() => {
+        localStorage.clear();
+        window.location.href = '../../login.html';
+      });
+    }
+
+    function switchTab(tab, btn) {
+      abaAtual = tab;
+      document.querySelectorAll('.nav-tabs-custom button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('filtroAcao').disabled = tab === 'acessos';
+      document.getElementById('filtroIP').disabled = tab !== 'acessos';
+      carregarLogs(1);
+    }
+
+    function getFiltros() {
+      const f = { page: paginaAtual, limit: 50 };
+      const usuarioId = document.getElementById('filtroUsuario').value.trim();
+      const dataInicio = document.getElementById('filtroDataInicio').value;
+      const dataFim = document.getElementById('filtroDataFim').value;
+      if (usuarioId) f.usuario_id = usuarioId;
+      if (dataInicio) f.data_inicio = dataInicio;
+      if (dataFim) f.data_fim = dataFim;
+
+      if (abaAtual === 'auditoria') {
+        const acao = document.getElementById('filtroAcao').value.trim();
+        if (acao) f.acao = acao;
+      } else {
+        const ip = document.getElementById('filtroIP').value.trim();
+        if (ip) f.ip = ip;
+      }
+      return f;
+    }
+
+    async function carregarLogs(page) {
+      paginaAtual = page;
+      const filtros = getFiltros();
+      const params = new URLSearchParams(filtros);
+      const endpoint = abaAtual === 'auditoria' ? '/logs/auditoria' : '/logs/acessos';
+
+      const data = await apiFetch(endpoint + '?' + params.toString());
+      if (!data || !data.logs) return;
+
+      const tbody = document.getElementById('tabelaLogs');
+      const logs = data.logs;
+
+      if (logs.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="text-center" style="padding:40px;color:#94A3B8;">Nenhum registro encontrado</td></tr>';
+        document.getElementById('paginacao').innerHTML = '';
+        return;
+      }
+
+      tbody.innerHTML = logs.map(l => {
+        if (abaAtual === 'auditoria') {
+          return `<tr>
+            <td>${l.id}</td>
+            <td>${l.usuario_id || '—'}</td>
+            <td style="font-size:12px;">${l.email || '—'}</td>
+            <td><span class="badge-custom badge-${l.perfil || 'student'}">${l.perfil || '—'}</span></td>
+            <td>${l.acao}</td>
+            <td style="font-size:12px;font-family:monospace;">${l.ip || '—'}</td>
+            <td style="font-size:12px;">${new Date(l.data_hora + 'Z').toLocaleString('pt-BR')}</td>
+          </tr>`;
+        } else {
+          return `<tr>
+            <td>${l.id}</td>
+            <td>${l.usuario_id || '—'}</td>
+            <td style="font-size:12px;">${l.email || l.nome || '—'}</td>
+            <td>—</td>
+            <td><span class="badge-custom ${l.status_login === 'sucesso' ? 'badge-student' : 'badge-admin'}">${l.status_login}</span></td>
+            <td style="font-size:12px;font-family:monospace;">${l.ip || '—'}</td>
+            <td style="font-size:12px;">${new Date(l.data_hora + 'Z').toLocaleString('pt-BR')}</td>
+          </tr>`;
+        }
+      }).join('');
+
+      const totalPages = data.totalPages || 1;
+      let pagHTML = '';
+      pagHTML += `<button ${page <= 1 ? 'disabled' : ''} onclick="carregarLogs(${page - 1})">Anterior</button>`;
+      for (let i = 1; i <= totalPages && i <= 10; i++) {
+        pagHTML += `<button class="${i === page ? 'active' : ''}" onclick="carregarLogs(${i})">${i}</button>`;
+      }
+      pagHTML += `<button ${page >= totalPages ? 'disabled' : ''} onclick="carregarLogs(${page + 1})">Próximo</button>`;
+      document.getElementById('paginacao').innerHTML = pagHTML;
+    }
+
+    function exportarCSV() {
+      window.open(API + '/logs/auditoria/exportar?token=' + getToken(), '_blank');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const usuario = getUsuario();
+      document.getElementById('userNome').textContent = usuario.nome || 'Admin';
+      document.getElementById('avatarInicial').textContent = (usuario.nome || 'A')[0];
+      carregarLogs(1);
+    });
+  </script>
+  <style>
+    .badge-custom { font-size: 12px; padding: 4px 12px; border-radius: 100px; font-weight: 600; }
+    .badge-admin { background: rgba(239,68,68,0.1); color: #DC2626; }
+    .badge-teacher { background: rgba(37,99,235,0.1); color: #2563EB; }
+    .badge-student { background: rgba(34,197,94,0.1); color: #16a34a; }
+    .btn-primary-custom { padding: 10px 20px; border: none; border-radius: 10px; background: #0F172A; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    .btn-primary-custom:hover { background: #1e293b; }
+  </style>
+</body>
+</html>

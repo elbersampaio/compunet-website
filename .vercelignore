@@ -1,0 +1,13 @@
+.agents
+.agents/**
+.opencode
+.opencode/**
+.opencode/skills
+.opencode/skills/**
+server/node_modules
+server/node_modules/**
+node_modules
+node_modules/**
+*.bat
+*.ps1
+*.log

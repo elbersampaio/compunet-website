@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/><link rel="icon" type="image/x-icon" href="favicon.ico"/>
+<link rel="icon" type="image/png" sizes="16x16" href="favicon16.png"/>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon32.png"/>
+<link rel="icon" type="image/png" sizes="48x48" href="favicon48.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+<link rel="manifest" href="manifest.json"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Universidade de Campanha | Compunet</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;900&amp;family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@300;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#0F172A",
+                        "on-primary": "#FFFFFF",
+                        "primary-container": "#0F172A",
+                        "on-primary-container": "#94A3B8",
+                        "secondary": "#2563EB",
+                        "on-secondary": "#FFFFFF",
+                        "secondary-container": "#3B82F6",
+                        "on-secondary-container": "#FFFFFF",
+                        "surface": "#F8FAFC",
+                        "on-surface": "#0F172A",
+                        "surface-container": "#FFFFFF",
+                        "surface-container-low": "#F8FAFC",
+                        "surface-container-lowest": "#FFFFFF",
+                        "surface-container-high": "#F1F5F9",
+                        "on-surface-variant": "#475569",
+                        "cyan-accent": "#06B6D4",
+                        "purple-accent": "#7C3AED",
+                        "orange-accent": "#F97316",
+                        "slate-gray": "#CBD5E1",
+                        "outline-variant": "#E2E8F0",
+                        "outline": "#94A3B8",
+                        "error": "#DC2626",
+                        "on-error": "#FFFFFF",
+                        "background": "#F8FAFC",
+                        "inverse-surface": "#0F172A",
+                        "inverse-on-surface": "#F8FAFC"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "20px",
+                        "max-width": "1280px",
+                        "base": "8px",
+                        "gutter": "24px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter Tight", "Space Grotesk", "sans-serif"],
+                        "display-lg-mobile": ["Inter Tight", "Space Grotesk", "sans-serif"],
+                        "headline-lg": ["Inter Tight", "Space Grotesk", "sans-serif"],
+                        "headline-lg-mobile": ["Inter Tight", "Space Grotesk", "sans-serif"],
+                        "headline-md": ["Inter Tight", "Space Grotesk", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "label-md": ["Inter", "sans-serif"],
+                        "caption": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "display-lg-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(203, 213, 225, 0.3);
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.05) 0%, transparent 50%);
+        }
+                .docked {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .full-width {
+            width: 100%;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface selection:bg-secondary/20">
+<div id="nav-container"></div>
+<main class="hero-gradient min-h-screen">
+<!-- Hero Section -->
+<section class="px-margin-desktop py-24 max-w-max-width mx-auto flex flex-col md:flex-row items-center gap-16">
+<div class="flex-1 space-y-8">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/10 text-secondary border border-secondary/20">
+<span class="material-symbols-outlined text-[18px]">school</span>
+<span class="font-label-md text-label-md">E-learning para Mobilizadores</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-primary leading-[1.1] tracking-tight">
+                    Universidade de Campanha
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                    Formação de elite para a vitória eleitoral. Capacite-se com as ferramentas, narrativas e estratégias utilizadas pelas campanhas mais inovadoras do mundo.
+                </p>
+<div class="flex gap-4 pt-4">
+<button class="px-8 py-4 rounded-xl bg-secondary text-on-secondary font-label-md text-label-md hover:scale-105 transition-transform shadow-xl shadow-secondary/20 flex items-center gap-2">
+                        Começar minha capacitação
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="px-8 py-4 rounded-xl bg-white border border-slate-gray/30 text-on-surface font-label-md text-label-md hover:bg-surface-container-low transition-colors flex items-center gap-2">
+                        Explorar Trilhas
+                    </button>
+</div>
+</div>
+<div class="flex-1 relative">
+<div class="absolute -inset-4 bg-secondary/5 rounded-[2rem] blur-3xl"></div>
+<div class="relative glass-card rounded-[2rem] p-4 overflow-hidden shadow-2xl">
+<img alt="Formação Política Compunet" class="rounded-[1.5rem] w-full h-[500px] object-cover" alt="A sophisticated modern classroom setting with a high-tech minimalist design. A diverse group of young professionals are engaged in a seminar, with soft morning sunlight streaming through large windows. The environment uses a cool color palette of deep blues and whites, echoing a premium tech-startup aesthetic with clean lines and premium glass surfaces." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB23Xy4qGjQ01JOsyonDTxMi18gUxDmQNkWh2A-zKGzoRmuoqBzT1Qplr041ZdsBDGEJROG1EWOEtS5NOQTO8c8JVg5I9ECyPzQcLAUFW_nL6j7wii9MLfA77y5mXUy6OlA03axDHecbD5ur42j3dnhTwR5Yd5DFv6MCZcpx_q6lb9GnBe7C7yyjL-YSc9oB7KaeDRHHC6dhcpjIUDGoFvAIezx71RbZPNg-4kmvP5l2lpm7NDtJYWGMwqOW7kh0E3gparV0yr97zk"/>
+</div>
+</div>
+</section>
+<!-- Knowledge Trails (Bento Grid) -->
+<section class="px-margin-desktop py-20 bg-surface-container-lowest/50">
+<div class="max-w-max-width mx-auto">
+<div class="mb-16 text-center md:text-left">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-4">Trilhas de Conhecimento</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Especializações modulares desenhadas para cada perfil de atuação na campanha.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-gutter h-auto md:h-[600px]">
+<!-- Main Card -->
+<div class="md:col-span-2 md:row-span-2 glass-card rounded-3xl p-10 flex flex-col justify-between hover:border-secondary transition-all group cursor-pointer">
+<div>
+<div class="w-14 h-14 rounded-2xl bg-secondary text-on-secondary flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-[32px]">campaign</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Comunicação e Narrativa</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Aprenda a construir histórias poderosas que conectam emocionalmente com o eleitorado e dominam o ciclo de notícias.</p>
+</div>
+<div class="flex items-center justify-between mt-8">
+<span class="font-label-md text-label-md text-secondary group-hover:translate-x-2 transition-transform">Ver 12 cursos →</span>
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-gray"></div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-secondary/40"></div>
+</div>
+</div>
+</div>
+<!-- Side Card 1 -->
+<div class="md:col-span-2 glass-card rounded-3xl p-8 flex gap-6 items-start hover:border-cyan-accent transition-all cursor-pointer">
+<div class="w-12 h-12 rounded-xl bg-cyan-accent/10 text-cyan-accent flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined">gavel</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Legislação e Direito</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Blindagem jurídica e compliance eleitoral para garantir uma campanha sem riscos.</p>
+</div>
+</div>
+<!-- Side Card 2 -->
+<div class="glass-card rounded-3xl p-8 flex flex-col justify-between hover:border-purple-accent transition-all cursor-pointer">
+<div class="w-12 h-12 rounded-xl bg-purple-accent/10 text-purple-accent flex items-center justify-center">
+<span class="material-symbols-outlined">group</span>
+</div>
+<div class="mt-4">
+<h3 class="font-label-md text-label-md text-primary font-bold">Mobilização de Base</h3>
+<p class="text-[14px] text-on-surface-variant mt-1">Técnicas avançadas de campo e rede.</p>
+</div>
+</div>
+<!-- Side Card 3 -->
+<div class="glass-card rounded-3xl p-8 flex flex-col justify-between hover:border-secondary transition-all cursor-pointer bg-primary text-on-primary">
+<div class="w-12 h-12 rounded-xl bg-white/10 text-white flex items-center justify-center">
+<span class="material-symbols-outlined">psychology</span>
+</div>
+<div class="mt-4">
+<h3 class="font-label-md text-label-md font-bold">IA e Dados</h3>
+<p class="text-[14px] opacity-80 mt-1">Microtargeting e automação inteligente.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Courses -->
+<section class="px-margin-desktop py-24 max-w-max-width mx-auto">
+<div class="flex justify-between items-end mb-12">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-2">Cursos em Destaque</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Os módulos mais acessados pela rede nacional.</p>
+</div>
+<a class="text-secondary font-label-md text-label-md hover:underline" href="Cursos.html">Ver catálogo completo</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Course 1 -->
+<div class="bg-white rounded-2xl border border-slate-gray/30 overflow-hidden group hover:shadow-xl transition-all">
+<div class="h-48 overflow-hidden relative">
+<img alt="Curso de Narrativa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="A professional political strategist speaking confidently in a clean, brightly lit modern studio. She is pointing towards a digital screen showing campaign metrics. The atmosphere is professional and authoritative, with a minimalist background featuring subtle glass textures and a corporate blue color theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoyosPbh-CUNSkqFa66_1i6SAMEHPSFWj8OTKqKhiO3R0NcsMl_MwuI0dfZNa4aVowJiMaXxYir33bt54g0S5lafpy1iHJp2I-wfH6xiuvVHSmD9xtngL8vEXSS_8uYHDR7eu__QYjrzQF4J5rqRqUTrMBe2Ex1gZdOJV0OnDNAvHqvy-yifiTDrefczckYyZ884wD2bSfEJuC_a3utWJd2AqlPPoeKK9CFXSntwLE0lei6MwnWl6kw_vS95UbskZYMUD9jNTVzxg"/>
+<div class="absolute top-4 right-4 px-3 py-1 rounded-full bg-primary/80 backdrop-blur-md text-white text-[12px] font-bold">Avançado</div>
+</div>
+<div class="p-6">
+<div class="flex items-center gap-2 text-secondary mb-3">
+<span class="material-symbols-outlined text-[16px]">person</span>
+<span class="font-label-md text-[12px]">Dra. Helena Martins</span>
+</div>
+<h4 class="font-headline-md text-[20px] text-primary mb-4">Engenharia de Discurso: O Voto Emocional</h4>
+<div class="space-y-4">
+<div class="flex justify-between text-[13px] font-medium text-on-surface-variant">
+<span>Progresso</span>
+<span>65%</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="w-[65%] h-full bg-secondary rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Course 2 -->
+<div class="bg-white rounded-2xl border border-slate-gray/30 overflow-hidden group hover:shadow-xl transition-all">
+<div class="h-48 overflow-hidden relative">
+<img alt="Curso de Dados" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="A detailed close-up of a high-resolution dashboard showing data visualization charts for political campaigns. The interface is clean, dark-themed with neon blue and purple accents, reflecting advanced data science. The image has a sophisticated, tech-forward look with blurred background of a modern operations center." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi63JdkkLrtG1V2WaD4vUZYV0nJO5rd5U9CqV8IHILP58CEuoPg4ffZOxiAG-NQ_Q1T96ODU0npkgLsmK_t4zJubvEIhFu1KpX_JJ9NWZd7A_NYfXWNVbXFPFH3ajai4oR-ei9DPRCJQZh0ir8zpDaFeuSWVTPR5NG9Sluu512lPCpNl-kEhWXkuzizrnoEsUY3906mvs29ICWpCvaPyKw65Fzy5ukcv8v5Xlz_C-23oTHThGi3Xb2JSdRVX4iHk4893J5sF8Zrkw"/>
+<div class="absolute top-4 right-4 px-3 py-1 rounded-full bg-cyan-accent text-white text-[12px] font-bold">Intermediário</div>
+</div>
+<div class="p-6">
+<div class="flex items-center gap-2 text-secondary mb-3">
+<span class="material-symbols-outlined text-[16px]">person</span>
+<span class="font-label-md text-[12px]">Lucas Ferreira</span>
+</div>
+<h4 class="font-headline-md text-[20px] text-primary mb-4">Microtargeting e Segmentação Digital</h4>
+<div class="space-y-4">
+<div class="flex justify-between text-[13px] font-medium text-on-surface-variant">
+<span>Progresso</span>
+<span>0%</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="w-0 h-full bg-secondary rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Course 3 -->
+<div class="bg-white rounded-2xl border border-slate-gray/30 overflow-hidden group hover:shadow-xl transition-all">
+<div class="h-48 overflow-hidden relative">
+<img alt="Curso de Mobilização" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="A group of enthusiastic young campaign volunteers meeting in a collaborative coworking space. They are looking at maps and digital tablets, planning their route. The setting is vibrant and full of energy, with clean white walls, plant accents, and soft, natural daylight creating a motivating and hopeful atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlgIHYdrlcdNO_Q5XjvoEtnDzahw_CeewXni6jKEYON7AoHZMY31lUlHOGXOxaINfSKY01fOdDPr03hB_25dC85mN3G1Fo-S-yyjDoUjMTb3SbXyZg8Tetbi9B4v3Kp9v5PZo7AwVZXDemWvXQYIsgHlsUJ3jb4rbvbKjoBnZMkKiR-b3cCxlvxqzqy6Sd4b7gPAIG2h5T79LxgoMG3svpheFSVR3TVDotQ7U-2qI81_FL7jlgg-e3puCwXpXWcJzYQifKTEbCquE"/>
+<div class="absolute top-4 right-4 px-3 py-1 rounded-full bg-secondary text-white text-[12px] font-bold">Iniciante</div>
+</div>
+<div class="p-6">
+<div class="flex items-center gap-2 text-secondary mb-3">
+<span class="material-symbols-outlined text-[16px]">person</span>
+<span class="font-label-md text-[12px]">Beatriz Rocha</span>
+</div>
+<h4 class="font-headline-md text-[20px] text-primary mb-4">Recrutamento e Gestão de Voluntários</h4>
+<div class="space-y-4">
+<div class="flex justify-between text-[13px] font-medium text-on-surface-variant">
+<span>Progresso</span>
+<span>100%</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="w-full bg-emerald-500 h-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Certification Section -->
+<section class="px-margin-desktop py-24 bg-primary text-on-primary overflow-hidden relative">
+<div class="absolute top-0 right-0 w-1/3 h-full bg-secondary/10 skew-x-[-20deg] translate-x-1/2"></div>
+<div class="max-w-max-width mx-auto flex flex-col md:flex-row items-center gap-16 relative z-10">
+<div class="flex-1">
+<h2 class="font-headline-lg text-display-lg text-white mb-6">Certificação Oficial Compunet</h2>
+<p class="font-body-lg text-body-lg text-white/70 mb-10 leading-relaxed">
+                        Ao concluir nossas trilhas, você recebe o selo de capacitação oficial reconhecido pelos principais partidos e comitês do país. Torne-se um especialista certificado em mobilização moderna.
+                    </p>
+<ul class="space-y-4 mb-10">
+<li class="flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary">verified</span>
+<span class="font-body-md">Válido em todo território nacional</span>
+</li>
+<li class="flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary">verified</span>
+<span class="font-body-md">Assinado por estrategistas internacionais</span>
+</li>
+</ul>
+<button class="px-10 py-5 rounded-full bg-secondary text-on-secondary font-label-md text-label-md hover:scale-105 transition-all shadow-2xl shadow-secondary/40">
+                        Saber mais sobre certificados
+                    </button>
+</div>
+<div class="flex-1 flex justify-center">
+<div class="relative w-80 h-[450px] bg-white/5 border border-white/10 rounded-2xl backdrop-blur-lg flex items-center justify-center rotate-3 hover:rotate-0 transition-transform duration-500">
+<div class="p-8 text-center">
+<span class="material-symbols-outlined text-[80px] text-secondary mb-6" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<div class="h-1 w-20 bg-secondary mx-auto mb-6"></div>
+<p class="font-headline-md text-white mb-2">Certificado de Excelência</p>
+<p class="text-white/40 text-[14px]">Expedido pela Universidade Compunet em 2024</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA -->
+<section class="px-margin-desktop py-32 max-w-max-width mx-auto text-center">
+<div class="glass-card rounded-[3rem] p-16 md:p-24 shadow-2xl relative overflow-hidden">
+<div class="absolute -top-24 -left-24 w-64 h-64 bg-secondary/5 rounded-full blur-3xl"></div>
+<div class="relative z-10 space-y-8">
+<h2 class="font-display-lg text-headline-lg md:text-display-lg text-primary">Pronto para liderar a vitória?</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                        Junte-se a milhares de militantes e candidatos que estão transformando a política brasileira com ciência e estratégia.
+                    </p>
+<div class="flex flex-col md:flex-row justify-center gap-4 pt-8">
+<button class="px-12 py-5 rounded-full bg-secondary text-on-secondary font-headline-md text-[18px] hover:shadow-xl hover:shadow-secondary/30 transition-all active:scale-95">
+                            Começar minha capacitação
+                        </button>
+</div>
+<p class="font-caption text-caption text-on-surface-variant/60">Acesso gratuito para membros de comitês parceiros.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="full-width bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop py-12 max-w-max-width mx-auto">
+<div class="space-y-6">
+<div class="font-headline-lg text-headline-lg font-black text-primary">Compunet</div>
+<p class="font-body-md text-body-md text-on-surface-variant">A plataforma definitiva para vitórias eleitorais em rede.</p>
+</div>
+<div>
+<h5 class="font-label-md text-label-md text-primary mb-6">Plataforma</h5>
+<ul class="space-y-4">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Centro de Inteligencia Eleitoral.html">Inteligência</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Mobilizacao Territorial.html">Mobilização</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Portal do Militante - Dashboard de Engajamento.html">Dashboard</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-label-md text-label-md text-primary mb-6">Universidade</h5>
+<ul class="space-y-4">
+<li><a class="font-body-md text-body-md text-secondary font-bold" href="Cursos.html">Cursos</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Certificacoes.html">Certificações</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Instrutores.html">Instrutores</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-label-md text-label-md text-primary mb-6">Suporte</h5>
+<ul class="space-y-4">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Termos de Uso.html">Termos de Uso</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Privacidade.html">Privacidade</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Contato.html">Contato</a></li>
+</ul>
+</div>
+</div>
+<div class="px-margin-desktop py-8 max-w-max-width mx-auto border-t border-outline-variant/30 flex flex-col md:flex-row justify-between items-center gap-4">
+<span class="font-caption text-caption text-on-surface-variant">© 2024 Compunet Platform. Todos os direitos reservados.</span>
+<div class="flex gap-6">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">language</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">share</span>
+</div>
+</div>
+</footer>
+<script>
+        // Smooth scroll interaction for CTA
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.add('scale-95');
+                setTimeout(() => this.classList.remove('scale-95'), 150);
+            });
+        });
+
+        // Hover effect for course cards parallax hint
+        const cards = document.querySelectorAll('.glass-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+<script src="nav.js?v=2"></script>
+</body></html>

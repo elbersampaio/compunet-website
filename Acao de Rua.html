@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/><link rel="icon" type="image/x-icon" href="favicon.ico"/>
+<link rel="icon" type="image/png" sizes="16x16" href="favicon16.png"/>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon32.png"/>
+<link rel="icon" type="image/png" sizes="48x48" href="favicon48.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+<link rel="manifest" href="manifest.json"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Compunet - Ação de Rua</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;900&amp;family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@300;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "primary": "#0F172A",
+        "on-primary": "#FFFFFF",
+        "primary-container": "#0F172A",
+        "on-primary-container": "#94A3B8",
+        "secondary": "#2563EB",
+        "on-secondary": "#FFFFFF",
+        "secondary-container": "#3B82F6",
+        "on-secondary-container": "#FFFFFF",
+        "surface": "#F8FAFC",
+        "on-surface": "#0F172A",
+        "surface-container": "#FFFFFF",
+        "surface-container-low": "#F8FAFC",
+        "surface-container-lowest": "#FFFFFF",
+        "surface-container-high": "#F1F5F9",
+        "on-surface-variant": "#475569",
+        "cyan-accent": "#06B6D4",
+        "purple-accent": "#7C3AED",
+        "orange-accent": "#F97316",
+        "slate-gray": "#CBD5E1",
+        "outline-variant": "#E2E8F0",
+        "outline": "#94A3B8",
+        "error": "#DC2626",
+        "on-error": "#FFFFFF",
+        "background": "#F8FAFC",
+        "inverse-surface": "#0F172A",
+        "inverse-on-surface": "#F8FAFC"
+      },
+      fontFamily: {
+        "display-lg": ["Inter Tight", "Space Grotesk", "sans-serif"],
+        "display-lg-mobile": ["Inter Tight", "Space Grotesk", "sans-serif"],
+        "headline-lg": ["Inter Tight", "Space Grotesk", "sans-serif"],
+        "headline-lg-mobile": ["Inter Tight", "Space Grotesk", "sans-serif"],
+        "headline-md": ["Inter Tight", "Space Grotesk", "sans-serif"],
+        "body-lg": ["Inter", "sans-serif"],
+        "body-md": ["Inter", "sans-serif"],
+        "label-md": ["Inter", "sans-serif"],
+        "caption": ["Inter", "sans-serif"]
+      },
+      fontSize: {
+        "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+        "display-lg-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+        "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+        "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}]
+      },
+      spacing: {
+        "base": "8px",
+        "max-width": "1280px",
+        "gutter": "24px",
+        "margin-mobile": "20px",
+        "margin-desktop": "64px"
+      }
+    }
+  }
+}
+</script>
+<style>
+.glass-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.canvas-bg {
+  background-image: radial-gradient(circle at 2px 2px, #CBD5E1 1px, transparent 0);
+  background-size: 40px 40px;
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-secondary/20">
+<div id="nav-container"></div>
+<main class="relative overflow-hidden">
+<section class="pt-28 pb-16 px-margin-desktop max-w-max-width mx-auto">
+<div class="max-w-3xl">
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary leading-tight mb-6">Ação de Rua</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Coordenamos cada passo da sua presença territorial com precisão cirúrgica e alta capilaridade.</p>
+</div>
+</section>
+<section class="px-margin-desktop pb-24 max-w-max-width mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="glass-card rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+<div class="w-14 h-14 rounded-2xl bg-primary/5 flex items-center justify-center mb-6 group-hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-[32px] text-primary">directions_walk</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-3">Caminhadas</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Percurso estratégico por vias de alto tráfego eleitoral com equipe treinada para abordagem qualificada e coleta de demandas.</p>
+<div class="flex gap-6 pt-4 border-t border-outline-variant">
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">Militantes por ação</span>
+<span class="font-headline-md text-headline-md text-secondary">50+</span>
+</div>
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">Abordagens/hora</span>
+<span class="font-headline-md text-headline-md text-secondary">~240</span>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+<div class="w-14 h-14 rounded-2xl bg-secondary/5 flex items-center justify-center mb-6 group-hover:bg-secondary/10 transition-colors">
+<span class="material-symbols-outlined text-[32px] text-secondary">flag</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-3">Bandeiraços</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Concentração de militância em pontos nodais da cidade com material visual de alto impacto para amplificação orgânica da marca.</p>
+<div class="flex gap-6 pt-4 border-t border-outline-variant">
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">Participantes</span>
+<span class="font-headline-md text-headline-md text-secondary">200+</span>
+</div>
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">Alcance visual</span>
+<span class="font-headline-md text-headline-md text-secondary">10k+</span>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+<div class="w-14 h-14 rounded-2xl bg-cyan-accent/5 flex items-center justify-center mb-6 group-hover:bg-cyan-accent/10 transition-colors">
+<span class="material-symbols-outlined text-[32px] text-cyan-accent">directions_car</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-3">Carreatas</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Comboio organizado de veículos adesivados percorrendo regiões estratégicas com roteiro otimizado por geoprocessamento.</p>
+<div class="flex gap-6 pt-4 border-t border-outline-variant">
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">Veículos</span>
+<span class="font-headline-md text-headline-md text-secondary">100+</span>
+</div>
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">KM percorridos</span>
+<span class="font-headline-md text-headline-md text-secondary">15km</span>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+<div class="w-14 h-14 rounded-2xl bg-purple-accent/5 flex items-center justify-center mb-6 group-hover:bg-purple-accent/10 transition-colors">
+<span class="material-symbols-outlined text-[32px] text-purple-accent">feed</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-3">Panfletagens</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Distribuição de material gráfico segmentada por perfil de eleitor em pontos de grande circulação com mensagem personalizada.</p>
+<div class="flex gap-6 pt-4 border-t border-outline-variant">
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">Materiais/dia</span>
+<span class="font-headline-md text-headline-md text-secondary">5k+</span>
+</div>
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">Taxa de retenção</span>
+<span class="font-headline-md text-headline-md text-secondary">68%</span>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+<div class="w-14 h-14 rounded-2xl bg-orange-accent/5 flex items-center justify-center mb-6 group-hover:bg-orange-accent/10 transition-colors">
+<span class="material-symbols-outlined text-[32px] text-orange-accent">diversity_3</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-3">Eventos Comunitários</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Ações sociais e culturais em comunidades para gerar conexão genuína com o eleitorado e fortalecer a base de apoio.</p>
+<div class="flex gap-6 pt-4 border-t border-outline-variant">
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">Público por evento</span>
+<span class="font-headline-md text-headline-md text-secondary">300+</span>
+</div>
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">Impacto social</span>
+<span class="font-headline-md text-headline-md text-secondary">92%</span>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+<div class="w-14 h-14 rounded-2xl bg-primary/5 flex items-center justify-center mb-6 group-hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-[32px] text-primary">groups</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-3">Reuniões Populares</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Encontros programados com lideranças locais e moradores para escuta ativa, alinhamento de propostas e mobilização de rede.</p>
+<div class="flex gap-6 pt-4 border-t border-outline-variant">
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">Lideranças presentes</span>
+<span class="font-headline-md text-headline-md text-secondary">25+</span>
+</div>
+<div>
+<span class="font-caption text-caption text-on-surface-variant block">Propostas coletadas</span>
+<span class="font-headline-md text-headline-md text-secondary">~40</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 px-margin-desktop bg-primary text-on-primary">
+<div class="max-w-max-width mx-auto flex flex-col md:flex-row items-center gap-12 text-center md:text-left">
+<div class="flex-1">
+<h2 class="font-display-lg text-display-lg-mobile md:text-display-lg mb-6 leading-tight">Quer mobilizar suas bases?</h2>
+<p class="font-body-lg text-body-lg opacity-80 mb-10 max-w-lg">Cada ação de rua é desenhada sob medida para o seu território. Vamos construir juntos a estratégia de presença da sua campanha.</p>
+<a href="Contato.html"><button class="bg-secondary-container text-white px-8 py-4 rounded-xl font-label-md text-label-md hover:scale-105 transition-transform flex items-center gap-2 mx-auto md:mx-0">
+Falar com especialista
+<span class="material-symbols-outlined">arrow_forward</span>
+</button></a>
+</div>
+<div class="flex-1 flex justify-center">
+<div class="glass-card rounded-3xl p-8 border-white/10 shadow-2xl w-full max-w-sm">
+<div class="space-y-6">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Ações realizadas</span>
+<span class="text-secondary font-bold">+47% este mês</span>
+</div>
+<div class="h-32 flex items-end gap-2">
+<div class="flex-1 bg-secondary/20 rounded-t-lg h-12"></div>
+<div class="flex-1 bg-secondary/20 rounded-t-lg h-20"></div>
+<div class="flex-1 bg-secondary/20 rounded-t-lg h-16"></div>
+<div class="flex-1 bg-secondary/20 rounded-t-lg h-28"></div>
+<div class="flex-1 bg-secondary rounded-t-lg h-32"></div>
+</div>
+<div class="grid grid-cols-2 gap-4 pt-4 border-t border-white/10">
+<div>
+<div class="text-caption text-on-surface-variant">Militantes ativos</div>
+<div class="font-headline-md">1,872</div>
+</div>
+<div>
+<div class="text-caption text-on-surface-variant">Cidades alcançadas</div>
+<div class="font-headline-md">23</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-surface-container-lowest border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop py-12 max-w-max-width mx-auto">
+<div class="space-y-4">
+<span class="font-headline-lg text-headline-lg font-black text-primary">Compunet</span>
+<p class="font-body-md text-body-md text-on-surface-variant">A plataforma definitiva para mobilização de alta performance.</p>
+</div>
+<div>
+<h4 class="font-label-md text-label-md mb-6 uppercase tracking-widest text-primary">Plataforma</h4>
+<ul class="space-y-4">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Metodo de Campanha.html">Método</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Centro de Inteligencia Eleitoral.html">Inteligência</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Mobilizacao Territorial.html">Mobilização</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md mb-6 uppercase tracking-widest text-primary">Institucional</h4>
+<ul class="space-y-4">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Sobre Nos.html">Sobre Nós</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Noticias.html">Notícias</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Contato.html">Contato</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md mb-6 uppercase tracking-widest text-primary">Legal</h4>
+<ul class="space-y-4">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Privacidade.html">Privacidade</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Termos de Uso.html">Termos de Uso</a></li>
+</ul>
+</div>
+</div>
+<div class="px-margin-desktop py-8 border-t border-outline-variant/30 text-center">
+<p class="font-caption text-caption text-on-surface-variant">&copy; 2024 Compunet Platform. Todos os direitos reservados.</p>
+</div>
+</footer>
+<script>
+document.querySelectorAll('.glass-card').forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    card.style.transition = 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+  });
+});
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.glass-card, section > div > h2, section > div > p').forEach(el => {
+  el.classList.add('reveal');
+  observer.observe(el);
+});
+</script>
+<script src="nav.js?v=2"></script>
+</body></html>

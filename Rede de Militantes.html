@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/><link rel="icon" type="image/x-icon" href="favicon.ico"/>
+<link rel="icon" type="image/png" sizes="16x16" href="favicon16.png"/>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon32.png"/>
+<link rel="icon" type="image/png" sizes="48x48" href="favicon48.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+<link rel="manifest" href="manifest.json"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rede de Militantes | Compunet</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;900&amp;family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@300;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "primary": "#0F172A",
+        "on-primary": "#FFFFFF",
+        "primary-container": "#0F172A",
+        "on-primary-container": "#94A3B8",
+        "secondary": "#2563EB",
+        "on-secondary": "#FFFFFF",
+        "secondary-container": "#3B82F6",
+        "on-secondary-container": "#FFFFFF",
+        "surface": "#F8FAFC",
+        "on-surface": "#0F172A",
+        "surface-container": "#FFFFFF",
+        "surface-container-low": "#F8FAFC",
+        "surface-container-lowest": "#FFFFFF",
+        "surface-container-high": "#F1F5F9",
+        "on-surface-variant": "#475569",
+        "cyan-accent": "#06B6D4",
+        "purple-accent": "#7C3AED",
+        "orange-accent": "#F97316",
+        "slate-gray": "#CBD5E1",
+        "outline-variant": "#E2E8F0",
+        "outline": "#94A3B8",
+        "error": "#DC2626",
+        "on-error": "#FFFFFF",
+        "background": "#F8FAFC",
+        "inverse-surface": "#0F172A",
+        "inverse-on-surface": "#F8FAFC"
+      },
+      fontFamily: {
+        "display-lg": ["Inter Tight", "Space Grotesk", "sans-serif"],
+        "display-lg-mobile": ["Inter Tight", "Space Grotesk", "sans-serif"],
+        "headline-lg": ["Inter Tight", "Space Grotesk", "sans-serif"],
+        "headline-lg-mobile": ["Inter Tight", "Space Grotesk", "sans-serif"],
+        "headline-md": ["Inter Tight", "Space Grotesk", "sans-serif"],
+        "body-lg": ["Inter", "sans-serif"],
+        "body-md": ["Inter", "sans-serif"],
+        "label-md": ["Inter", "sans-serif"],
+        "caption": ["Inter", "sans-serif"]
+      },
+      fontSize: {
+        "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+        "display-lg-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+        "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+        "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}]
+      },
+      spacing: {
+        "base": "8px",
+        "max-width": "1280px",
+        "gutter": "24px",
+        "margin-mobile": "20px",
+        "margin-desktop": "64px"
+      }
+    }
+  }
+}
+</script>
+<style>
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(203, 213, 225, 0.3);
+}
+.glass-card-strong {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(32px);
+  border: 1px solid rgba(203, 213, 225, 0.25);
+}
+.docked {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.full-width {
+  width: 100%;
+}
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+.gradient-hero {
+  background: radial-gradient(ellipse 90% 70% at 10% 20%, rgba(37,99,235,0.06) 0%, transparent 60%),
+              radial-gradient(ellipse 70% 60% at 90% 80%, rgba(6,182,212,0.05) 0%, transparent 60%),
+              linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%);
+}
+.badge-glow {
+  box-shadow: 0 0 0 1px rgba(37,99,235,0.15), 0 4px 20px rgba(37,99,235,0.1);
+}
+.stat-number {
+  background: linear-gradient(135deg, #0F172A 0%, #2563EB 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.progress-glass {
+  background: rgba(37,99,235,0.12);
+  backdrop-filter: blur(4px);
+}
+.mission-pendente { border-left: 3px solid #F97316; }
+.mission-andamento { border-left: 3px solid #2563EB; }
+.mission-concluida { border-left: 3px solid #10B981; }
+</style>
+</head>
+<body class="bg-surface font-body-md text-on-surface selection:bg-secondary/20 overflow-x-hidden">
+<script>(function(){if(!localStorage.getItem('mobiliza_token')){window.location.replace('login.html');}})();</script>
+<div id="nav-container"></div>
+
+<main>
+<!-- HERO -->
+<section class="gradient-hero relative overflow-hidden pt-24 pb-16 md:pt-32 md:pb-24">
+<div class="absolute inset-0 pointer-events-none">
+<div class="absolute top-10 left-1/4 w-72 h-72 bg-secondary/5 rounded-full blur-[100px]"></div>
+<div class="absolute bottom-10 right-1/4 w-96 h-96 bg-cyan-accent/5 rounded-full blur-[120px]"></div>
+</div>
+<div class="relative px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto">
+<div class="max-w-3xl">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/10 text-secondary border border-secondary/20 mb-6">
+<span class="material-symbols-outlined text-[18px]">diversity_3</span>
+<span class="font-label-md text-label-md">Plataforma de Militância</span>
+</div>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary leading-[1.1] tracking-tight mb-6">Rede de <span class="text-secondary">Militantes</span></h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">A força da sua campanha está na organização da sua base. Cadastre, credencie, mobilize e recompense.</p>
+<div class="flex flex-wrap gap-4 mt-8">
+<button class="px-8 py-4 bg-primary text-on-primary rounded-full font-label-md text-label-md flex items-center gap-2 hover:scale-105 transition-all shadow-xl active:scale-95">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+Cadastrar Militante
+</button>
+<button class="px-8 py-4 bg-surface-container-lowest text-on-surface border border-outline-variant rounded-full font-label-md text-label-md flex items-center gap-2 hover:bg-surface-container-low transition-all active:scale-95">
+<span class="material-symbols-outlined text-[20px]">bar_chart</span>
+Ver Ranking
+</button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- STATS BAR -->
+<section class="relative -mt-12 px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto z-10">
+<div class="glass-card-strong rounded-2xl p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 shadow-lg">
+<div class="text-center">
+<div class="font-display-lg text-display-lg-mobile md:text-display-lg stat-number">12.458</div>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1">Militantes</p>
+</div>
+<div class="text-center">
+<div class="font-display-lg text-display-lg-mobile md:text-display-lg stat-number">3.247</div>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1">Missões Cumpridas</p>
+</div>
+<div class="text-center">
+<div class="font-display-lg text-display-lg-mobile md:text-display-lg stat-number">458</div>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1">Lideranças</p>
+</div>
+<div class="text-center">
+<div class="font-display-lg text-display-lg-mobile md:text-display-lg stat-number">92%</div>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1">Engajamento</p>
+</div>
+</div>
+</section>
+
+<!-- CADASTRO DE MILITANTES -->
+<section class="py-20 md:py-28 px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto">
+<div class="grid md:grid-cols-2 gap-12 items-center">
+<div>
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/10 text-secondary border border-secondary/20 mb-4">
+<span class="material-symbols-outlined text-[18px]">how_to_reg</span>
+<span class="font-label-md text-label-md">Passo 1</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-4">Cadastro de Militantes</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8">Preencha os dados para registrar novos militantes na base da campanha. Todos os campos são integrados ao sistema de credenciamento e gamificação.</p>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="w-6 h-6 rounded-full bg-secondary/10 text-secondary flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</span>
+<p class="font-body-md text-body-md text-on-surface-variant">Dados pessoais e de contato do militante</p>
+</li>
+<li class="flex items-start gap-3">
+<span class="w-6 h-6 rounded-full bg-secondary/10 text-secondary flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</span>
+<p class="font-body-md text-body-md text-on-surface-variant">Definição de zona eleitoral e área de atuação</p>
+</li>
+<li class="flex items-start gap-3">
+<span class="w-6 h-6 rounded-full bg-secondary/10 text-secondary flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</span>
+<p class="font-body-md text-body-md text-on-surface-variant">Preferências de atuação em campo ou digital</p>
+</li>
+</ul>
+</div>
+<div class="glass-card-strong rounded-2xl p-6 md:p-8 shadow-lg">
+<h3 class="font-headline-md text-headline-md text-primary mb-6">Formulário de Cadastro</h3>
+<form class="space-y-5" onsubmit="return false">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="font-caption text-caption text-on-surface-variant block mb-1.5">Nome Completo</label>
+<input class="w-full px-4 py-3 rounded-xl bg-surface border border-outline-variant focus:ring-2 focus:ring-secondary focus:border-transparent font-body-md text-body-md transition-all" placeholder="Digite o nome" type="text"/>
+</div>
+<div>
+<label class="font-caption text-caption text-on-surface-variant block mb-1.5">Email</label>
+<input class="w-full px-4 py-3 rounded-xl bg-surface border border-outline-variant focus:ring-2 focus:ring-secondary focus:border-transparent font-body-md text-body-md transition-all" placeholder="email@exemplo.com" type="email"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="font-caption text-caption text-on-surface-variant block mb-1.5">Telefone</label>
+<input class="w-full px-4 py-3 rounded-xl bg-surface border border-outline-variant focus:ring-2 focus:ring-secondary focus:border-transparent font-body-md text-body-md transition-all" placeholder="(11) 99999-9999" type="tel"/>
+</div>
+<div>
+<label class="font-caption text-caption text-on-surface-variant block mb-1.5">Cidade / Estado</label>
+<input class="w-full px-4 py-3 rounded-xl bg-surface border border-outline-variant focus:ring-2 focus:ring-secondary focus:border-transparent font-body-md text-body-md transition-all" placeholder="São Paulo, SP" type="text"/>
+</div>
+</div>
+<div>
+<label class="font-caption text-caption text-on-surface-variant block mb-1.5">Zona Eleitoral</label>
+<input class="w-full px-4 py-3 rounded-xl bg-surface border border-outline-variant focus:ring-2 focus:ring-secondary focus:border-transparent font-body-md text-body-md transition-all" placeholder="Ex: 123ª ZE" type="text"/>
+</div>
+<div>
+<label class="font-caption text-caption text-on-surface-variant block mb-3">Como prefere atuar?</label>
+<div class="grid grid-cols-2 gap-3">
+<label class="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-surface border border-outline-variant cursor-pointer hover:border-secondary transition-colors">
+<input class="rounded text-secondary focus:ring-secondary" name="atuacao" type="checkbox" value="caminhadas"/>
+<span class="font-body-md text-body-md text-on-surface">Caminhadas</span>
+</label>
+<label class="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-surface border border-outline-variant cursor-pointer hover:border-secondary transition-colors">
+<input class="rounded text-secondary focus:ring-secondary" name="atuacao" type="checkbox" value="panfletagem"/>
+<span class="font-body-md text-body-md text-on-surface">Panfletagem</span>
+</label>
+<label class="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-surface border border-outline-variant cursor-pointer hover:border-secondary transition-colors">
+<input class="rounded text-secondary focus:ring-secondary" name="atuacao" type="checkbox" value="redes"/>
+<span class="font-body-md text-body-md text-on-surface">Redes Sociais</span>
+</label>
+<label class="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-surface border border-outline-variant cursor-pointer hover:border-secondary transition-colors">
+<input class="rounded text-secondary focus:ring-secondary" name="atuacao" type="checkbox" value="eventos"/>
+<span class="font-body-md text-body-md text-on-surface">Organização de Eventos</span>
+</label>
+<label class="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-surface border border-outline-variant cursor-pointer hover:border-secondary transition-colors">
+<input class="rounded text-secondary focus:ring-secondary" name="atuacao" type="checkbox" value="motorista"/>
+<span class="font-body-md text-body-md text-on-surface">Motorista</span>
+</label>
+<label class="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-surface border border-outline-variant cursor-pointer hover:border-secondary transition-colors">
+<input class="rounded text-secondary focus:ring-secondary" name="atuacao" type="checkbox" value="outros"/>
+<span class="font-body-md text-body-md text-on-surface">Outros</span>
+</label>
+</div>
+</div>
+<button class="w-full py-3.5 bg-primary text-on-primary rounded-full font-label-md text-label-md flex items-center justify-center gap-2 hover:scale-[1.02] transition-all shadow-lg active:scale-95">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+Cadastrar Militante
+</button>
+</form>
+</div>
+</div>
+</section>
+
+<!-- CREDENCIAMENTO -->
+<section class="py-20 md:py-28 bg-surface-container-low px-margin-mobile md:px-margin-desktop">
+<div class="max-w-max-width mx-auto">
+<div class="text-center mb-16">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/10 text-secondary border border-secondary/20 mb-4">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+<span class="font-label-md text-label-md">Passo 2</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-4">Credenciamento</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Processo de validação e emissão de credenciais oficiais para todos os militantes cadastrados.</p>
+</div>
+<div class="grid md:grid-cols-3 gap-6 mb-16">
+<div class="glass-card-strong rounded-2xl p-6 md:p-8 text-center relative overflow-hidden group hover:shadow-lg transition-all">
+<div class="absolute top-0 left-0 w-full h-1 bg-secondary"></div>
+<div class="w-14 h-14 rounded-full bg-secondary/10 text-secondary flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">how_to_reg</span>
+</div>
+<span class="font-label-md text-label-md text-secondary mb-2 block">ETAPA 1</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-3">Cadastro Online</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Militante preenche o formulário com seus dados pessoais, zona eleitoral e áreas de interesse.</p>
+</div>
+<div class="glass-card-strong rounded-2xl p-6 md:p-8 text-center relative overflow-hidden group hover:shadow-lg transition-all">
+<div class="absolute top-0 left-0 w-full h-1 bg-cyan-accent"></div>
+<div class="w-14 h-14 rounded-full bg-cyan-accent/10 text-cyan-accent flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">description</span>
+</div>
+<span class="font-label-md text-label-md text-cyan-accent mb-2 block">ETAPA 2</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-3">Documentação</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Validação de documentos e verificação de dados junto ao sistema eleitoral.</p>
+</div>
+<div class="glass-card-strong rounded-2xl p-6 md:p-8 text-center relative overflow-hidden group hover:shadow-lg transition-all">
+<div class="absolute top-0 left-0 w-full h-1 bg-purple-accent"></div>
+<div class="w-14 h-14 rounded-full bg-purple-accent/10 text-purple-accent flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">verified</span>
+</div>
+<span class="font-label-md text-label-md text-purple-accent mb-2 block">ETAPA 3</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-3">Credencial Emitida</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Credencial digital e física liberada com QR Code único para identificação.</p>
+</div>
+</div>
+<div class="max-w-md mx-auto">
+<div class="glass-card-strong rounded-2xl p-6 md:p-8 shadow-xl text-center relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-b from-secondary/5 to-transparent pointer-events-none"></div>
+<div class="relative">
+<div class="flex justify-center mb-4">
+<div class="w-20 h-20 rounded-full bg-surface-container-high border-2 border-secondary/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-secondary">person</span>
+</div>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">Maria Silva</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Militante Credenciada</p>
+<div class="flex justify-center gap-6 mb-4">
+<div class="text-center">
+<p class="font-caption text-caption text-on-surface-variant">ID</p>
+<p class="font-label-md text-label-md text-primary">MDB-2024-0047</p>
+</div>
+<div class="text-center">
+<p class="font-caption text-caption text-on-surface-variant">Zona</p>
+<p class="font-label-md text-label-md text-primary">003ª ZE</p>
+</div>
+</div>
+<div class="w-24 h-24 mx-auto bg-surface-container-high rounded-xl border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant">qr_code_scanner</span>
+</div>
+<p class="font-caption text-caption text-on-surface-variant mt-3">QR Code de Validação</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- AGENDA DE MISSÕES -->
+<section class="py-20 md:py-28 px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto">
+<div class="text-center mb-16">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/10 text-secondary border border-secondary/20 mb-4">
+<span class="material-symbols-outlined text-[18px]">flag</span>
+<span class="font-label-md text-label-md">Acompanhamento</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-4">Agenda de Missões</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Missões disponíveis para engajamento da militância. Complete tarefas e acumule pontos.</p>
+</div>
+<div class="max-w-3xl mx-auto space-y-4">
+<div class="glass-card-strong rounded-2xl p-5 md:p-6 mission-concluida flex flex-col md:flex-row md:items-center gap-4 hover:shadow-lg transition-all group">
+<div class="flex items-center gap-3 flex-1 min-w-0">
+<div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</div>
+<div class="min-w-0">
+<h4 class="font-headline-md text-headline-md text-primary truncate">Mutirão de Panfletagem</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">15 Jun 2026 · Zona Sul</p>
+</div>
+</div>
+<div class="flex items-center gap-4 md:flex-shrink-0">
+<span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 font-caption text-caption">Concluída</span>
+<div class="flex items-center gap-1 text-orange-accent">
+<span class="material-symbols-outlined text-[18px]">stars</span>
+<span class="font-label-md text-label-md">+250</span>
+</div>
+</div>
+</div>
+<div class="glass-card-strong rounded-2xl p-5 md:p-6 mission-andamento flex flex-col md:flex-row md:items-center gap-4 hover:shadow-lg transition-all group">
+<div class="flex items-center gap-3 flex-1 min-w-0">
+<div class="w-10 h-10 rounded-full bg-secondary/10 text-secondary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">pending</span>
+</div>
+<div class="min-w-0">
+<h4 class="font-headline-md text-headline-md text-primary truncate">Campanha Digital - Semana 3</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">18 Jun 2026 · Online</p>
+</div>
+</div>
+<div class="flex items-center gap-4 md:flex-shrink-0">
+<div class="flex items-center gap-2">
+<div class="w-20 h-2 rounded-full bg-surface-container-high overflow-hidden">
+<div class="w-2/3 h-full rounded-full bg-secondary"></div>
+</div>
+<span class="font-caption text-caption text-secondary">67%</span>
+</div>
+<span class="px-3 py-1 rounded-full bg-secondary/10 text-secondary font-caption text-caption">Em Andamento</span>
+<div class="flex items-center gap-1 text-orange-accent">
+<span class="material-symbols-outlined text-[18px]">stars</span>
+<span class="font-label-md text-label-md">+500</span>
+</div>
+</div>
+</div>
+<div class="glass-card-strong rounded-2xl p-5 md:p-6 mission-pendente flex flex-col md:flex-row md:items-center gap-4 hover:shadow-lg transition-all group">
+<div class="flex items-center gap-3 flex-1 min-w-0">
+<div class="w-10 h-10 rounded-full bg-orange-100 text-orange-accent flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">radio_button_unchecked</span>
+</div>
+<div class="min-w-0">
+<h4 class="font-headline-md text-headline-md text-primary truncate">Reunião de Coordenação</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">22 Jun 2026 · Comitê Central</p>
+</div>
+</div>
+<div class="flex items-center gap-4 md:flex-shrink-0">
+<span class="px-3 py-1 rounded-full bg-orange-100 text-orange-accent font-caption text-caption">Pendente</span>
+<div class="flex items-center gap-1 text-orange-accent">
+<span class="material-symbols-outlined text-[18px]">stars</span>
+<span class="font-label-md text-label-md">+150</span>
+</div>
+</div>
+</div>
+<div class="glass-card-strong rounded-2xl p-5 md:p-6 mission-pendente flex flex-col md:flex-row md:items-center gap-4 hover:shadow-lg transition-all group">
+<div class="flex items-center gap-3 flex-1 min-w-0">
+<div class="w-10 h-10 rounded-full bg-orange-100 text-orange-accent flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">radio_button_unchecked</span>
+</div>
+<div class="min-w-0">
+<h4 class="font-headline-md text-headline-md text-primary truncate">Distribuição de Material</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">25 Jun 2026 · Zona Norte</p>
+</div>
+</div>
+<div class="flex items-center gap-4 md:flex-shrink-0">
+<span class="px-3 py-1 rounded-full bg-orange-100 text-orange-accent font-caption text-caption">Pendente</span>
+<div class="flex items-center gap-1 text-orange-accent">
+<span class="material-symbols-outlined text-[18px]">stars</span>
+<span class="font-label-md text-label-md">+300</span>
+</div>
+</div>
+</div>
+<div class="glass-card-strong rounded-2xl p-5 md:p-6 mission-concluida flex flex-col md:flex-row md:items-center gap-4 hover:shadow-lg transition-all group">
+<div class="flex items-center gap-3 flex-1 min-w-0">
+<div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</div>
+<div class="min-w-0">
+<h4 class="font-headline-md text-headline-md text-primary truncate">Treinamento de Abordagem</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">10 Jun 2026 · Auditório Central</p>
+</div>
+</div>
+<div class="flex items-center gap-4 md:flex-shrink-0">
+<span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 font-caption text-caption">Concluída</span>
+<div class="flex items-center gap-1 text-orange-accent">
+<span class="material-symbols-outlined text-[18px]">stars</span>
+<span class="font-label-md text-label-md">+200</span>
+</div>
+</div>
+</div>
+</div>
+<div class="text-center mt-8">
+<button class="px-6 py-3 rounded-full bg-surface border border-outline-variant font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-all active:scale-95 inline-flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+Ver todas as missões
+</button>
+</div>
+</section>
+
+<!-- MATERIAIS -->
+<section class="py-20 md:py-28 bg-surface-container-low px-margin-mobile md:px-margin-desktop">
+<div class="max-w-max-width mx-auto">
+<div class="text-center mb-16">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/10 text-secondary border border-secondary/20 mb-4">
+<span class="material-symbols-outlined text-[18px]">folder</span>
+<span class="font-label-md text-label-md">Recursos</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-4">Materiais de Campanha</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Baixe os materiais oficiais para apoiar suas ações de campanha e capacitação.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+<div class="glass-card-strong rounded-2xl p-6 text-center hover:shadow-lg group transition-all">
+<div class="w-14 h-14 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">menu_book</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-1">Cartilha do Militante</h4>
+<p class="font-caption text-caption text-on-surface-variant mb-4">PDF · 12 páginas</p>
+<button class="px-5 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md inline-flex items-center gap-1.5 hover:scale-105 transition-all active:scale-95 text-[12px]">
+<span class="material-symbols-outlined text-[16px]">download</span>
+Baixar
+</button>
+</div>
+<div class="glass-card-strong rounded-2xl p-6 text-center hover:shadow-lg group transition-all">
+<div class="w-14 h-14 rounded-xl bg-cyan-accent/10 text-cyan-accent flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">photo_library</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-1">Kit Digital (Redes)</h4>
+<p class="font-caption text-caption text-on-surface-variant mb-4">ZIP · 24 assets</p>
+<button class="px-5 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md inline-flex items-center gap-1.5 hover:scale-105 transition-all active:scale-95 text-[12px]">
+<span class="material-symbols-outlined text-[16px]">download</span>
+Baixar
+</button>
+</div>
+<div class="glass-card-strong rounded-2xl p-6 text-center hover:shadow-lg group transition-all">
+<div class="w-14 h-14 rounded-xl bg-purple-accent/10 text-purple-accent flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">campaign</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-1">Material de Abordagem</h4>
+<p class="font-caption text-caption text-on-surface-variant mb-4">PDF · 8 páginas</p>
+<button class="px-5 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md inline-flex items-center gap-1.5 hover:scale-105 transition-all active:scale-95 text-[12px]">
+<span class="material-symbols-outlined text-[16px]">download</span>
+Baixar
+</button>
+</div>
+<div class="glass-card-strong rounded-2xl p-6 text-center hover:shadow-lg group transition-all">
+<div class="w-14 h-14 rounded-xl bg-orange-accent/10 text-orange-accent flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">bolt</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-1">Guia Rápido</h4>
+<p class="font-caption text-caption text-on-surface-variant mb-4">PDF · 4 páginas</p>
+<button class="px-5 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md inline-flex items-center gap-1.5 hover:scale-105 transition-all active:scale-95 text-[12px]">
+<span class="material-symbols-outlined text-[16px]">download</span>
+Baixar
+</button>
+</div>
+<div class="glass-card-strong rounded-2xl p-6 text-center hover:shadow-lg group transition-all">
+<div class="w-14 h-14 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">signpost</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-1">Sinalização</h4>
+<p class="font-caption text-caption text-on-surface-variant mb-4">ZIP · 18 assets</p>
+<button class="px-5 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md inline-flex items-center gap-1.5 hover:scale-105 transition-all active:scale-95 text-[12px]">
+<span class="material-symbols-outlined text-[16px]">download</span>
+Baixar
+</button>
+</div>
+<div class="glass-card-strong rounded-2xl p-6 text-center hover:shadow-lg group transition-all">
+<div class="w-14 h-14 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">checkroom</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-1">Uniforme</h4>
+<p class="font-caption text-caption text-on-surface-variant mb-4">Guia · 6 páginas</p>
+<button class="px-5 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md inline-flex items-center gap-1.5 hover:scale-105 transition-all active:scale-95 text-[12px]">
+<span class="material-symbols-outlined text-[16px]">download</span>
+Baixar
+</button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- GAMIFICAÇÃO & RANKING -->
+<section class="py-20 md:py-28 px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto">
+<div class="text-center mb-16">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/10 text-secondary border border-secondary/20 mb-4">
+<span class="material-symbols-outlined text-[18px]">stadia_controller</span>
+<span class="font-label-md text-label-md">Gameficação</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-4">Gamificação & Ranking</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Transforme a militância em um jogo. Complete missões, ganhe XP, suba no ranking e desbloqueie conquistas.</p>
+</div>
+<div class="grid md:grid-cols-3 gap-8">
+<div class="md:col-span-2 space-y-8">
+<div class="glass-card-strong rounded-2xl p-6 md:p-8">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+<div>
+<h3 class="font-headline-md text-headline-md text-primary">Nível 7 - Estrategista</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Militante Destaque</p>
+</div>
+<div class="text-right">
+<p class="font-headline-lg text-headline-lg text-secondary">2.450 XP</p>
+<p class="font-caption text-caption text-on-surface-variant">Total acumulado</p>
+</div>
+</div>
+<div class="mb-3">
+<div class="flex justify-between mb-1.5">
+<span class="font-caption text-caption text-on-surface-variant">Progresso para Nível 8</span>
+<span class="font-caption text-caption text-secondary">2.450 / 5.000 XP</span>
+</div>
+<div class="w-full h-3 rounded-full bg-surface-container-high overflow-hidden">
+<div class="w-[49%] h-full rounded-full bg-gradient-to-r from-secondary to-cyan-accent relative">
+<div class="absolute right-0 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white border-2 border-secondary shadow-md"></div>
+</div>
+</div>
+</div>
+<p class="font-caption text-caption text-on-surface-variant">Faltam <strong class="text-on-surface">2.550 XP</strong> para o próximo nível</p>
+</div>
+<div class="glass-card-strong rounded-2xl p-6 md:p-8">
+<h3 class="font-headline-md text-headline-md text-primary mb-6">Conquistas & Medalhas</h3>
+<div class="grid grid-cols-3 md:grid-cols-6 gap-4">
+<div class="text-center group">
+<div class="w-full aspect-square rounded-2xl bg-gradient-to-br from-amber-100 to-amber-50 border border-amber-200 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl text-amber-600">emoji_events</span>
+</div>
+<p class="font-caption text-caption text-on-surface-variant leading-tight">Primeiro Cadastro</p>
+</div>
+<div class="text-center group">
+<div class="w-full aspect-square rounded-2xl bg-gradient-to-br from-sky-100 to-sky-50 border border-sky-200 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl text-sky-600">military_tech</span>
+</div>
+<p class="font-caption text-caption text-on-surface-variant leading-tight">10 Missões</p>
+</div>
+<div class="text-center group">
+<div class="w-full aspect-square rounded-2xl bg-gradient-to-br from-purple-100 to-purple-50 border border-purple-200 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl text-purple-600">workspace_premium</span>
+</div>
+<p class="font-caption text-caption text-on-surface-variant leading-tight">Voluntário Destaque</p>
+</div>
+<div class="text-center group">
+<div class="w-full aspect-square rounded-2xl bg-gradient-to-br from-emerald-100 to-emerald-50 border border-emerald-200 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl text-emerald-600">groups</span>
+</div>
+<p class="font-caption text-caption text-on-surface-variant leading-tight">Multiplicador</p>
+</div>
+<div class="text-center group">
+<div class="w-full aspect-square rounded-2xl bg-gradient-to-br from-orange-100 to-orange-50 border border-orange-200 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl text-orange-600">public</span>
+</div>
+<p class="font-caption text-caption text-on-surface-variant leading-tight">Líder de Região</p>
+</div>
+<div class="text-center group">
+<div class="w-full aspect-square rounded-2xl bg-gradient-to-br from-rose-100 to-rose-50 border border-rose-200 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl text-rose-600">verified</span>
+</div>
+<p class="font-caption text-caption text-on-surface-variant leading-tight">Veterano</p>
+</div>
+</div>
+</div>
+</div>
+<div class="md:col-span-1">
+<div class="glass-card-strong rounded-2xl p-6 overflow-hidden">
+<div class="flex border-b border-outline-variant mb-4">
+<button class="flex-1 pb-3 text-center font-label-md text-label-md text-secondary border-b-2 border-secondary transition-all">Ranking Geral</button>
+<button class="flex-1 pb-3 text-center font-label-md text-label-md text-on-surface-variant border-b-2 border-transparent hover:text-primary transition-all">Ranking da Semana</button>
+</div>
+<div class="space-y-3">
+<div class="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-amber-50 to-transparent border border-amber-100">
+<div class="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-headline-md text-headline-md">1</div>
+<div class="flex-1 min-w-0">
+<p class="font-body-md text-body-md text-primary font-semibold truncate">Carlos Mendes</p>
+<p class="font-caption text-caption text-on-surface-variant">3.450 XP · 22 missões</p>
+</div>
+<span class="material-symbols-outlined text-amber-500">emoji_events</span>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-xl hover:bg-surface-container-low transition-colors">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-headline-md text-headline-md">2</div>
+<div class="flex-1 min-w-0">
+<p class="font-body-md text-body-md text-primary font-semibold truncate">Ana Beatriz</p>
+<p class="font-caption text-caption text-on-surface-variant">3.120 XP · 19 missões</p>
+</div>
+<span class="material-symbols-outlined text-slate-gray">military_tech</span>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-xl hover:bg-surface-container-low transition-colors">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-headline-md text-headline-md">3</div>
+<div class="flex-1 min-w-0">
+<p class="font-body-md text-body-md text-primary font-semibold truncate">Rafael Oliveira</p>
+<p class="font-caption text-caption text-on-surface-variant">2.890 XP · 17 missões</p>
+</div>
+<span class="material-symbols-outlined text-slate-gray">military_tech</span>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-xl hover:bg-surface-container-low transition-colors">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-headline-md text-headline-md">4</div>
+<div class="flex-1 min-w-0">
+<p class="font-body-md text-body-md text-primary font-semibold truncate">Juliana Costa</p>
+<p class="font-caption text-caption text-on-surface-variant">2.670 XP · 15 missões</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-xl hover:bg-surface-container-low transition-colors">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-headline-md text-headline-md">5</div>
+<div class="flex-1 min-w-0">
+<p class="font-body-md text-body-md text-primary font-semibold truncate">Pedro Santos</p>
+<p class="font-caption text-caption text-on-surface-variant">2.450 XP · 14 missões</p>
+</div>
+</div>
+</div>
+<p class="font-caption text-caption text-secondary text-center mt-4 cursor-pointer hover:underline">Ver ranking completo →</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="full-width bg-surface-container-lowest border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop py-12 max-w-max-width mx-auto">
+<div class="space-y-6">
+<div class="font-headline-lg text-headline-lg font-black text-primary">Compunet</div>
+<p class="font-body-md text-body-md text-on-surface-variant">A plataforma definitiva para vitórias eleitorais em rede.</p>
+<div class="flex gap-3">
+<a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-secondary hover:text-on-secondary transition-all" href="Contato.html">
+<span class="material-symbols-outlined text-[20px]">public</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-secondary hover:text-on-secondary transition-all" href="Contato.html">
+<span class="material-symbols-outlined text-[20px]">alternate_email</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-secondary hover:text-on-secondary transition-all" href="Contato.html">
+<span class="material-symbols-outlined text-[20px]">smart_display</span>
+</a>
+</div>
+</div>
+<div>
+<h5 class="font-label-md text-label-md text-primary mb-6">Plataforma</h5>
+<ul class="space-y-4">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Centro de Inteligencia Eleitoral.html">Inteligência</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Mobilizacao Territorial.html">Mobilização</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Rede de Militantes.html">Rede de Militantes</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Portal do Militante - Dashboard de Engajamento.html">Dashboard</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-label-md text-label-md text-primary mb-6">Universidade</h5>
+<ul class="space-y-4">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Cursos.html">Cursos</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Certificacoes.html">Certificações</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Instrutores.html">Instrutores</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Metodo de Campanha.html">Método</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-label-md text-label-md text-primary mb-6">Suporte</h5>
+<ul class="space-y-4">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Termos de Uso.html">Termos de Uso</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Privacidade.html">Privacidade</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Contato.html">Contato</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Sobre Nos.html">Sobre Nós</a></li>
+</ul>
+</div>
+</div>
+<div class="px-margin-mobile md:px-margin-desktop py-8 max-w-max-width mx-auto border-t border-outline-variant/30 flex flex-col md:flex-row justify-between items-center gap-4">
+<span class="font-caption text-caption text-on-surface-variant">© 2025 Compunet Platform. Todos os direitos reservados.</span>
+<div class="flex gap-6">
+<span class="font-caption text-caption text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+Brasília, DF - Brasil
+</span>
+<span class="font-caption text-caption text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">mail</span>
+contato@Compunet.com.br
+</span>
+</div>
+</div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const observerOptions = { threshold: 0.08, rootMargin: '0px 0px -40px 0px' };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('opacity-100', 'translate-y-0');
+        entry.target.classList.remove('opacity-0', 'translate-y-8');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+  document.querySelectorAll('section > div, .glass-card-strong, .glass-card').forEach(el => {
+    el.classList.add('transition-all', 'duration-700', 'ease-out', 'opacity-0', 'translate-y-8');
+    observer.observe(el);
+  });
+
+  const rankingTabs = document.querySelectorAll('.glass-card-strong .flex.border-b button');
+  if (rankingTabs.length === 2) {
+    rankingTabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        rankingTabs.forEach(t => {
+          t.classList.remove('text-secondary', 'border-secondary');
+          t.classList.add('text-on-surface-variant', 'border-transparent');
+        });
+        this.classList.remove('text-on-surface-variant', 'border-transparent');
+        this.classList.add('text-secondary', 'border-secondary');
+      });
+    });
+  }
+});
+</script>
+<script src="nav.js?v=2"></script>
+</body></html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/><link rel="icon" type="image/x-icon" href="favicon.ico"/>
+<link rel="icon" type="image/png" sizes="16x16" href="favicon16.png"/>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon32.png"/>
+<link rel="icon" type="image/png" sizes="48x48" href="favicon48.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+<link rel="manifest" href="manifest.json"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Compunet - Mobilização Inteligente para Vencer Eleições</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;900&amp;family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@300;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+              "primary": "#0F172A",
+              "on-primary": "#FFFFFF",
+              "primary-container": "#0F172A",
+              "on-primary-container": "#94A3B8",
+              "secondary": "#2563EB",
+              "on-secondary": "#FFFFFF",
+              "secondary-container": "#3B82F6",
+              "on-secondary-container": "#FFFFFF",
+              "surface": "#F8FAFC",
+              "on-surface": "#0F172A",
+              "surface-container": "#FFFFFF",
+              "surface-container-low": "#F8FAFC",
+              "surface-container-lowest": "#FFFFFF",
+              "surface-container-high": "#F1F5F9",
+              "on-surface-variant": "#475569",
+              "cyan-accent": "#06B6D4",
+              "purple-accent": "#7C3AED",
+              "orange-accent": "#F97316",
+              "slate-gray": "#CBD5E1",
+              "outline-variant": "#E2E8F0",
+              "outline": "#94A3B8",
+              "error": "#DC2626",
+              "on-error": "#FFFFFF",
+              "background": "#F8FAFC",
+              "inverse-surface": "#0F172A",
+              "inverse-on-surface": "#F8FAFC"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "max-width": "1280px",
+                    "gutter": "24px",
+                    "margin-mobile": "20px",
+                    "margin-desktop": "64px"
+            },
+            "fontFamily": {
+              "display-lg": ["Inter Tight", "Space Grotesk", "sans-serif"],
+              "display-lg-mobile": ["Inter Tight", "Space Grotesk", "sans-serif"],
+              "headline-lg": ["Inter Tight", "Space Grotesk", "sans-serif"],
+              "headline-lg-mobile": ["Inter Tight", "Space Grotesk", "sans-serif"],
+              "headline-md": ["Inter Tight", "Space Grotesk", "sans-serif"],
+              "body-lg": ["Inter", "sans-serif"],
+              "body-md": ["Inter", "sans-serif"],
+              "label-md": ["Inter", "sans-serif"],
+              "caption": ["Inter", "sans-serif"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                    "display-lg-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+                .docked {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .full-width {
+            width: 100%;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, #ffffff 0%, #f7f9fb 100%);
+        }
+        .text-glow {
+            text-shadow: 0 0 20px rgba(37, 99, 235, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden">
+<div id="nav-container"></div>
+<!-- Hero Section -->
+<main class="relative hero-gradient min-h-[921px] flex flex-col justify-center overflow-hidden">
+<div class="absolute top-20 right-0 w-2/3 h-full opacity-20 pointer-events-none">
+<div class="absolute inset-0 bg-gradient-to-l from-secondary/10 to-transparent"></div>
+<!-- Dynamic Background Element -->
+<div class="w-full h-full transform translate-x-20 rotate-12 bg-white rounded-[100px] border border-outline-variant/20 shadow-2xl"></div>
+</div>
+<div class="relative max-w-max-width mx-auto px-margin-desktop w-full grid md:grid-cols-2 gap-gutter items-center">
+<div class="flex flex-col gap-8 z-10">
+<div class="flex flex-col gap-4">
+<span class="font-label-md text-label-md text-secondary tracking-widest uppercase">Tecnologia &amp; Estratégia Territorial</span>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg leading-tight tracking-tight text-primary">
+                        Mobilização <br/>
+<span class="text-secondary">Inteligente</span> para <br/>
+                        Vencer Eleições.
+                    </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                        Estratégia, organização, tecnologia e ação territorial integradas em uma única operação de alto impacto eleitoral.
+                    </p>
+</div>
+<div class="flex flex-wrap gap-4 items-center">
+<button class="px-8 py-4 bg-primary text-on-primary rounded-full font-label-md text-label-md flex items-center gap-2 hover:scale-105 transition-all shadow-xl">
+                        Conheça a Metodologia
+                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<button class="px-8 py-4 bg-surface-container-lowest text-on-surface border border-outline-variant rounded-full font-label-md text-label-md hover:bg-surface-container-low transition-all">
+                        Solicitar Diagnóstico
+                    </button>
+</div>
+<!-- Trust Signals -->
+<div class="pt-12 border-t border-outline-variant/30 flex flex-col gap-6">
+<p class="font-label-md text-label-md text-on-surface-variant opacity-60">CONFIADO POR LIDERANÇAS EM TODO O PAÍS</p>
+<div class="flex gap-12 items-center opacity-40 grayscale hover:grayscale-0 transition-all duration-500">
+<img alt="Logo 1" class="h-8 object-contain" alt="A clean, minimalist monochrome logo of a prominent Brazilian political organization, rendered in a professional high-fidelity vector style suitable for a corporate branding context. The background is a soft off-white surface with subtle ambient shadows, matching a premium digital marketing agency aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA426TC4zvTkNvCHUWm4uCuAndbBmCmVWADAT-IRs9K3CuHZZDW-7fm6H5j10thQdgg3zdxHcWOPtEk5nBQVuLq4ySGnoYbYypFr0aS03vLROGvdbFhmNSt1peORZp66IWPINSeU-6UAAnqwCIy3nTnw5JqgxVuTFdprFMCA4xrwZGMemFTkUceX3dD7fy-dZDGKc5mtndbm_v61wJ-eBGbbgBwjUAwvx74gtFOhQqO9Oa63AYBQ0Tts-qsJny5NBPnEQP1lGvbWlg"/>
+<img alt="Logo 2" class="h-8 object-contain" alt="A sophisticated digital representation of a political institution's logo, presented in a minimalist grayscale format. The lighting is bright and even, characteristic of a high-end light mode user interface. The surrounding space is clean, emphasizing the prestige and reliability of the partnership." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNEQ4zeTXt6825uN_0jLXcQ09SYSgXrCPHSJCan0LKEZotRCuSN5uOuQBwtMbB2JJ961MlXIJy6aKQU9-zSMDcjq9e_2xOLiqdcdzZODqbovpsZ9I-mYZh3r2Lvh6bMIFsMzE9o-FupDMgXW-6JP-5InkbUWvYHa0OQn__qsPykHiS7_z5t00g2_S9lFopYQRHI0PgUwBkiND7bgeisZzepytEnKU9SssfjeSx1zsuuiMI0jogAMBkIPzSxqJtXAnPd6Y6LMFfMCU"/>
+<img alt="Logo 3" class="h-8 object-contain" alt="A minimalist logo icon displayed on a pristine light gray surface. The aesthetic is clean and modern, leveraging professional spacing and high-key lighting to create an atmosphere of institutional trust and nationwide reach." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTmsyoC8rfGmFPVSUATfVHlAiYST7PkTmxbvJe4hlSiiJloBhZEkUexuPUNCdRbtATmKWGlGXAZFL_8OZid7S9ipD2Iy-uFIaCYuQ4lCkKL2bVwb_QwLtgN9CDusE-dJAoZwNLHLPFVvXy-dVGP62PH1ZNTINai9brcYElAjaSvvLNkJrwcXmSgWqczmTaq3QgELKI5JPxmQtuWSgOfhf_3sJODze7b_xnpi-tfkqvaOzjBUo0R79oTEiug282kKBu0dV-yH1BPqA"/>
+</div>
+</div>
+</div>
+<div class="relative hidden md:block">
+<!-- Abstract Human Action Visual - Inspired by the provided image style -->
+<div class="relative w-full aspect-square flex items-center justify-center">
+<div class="absolute inset-0 bg-secondary/5 rounded-full blur-[100px]"></div>
+<img alt="Strategy Session" class="w-full h-full object-cover rounded-3xl shadow-2xl mix-blend-multiply opacity-80" alt="A cinematic, high-contrast photograph of a modern political strategy war room. Strategists are seen as blurred silhouettes in a bright, sun-drenched office with glass walls, discussing complex data visualizations on large transparent displays. The mood is urgent, professional, and technologically advanced, dominated by a clean palette of whites, soft grays, and electric blue accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpapLRrHfnM67cfFp3vnGu5hMSbxQKEXN1boofVMjS3H3AuBlRYRvLxJ_ZWqAvcnDK7sfHoKp2cq7wVzeDHQi_zn3dITh_NSntxw-B1iHRnERsmiGkPm8MZfNBndywEuzpxzEGeiiUvZ_UZkHspqw3ZSqtAX2HqHEf1a0jBkYZUe1SLNwOFB3RJpUYTyO1UCwjsuxJxH6Y52ZOa3cIftjI6iWyHJqNeN5wPeQEXgAFYhYsP6aB1HwCmLpghQUZxrrx7pEIO0qwb2k"/>
+<!-- Glassmorphic Overlay Stats -->
+<div class="absolute bottom-10 -left-10 glass-card p-6 rounded-2xl shadow-xl flex flex-col gap-1">
+<span class="font-headline-lg text-headline-lg text-secondary">10k+</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Militantes Ativos</span>
+</div>
+<div class="absolute top-10 -right-10 glass-card p-6 rounded-2xl shadow-xl flex flex-col gap-1">
+<span class="font-headline-lg text-headline-lg text-primary">85%</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Taxa de Conversão</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bento Grid Section -->
+<section class="py-24 bg-surface-container-lowest">
+<div class="max-w-max-width mx-auto px-margin-desktop">
+<div class="mb-16">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-4">A operação completa do seu comitê.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Integramos inteligência de dados com execução territorial de ponta para garantir que cada voto seja conquistado com precisão.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Large Feature -->
+<div class="md:col-span-2 relative group overflow-hidden rounded-3xl bg-primary h-[400px]">
+<div class="absolute inset-0 opacity-40">
+<img alt="Data Intelligence" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="An expansive digital dashboard displaying real-time geographic data and voter sentiment analytics. The visualization is sleek and minimalist, using vibrant cyan and purple accents against a deep dark background. The lighting suggests a high-stakes command center, projecting authority and technological mastery in political data science." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnFO2je21YryZn4_RQ9ELaKuiw7tls_jPuCis6ecHtGl8o8uyf--w2urr3bHuWEVdKByqd9Vd6dmF8FgnZE418ere_l0a91eKRZ_0-LrkW0QuiJPdydG5MC4aJk9aWpXTHoQuBgmcMOpqFBeni8tVUG7EjfB9oug76lif6ofbl-z4Fr1-MK2ji7swSdUoKXVlthTdc-vyZ-sDbuKGSxUt95zIYNsb6uBo5JsENjb4gWy6CsBzDxaYDv-jr0SB2tNiZsLJduepM5to"/>
+</div>
+<div class="relative h-full p-12 flex flex-col justify-end gap-4 text-white">
+<h3 class="font-headline-lg text-headline-lg">Inteligência de Dados Georreferenciados</h3>
+<p class="font-body-md text-body-md opacity-80 max-w-lg">Identificamos o potencial de votos rua a rua, permitindo uma alocação de recursos cirúrgica e eficiente.</p>
+</div>
+</div>
+<!-- Small Feature 1 -->
+<div class="glass-card p-8 rounded-3xl border border-outline-variant hover:border-secondary transition-all group">
+<div class="w-12 h-12 rounded-xl bg-secondary-fixed flex items-center justify-center text-secondary mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">groups</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-4 text-primary">Gestão de Militância</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Gamificação e ferramentas de controle para engajar sua base e multiplicar seu alcance orgânico.</p>
+</div>
+<!-- Small Feature 2 -->
+<div class="glass-card p-8 rounded-3xl border border-outline-variant hover:border-secondary transition-all group">
+<div class="w-12 h-12 rounded-xl bg-tertiary-fixed flex items-center justify-center text-on-tertiary-container mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">campaign</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-4 text-primary">Mobilização Digital</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Estratégias de conteúdo e canais de comunicação direta para blindar sua narrativa e rebater fake news.</p>
+</div>
+<!-- Small Feature 3 -->
+<div class="md:col-span-2 glass-card p-12 rounded-3xl border border-outline-variant flex flex-col md:flex-row gap-8 items-center">
+<div class="flex-1">
+<h3 class="font-headline-lg text-headline-lg mb-4 text-primary">Mobiliza Training Center</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-6">Treinamento intensivo para sua equipe de campo e coordenadores, focados em performance e resultados.</p>
+<button class="font-label-md text-label-md text-secondary flex items-center gap-2 group">
+                            Ver cursos disponíveis
+                            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
+</button>
+</div>
+<div class="w-full md:w-1/3 aspect-video rounded-2xl overflow-hidden shadow-lg">
+<img alt="Training" class="w-full h-full object-cover" alt="A bright, modern seminar room with large windows overlooking a city skyline. A group of diverse professionals is gathered around a table with tablets and notebooks, focused on a presentation about digital activism. The atmosphere is collaborative and professional, characterized by soft natural light and a clean architectural design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_IYHI5427363GfZRLif7dlN8kDiSTejIZzbRj9nBgicIRkDewnvkrOhgibDOl2Yq0jHz-ZC-PZpcJSlt2vZQNqd-3NiglluhOCSv9oPyfX2ftW4-OkI3TswRECQ4xhgokp7sAlDCe07vO0LjwrIezXmQR669gWPDtTxdRqm9Fk4tT_rwaYdjL8Sg1g8uOJljjKJ-N_Un-YOra0wvn0oxtsDY9JxL02RM-4ZJvuFj3DD4KOFF4BB_AMR22IdAYz8iSiKn4EeAi3FY"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop py-12 max-w-max-width mx-auto">
+<div class="md:col-span-1 flex flex-col gap-6">
+<div class="font-headline-lg text-headline-lg font-black text-primary">Compunet</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    Plataforma líder em mobilização política e inteligência eleitoral na América Latina.
+                </p>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-secondary hover:text-on-secondary transition-all" href="Contato.html">
+<span class="material-symbols-outlined text-[20px]">public</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-secondary hover:text-on-secondary transition-all" href="Contato.html">
+<span class="material-symbols-outlined text-[20px]">alternate_email</span>
+</a>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-md text-label-md text-primary">Soluções</h4>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Centro de Inteligencia Eleitoral.html">Inteligência Territorial</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Portal do Militante - Dashboard de Engajamento.html">Gestão de Militantes</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Centro de Inteligencia Eleitoral.html">Monitoramento Digital</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Contato.html">Diagnóstico Eleitoral</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-md text-label-md text-primary">Empresa</h4>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Sobre Nos.html">Sobre Nós</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Noticias.html">Notícias</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Termos de Uso.html">Termos de Uso</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="Privacidade.html">Privacidade</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-md text-label-md text-primary">Contato</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">contato@Compunet.com.br</p>
+<p class="font-body-md text-body-md text-on-surface-variant">+55 (11) 9999-9999</p>
+<div class="mt-4 p-4 rounded-xl bg-surface-container-low border border-outline-variant/30">
+<p class="font-caption text-caption text-on-surface-variant">Cadastre-se para receber insights semanais:</p>
+<div class="mt-2 flex gap-2">
+<input class="flex-1 px-3 py-2 rounded-lg bg-surface border border-outline-variant focus:ring-2 focus:ring-secondary focus:border-transparent text-sm" placeholder="Email" type="email"/>
+<button class="p-2 bg-primary text-on-primary rounded-lg transition-transform active:scale-90">
+<span class="material-symbols-outlined text-[18px]">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="px-margin-desktop py-8 border-t border-outline-variant max-w-max-width mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<span class="font-caption text-caption text-on-surface-variant">© 2025 Compunet Platform. Todos os direitos reservados.</span>
+<div class="flex gap-8">
+<span class="font-caption text-caption text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+                    Brasília, DF - Brasil
+                </span>
+</div>
+</div>
+</footer>
+<script>
+        // Smooth reveal on scroll interaction
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                        entry.target.classList.remove('opacity-0', 'translate-y-10');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('section, .glass-card').forEach(el => {
+                el.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
+                observer.observe(el);
+            });
+        });
+    </script>
+<script src="nav.js?v=2"></script>
+</body></html>

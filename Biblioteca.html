@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compunet - Biblioteca</title>
+  <meta name="description" content="Materiais exclusivos para aprofundar seu conhecimento em campanhas eleitorais." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;900&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#0F172A",
+            "on-primary": "#FFFFFF",
+            "primary-container": "#0F172A",
+            "on-primary-container": "#94A3B8",
+            "secondary": "#2563EB",
+            "on-secondary": "#FFFFFF",
+            "secondary-container": "#3B82F6",
+            "on-secondary-container": "#FFFFFF",
+            "surface": "#F8FAFC",
+            "on-surface": "#0F172A",
+            "surface-container": "#FFFFFF",
+            "surface-container-low": "#F8FAFC",
+            "surface-container-lowest": "#FFFFFF",
+            "surface-container-high": "#F1F5F9",
+            "on-surface-variant": "#475569",
+            "cyan-accent": "#06B6D4",
+            "purple-accent": "#7C3AED",
+            "orange-accent": "#F97316",
+            "slate-gray": "#CBD5E1",
+            "outline-variant": "#E2E8F0",
+            "outline": "#94A3B8",
+            "error": "#DC2626",
+            "on-error": "#FFFFFF",
+            "background": "#F8FAFC",
+            "inverse-surface": "#0F172A",
+            "inverse-on-surface": "#F8FAFC"
+          },
+          fontFamily: {
+            "display-lg": ["Inter Tight", "Space Grotesk", "sans-serif"],
+            "display-lg-mobile": ["Inter Tight", "Space Grotesk", "sans-serif"],
+            "headline-lg": ["Inter Tight", "Space Grotesk", "sans-serif"],
+            "headline-lg-mobile": ["Inter Tight", "Space Grotesk", "sans-serif"],
+            "headline-md": ["Inter Tight", "Space Grotesk", "sans-serif"],
+            "body-lg": ["Inter", "sans-serif"],
+            "body-md": ["Inter", "sans-serif"],
+            "label-md": ["Inter", "sans-serif"],
+            "caption": ["Inter", "sans-serif"]
+          },
+          fontSize: {
+            "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "display-lg-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+            "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+            "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+            "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+            "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+            "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+            "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}]
+          },
+          spacing: {
+            "base": "8px",
+            "max-width": "1280px",
+            "gutter": "24px",
+            "margin-mobile": "20px",
+            "margin-desktop": "64px"
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #F8FAFC; color: #0F172A; overflow-x: hidden; }
+    .glass { background: rgba(255,255,255,0.72); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(226,232,240,0.6); }
+    .glass-card { background: rgba(255,255,255,0.68); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(226,232,240,0.5); border-radius: 20px; transition: all 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .glass-card:hover { transform: translateY(-4px); box-shadow: 0 20px 56px -12px rgba(15,23,42,0.12); border-color: rgba(37,99,235,0.15); }
+    .glass-card-resource { background: rgba(255,255,255,0.68); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(226,232,240,0.5); border-radius: 20px; transition: all 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .glass-card-resource:hover { transform: translateY(-4px); box-shadow: 0 20px 56px -12px rgba(15,23,42,0.12); border-color: rgba(37,99,235,0.15); }
+    .hero-gradient { background: linear-gradient(135deg, #0F172A 0%, #1e293b 50%, #0F172A 100%); }
+    .tab-btn { padding: 10px 24px; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent; background: transparent; color: #475569; white-space: nowrap; }
+    .tab-btn:hover { background: rgba(15,23,42,0.06); color: #0F172A; }
+    .tab-btn.active { background: #0F172A; color: #FFFFFF; }
+    .reveal { opacity: 0; transform: translateY(32px); transition: all 0.7s cubic-bezier(0.22,1,0.36,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .img-placeholder { width: 100%; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-family: 'Inter Tight', sans-serif; font-weight: 600; color: rgba(255,255,255,0.6); position: relative; overflow: hidden; }
+    .img-placeholder::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 50%); pointer-events: none; }
+    .format-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 12px; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+    .action-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; border-radius: 12px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; border: none; }
+    .action-btn:hover { transform: translateY(-2px); }
+    nav a { position: relative; transition: color 0.3s ease; }
+    nav a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: #2563EB; border-radius: 2px; transition: width 0.3s ease; }
+    nav a:hover::after { width: 100%; }
+    .footer-link { transition: color 0.3s ease; position: relative; }
+    .footer-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: #2563EB; border-radius: 1px; transition: width 0.3s ease; }
+    .footer-link:hover::after { width: 100%; }
+    .gradient-book { background: linear-gradient(135deg, #0F172A 0%, #1e293b 100%); }
+    .gradient-report { background: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%); }
+    .gradient-video { background: linear-gradient(135deg, #06B6D4 0%, #2563EB 100%); }
+    .gradient-book-2 { background: linear-gradient(135deg, #F97316 0%, #DC2626 100%); }
+    .gradient-report-2 { background: linear-gradient(135deg, #7C3AED 0%, #2563EB 100%); }
+    .gradient-video-2 { background: linear-gradient(135deg, #1e293b 0%, #0F172A 100%); }
+    .gradient-book-3 { background: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%); }
+    .gradient-report-3 { background: linear-gradient(135deg, #0F172A 0%, #1e293b 100%); }
+    .gradient-video-3 { background: linear-gradient(135deg, #F97316 0%, #2563EB 100%); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    @media (max-width: 768px) { .tab-bar { gap: 6px; } }
+  </style>
+</head>
+<body>
+<div id="nav-container"></div>
+
+  <main class="pt-[68px]">
+
+    <section class="hero-gradient relative overflow-hidden px-5 md:px-16 py-20 md:py-28">
+      <div class="absolute inset-0 opacity-[0.04]" style="background-image: radial-gradient(circle at 75% 30%, #FFFFFF 0.5px, transparent 0.5px); background-size: 28px 28px;"></div>
+      <div class="max-w-[1280px] mx-auto text-center relative z-10">
+        <div class="reveal">
+          <span class="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 text-white/80 backdrop-blur-sm text-[12px] font-[600] font-['Inter'] uppercase tracking-[0.05em] border border-white/10 mb-5">Biblioteca</span>
+        </div>
+        <h1 class="font-['Inter_Tight'] font-[700] text-[40px] md:text-[64px] leading-[1.1] tracking-[-0.02em] text-white reveal">Biblioteca</h1>
+        <p class="font-['Inter'] text-[18px] md:text-[20px] text-[#94A3B8] leading-[1.6] max-w-[640px] mx-auto mt-5 reveal">Materiais exclusivos para aprofundar seu conhecimento em campanhas eleitorais.</p>
+      </div>
+    </section>
+
+    <section class="max-w-[1280px] mx-auto px-5 md:px-16 mt-12 md:mt-16 mb-20">
+      <div class="flex items-center gap-3 tab-bar overflow-x-auto pb-2 scrollbar-none mb-10 reveal" style="scrollbar-width:none;-ms-overflow-style:none;">
+        <button class="tab-btn active" data-tab="guias">Guias & E-books</button>
+        <button class="tab-btn" data-tab="pesquisas">Pesquisas & Relatórios</button>
+        <button class="tab-btn" data-tab="videos">Vídeos & Webinars</button>
+      </div>
+
+      <div id="tab-guias" class="tab-panel active">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="glass-card-resource overflow-hidden reveal">
+            <div class="img-placeholder gradient-book h-[200px] flex-col gap-2">
+              <span class="material-symbols-outlined text-[36px] text-white/40">menu_book</span>
+              <span class="text-white/40 text-sm font-['Inter_Tight'] font-[600]">Guia Completo</span>
+            </div>
+            <div class="p-5">
+              <span class="format-badge bg-[#0F172A]/10 text-[#0F172A]"><span class="material-symbols-outlined text-[14px]">description</span> PDF</span>
+              <h3 class="font-['Inter_Tight'] font-[600] text-[18px] leading-[1.3] text-[#0F172A] mt-3 mb-2">Guia Completo de Campanha Eleitoral</h3>
+              <p class="font-['Inter'] text-[14px] text-[#475569] leading-[1.6] mb-4">Um manual passo a passo desde o planejamento até a execução de campanhas políticas vencedoras.</p>
+              <button class="action-btn bg-[#0F172A] text-white hover:bg-[#1e293b]"><span class="material-symbols-outlined text-[18px]">download</span> Baixar PDF</button>
+            </div>
+          </div>
+          <div class="glass-card-resource overflow-hidden reveal">
+            <div class="img-placeholder gradient-book-2 h-[200px] flex-col gap-2">
+              <span class="material-symbols-outlined text-[36px] text-white/40">auto_stories</span>
+              <span class="text-white/40 text-sm font-['Inter_Tight'] font-[600]">E-book</span>
+            </div>
+            <div class="p-5">
+              <span class="format-badge bg-[#F97316]/10 text-[#F97316]"><span class="material-symbols-outlined text-[14px]">description</span> E-BOOK</span>
+              <h3 class="font-['Inter_Tight'] font-[600] text-[18px] leading-[1.3] text-[#0F172A] mt-3 mb-2">Marketing Digital para Candidatos</h3>
+              <p class="font-['Inter'] text-[14px] text-[#475569] leading-[1.6] mb-4">Estratégias digitais completas para construir presença online e engajar eleitores nas redes sociais.</p>
+              <button class="action-btn bg-[#0F172A] text-white hover:bg-[#1e293b]"><span class="material-symbols-outlined text-[18px]">download</span> Baixar E-book</button>
+            </div>
+          </div>
+          <div class="glass-card-resource overflow-hidden reveal">
+            <div class="img-placeholder gradient-book-3 h-[200px] flex-col gap-2">
+              <span class="material-symbols-outlined text-[36px] text-white/40">library_books</span>
+              <span class="text-white/40 text-sm font-['Inter_Tight'] font-[600]">Guia Prático</span>
+            </div>
+            <div class="p-5">
+              <span class="format-badge bg-[#2563EB]/10 text-[#2563EB]"><span class="material-symbols-outlined text-[14px]">description</span> PDF</span>
+              <h3 class="font-['Inter_Tight'] font-[600] text-[18px] leading-[1.3] text-[#0F172A] mt-3 mb-2">Mobilização Territorial: Guia Prático</h3>
+              <p class="font-['Inter'] text-[14px] text-[#475569] leading-[1.6] mb-4">Técnicas e ferramentas para ativar sua base de apoiadores nas ruas e nos bairros.</p>
+              <button class="action-btn bg-[#0F172A] text-white hover:bg-[#1e293b]"><span class="material-symbols-outlined text-[18px]">download</span> Baixar PDF</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-pesquisas" class="tab-panel">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="glass-card-resource overflow-hidden reveal">
+            <div class="img-placeholder gradient-report h-[200px] flex-col gap-2">
+              <span class="material-symbols-outlined text-[36px] text-white/40">assessment</span>
+              <span class="text-white/40 text-sm font-['Inter_Tight'] font-[600]">Relatório</span>
+            </div>
+            <div class="p-5">
+              <span class="format-badge bg-[#7C3AED]/10 text-[#7C3AED]"><span class="material-symbols-outlined text-[14px]">description</span> PDF</span>
+              <h3 class="font-['Inter_Tight'] font-[600] text-[18px] leading-[1.3] text-[#0F172A] mt-3 mb-2">Pesquisa Nacional de Intenção de Voto 2026</h3>
+              <p class="font-['Inter'] text-[14px] text-[#475569] leading-[1.6] mb-4">Dados completos e análise detalhada da mais recente pesquisa nacional com 10.000 entrevistados.</p>
+              <button class="action-btn bg-[#7C3AED] text-white hover:bg-[#6d28d9]"><span class="material-symbols-outlined text-[18px]">download</span> Baixar PDF</button>
+            </div>
+          </div>
+          <div class="glass-card-resource overflow-hidden reveal">
+            <div class="img-placeholder gradient-report-2 h-[200px] flex-col gap-2">
+              <span class="material-symbols-outlined text-[36px] text-white/40">bar_chart</span>
+              <span class="text-white/40 text-sm font-['Inter_Tight'] font-[600]">Relatório</span>
+            </div>
+            <div class="p-5">
+              <span class="format-badge bg-[#7C3AED]/10 text-[#7C3AED]"><span class="material-symbols-outlined text-[14px]">description</span> XLSX</span>
+              <h3 class="font-['Inter_Tight'] font-[600] text-[18px] leading-[1.3] text-[#0F172A] mt-3 mb-2">Análise de Cenários Eleitorais 2026</h3>
+              <p class="font-['Inter'] text-[14px] text-[#475569] leading-[1.6] mb-4">Projeções detalhadas com diferentes cenários macroeconômicos e seus impactos nas eleições.</p>
+              <button class="action-btn bg-[#7C3AED] text-white hover:bg-[#6d28d9]"><span class="material-symbols-outlined text-[18px]">download</span> Baixar Dados</button>
+            </div>
+          </div>
+          <div class="glass-card-resource overflow-hidden reveal">
+            <div class="img-placeholder gradient-report-3 h-[200px] flex-col gap-2">
+              <span class="material-symbols-outlined text-[36px] text-white/40">monitoring</span>
+              <span class="text-white/40 text-sm font-['Inter_Tight'] font-[600]">Relatório</span>
+            </div>
+            <div class="p-5">
+              <span class="format-badge bg-[#7C3AED]/10 text-[#7C3AED]"><span class="material-symbols-outlined text-[14px]">description</span> PDF</span>
+              <h3 class="font-['Inter_Tight'] font-[600] text-[18px] leading-[1.3] text-[#0F172A] mt-3 mb-2">Panorama das Redes Sociais na Política</h3>
+              <p class="font-['Inter'] text-[14px] text-[#475569] leading-[1.6] mb-4">Levantamento inédito sobre o uso de redes sociais por candidatos e o engajamento do eleitorado.</p>
+              <button class="action-btn bg-[#7C3AED] text-white hover:bg-[#6d28d9]"><span class="material-symbols-outlined text-[18px]">download</span> Baixar PDF</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-videos" class="tab-panel">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="glass-card-resource overflow-hidden reveal">
+            <div class="img-placeholder gradient-video h-[200px] flex-col gap-2">
+              <span class="material-symbols-outlined text-[44px] text-white/40">play_circle</span>
+              <span class="text-white/40 text-sm font-['Inter_Tight'] font-[600]">Webinar</span>
+            </div>
+            <div class="p-5">
+              <span class="format-badge bg-[#06B6D4]/10 text-[#06B6D4]"><span class="material-symbols-outlined text-[14px]">smart_display</span> VÍDEO</span>
+              <h3 class="font-['Inter_Tight'] font-[600] text-[18px] leading-[1.3] text-[#0F172A] mt-3 mb-2">Webinar: Estratégias de Campanha para 2026</h3>
+              <p class="font-['Inter'] text-[14px] text-[#475569] leading-[1.6] mb-4">Especialistas discutem as tendências e estratégias que definirão as eleições de 2026.</p>
+              <div class="flex items-center gap-3">
+                <span class="font-['Inter'] text-[12px] text-[#94A3B8]">1h 24min</span>
+                <button class="action-btn bg-[#06B6D4] text-white hover:bg-[#0891b2]"><span class="material-symbols-outlined text-[18px]">play_arrow</span> Assistir</button>
+              </div>
+            </div>
+          </div>
+          <div class="glass-card-resource overflow-hidden reveal">
+            <div class="img-placeholder gradient-video-2 h-[200px] flex-col gap-2">
+              <span class="material-symbols-outlined text-[44px] text-white/40">play_circle</span>
+              <span class="text-white/40 text-sm font-['Inter_Tight'] font-[600]">Masterclass</span>
+            </div>
+            <div class="p-5">
+              <span class="format-badge bg-[#06B6D4]/10 text-[#06B6D4]"><span class="material-symbols-outlined text-[14px]">smart_display</span> VÍDEO</span>
+              <h3 class="font-['Inter_Tight'] font-[600] text-[18px] leading-[1.3] text-[#0F172A] mt-3 mb-2">Masterclass: Comunicação Política Eficaz</h3>
+              <p class="font-['Inter'] text-[14px] text-[#475569] leading-[1.6] mb-4">Aprenda técnicas avançadas de oratória, storytelling e comunicação não-verbal para campanhas.</p>
+              <div class="flex items-center gap-3">
+                <span class="font-['Inter'] text-[12px] text-[#94A3B8]">2h 05min</span>
+                <button class="action-btn bg-[#06B6D4] text-white hover:bg-[#0891b2]"><span class="material-symbols-outlined text-[18px]">play_arrow</span> Assistir</button>
+              </div>
+            </div>
+          </div>
+          <div class="glass-card-resource overflow-hidden reveal">
+            <div class="img-placeholder gradient-video-3 h-[200px] flex-col gap-2">
+              <span class="material-symbols-outlined text-[44px] text-white/40">play_circle</span>
+              <span class="text-white/40 text-sm font-['Inter_Tight'] font-[600]">Curso</span>
+            </div>
+            <div class="p-5">
+              <span class="format-badge bg-[#06B6D4]/10 text-[#06B6D4]"><span class="material-symbols-outlined text-[14px]">smart_display</span> VÍDEO</span>
+              <h3 class="font-['Inter_Tight'] font-[600] text-[18px] leading-[1.3] text-[#0F172A] mt-3 mb-2">Curso: Mobilização Digital e Territorial</h3>
+              <p class="font-['Inter'] text-[14px] text-[#475569] leading-[1.6] mb-4">Aula completa sobre como integrar estratégias digitais com ações de campo para maximizar resultados.</p>
+              <div class="flex items-center gap-3">
+                <span class="font-['Inter'] text-[12px] text-[#94A3B8]">1h 48min</span>
+                <button class="action-btn bg-[#06B6D4] text-white hover:bg-[#0891b2]"><span class="material-symbols-outlined text-[18px]">play_arrow</span> Assistir</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-[#0F172A] px-5 md:px-16 py-14 md:py-18">
+    <div class="max-w-[1280px] mx-auto">
+      <div class="grid md:grid-cols-4 gap-10 mb-10">
+        <div>
+          <a href="index.html" class="font-['Inter_Tight'] font-[700] text-[22px] text-white no-underline">Compunet</a>
+          <p class="font-['Inter'] text-[14px] text-[#94A3B8] leading-[1.6] mt-4 max-w-[240px]">Plataforma de inteligência e treinamento para campanhas políticas.</p>
+        </div>
+        <div>
+          <h4 class="font-['Inter'] text-[12px] font-[600] text-[#CBD5E1] uppercase tracking-[0.08em] mb-4">Plataforma</h4>
+          <div class="flex flex-col gap-3">
+            <a href="Metodo%20de%20Campanha.html" class="font-['Inter'] text-[14px] text-[#94A3B8] no-underline footer-link">Método</a>
+            <a href="Centro%20de%20Inteligencia%20Eleitoral.html" class="font-['Inter'] text-[14px] text-[#94A3B8] no-underline footer-link">Inteligência</a>
+            <a href="Mobilizacao%20Territorial.html" class="font-['Inter'] text-[14px] text-[#94A3B8] no-underline footer-link">Mobilização</a>
+            <a href="Universidade%20de%20Campanha.html" class="font-['Inter'] text-[14px] text-[#94A3B8] no-underline footer-link">Universidade</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-['Inter'] text-[12px] font-[600] text-[#CBD5E1] uppercase tracking-[0.08em] mb-4">Empresa</h4>
+          <div class="flex flex-col gap-3">
+            <a href="Sobre%20Nos.html" class="font-['Inter'] text-[14px] text-[#94A3B8] no-underline footer-link">Sobre Nós</a>
+            <a href="Noticias.html" class="font-['Inter'] text-[14px] text-[#94A3B8] no-underline footer-link">Notícias</a>
+            <a href="Contato.html" class="font-['Inter'] text-[14px] text-[#94A3B8] no-underline footer-link">Contato</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-['Inter'] text-[12px] font-[600] text-[#CBD5E1] uppercase tracking-[0.08em] mb-4">Legal</h4>
+          <div class="flex flex-col gap-3">
+            <a href="Termos%20de%20Uso.html" class="font-['Inter'] text-[14px] text-[#94A3B8] no-underline footer-link">Termos de Uso</a>
+            <a href="Privacidade.html" class="font-['Inter'] text-[14px] text-[#94A3B8] no-underline footer-link">Privacidade</a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-[#1e293b] pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="font-['Inter'] text-[13px] text-[#475569]">&copy; 2026 Compunet. Todos os direitos reservados.</p>
+        <div class="flex items-center gap-4">
+          <a href="#" class="text-[#475569] hover:text-[#94A3B8] transition-colors no-underline"><span class="material-symbols-outlined text-[20px]">alternate_email</span></a>
+          <a href="#" class="text-[#475569] hover:text-[#94A3B8] transition-colors no-underline"><span class="material-symbols-outlined text-[20px]">captive_portal</span></a>
+          <a href="#" class="text-[#475569] hover:text-[#94A3B8] transition-colors no-underline"><span class="material-symbols-outlined text-[20px]">smart_display</span></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('menuToggle')?.addEventListener('click', function(){
+      document.getElementById('mobileMenu')?.classList.toggle('hidden');
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', function(){
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        document.getElementById('tab-' + this.dataset.tab)?.classList.add('active');
+      });
+    });
+  </script>
+
+<script src="nav.js?v=2"></script>
+</body>
+</html>
