@@ -6,3 +6,5 @@ node_modules
 *.ps1
 server/mobiliza.db-shm
 server/mobiliza.db-wal
+
+.vercel
