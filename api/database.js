@@ -1,105 +1,110 @@
-const Database = require('better-sqlite3');
-const path = require('path');
-const fs = require('fs');
+const { Pool } = require('pg');
+const bcrypt = require('bcryptjs');
 
-const isVercel = !!process.env.VERCEL;
-const DB_PATH = isVercel
-  ? '/tmp/mobiliza.db'
-  : path.join(__dirname, '..', 'server', 'mobiliza.db');
+let pool;
 
-let db;
-
-function getDb() {
-  if (!db) {
-    if (isVercel) {
-      const seedPath = path.join(__dirname, '..', 'server', 'mobiliza.db');
-      if (fs.existsSync(seedPath)) {
-        fs.copyFileSync(seedPath, DB_PATH);
-      }
-    }
-    db = new Database(DB_PATH);
-    db.pragma('journal_mode = WAL');
-    db.pragma('foreign_keys = ON');
-    initSchema();
-    seedAdmin();
+function getPool() {
+  if (!pool) {
+    pool = new Pool({
+      connectionString: process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false },
+      max: 5,
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 5000,
+    });
   }
-  return db;
+  return pool;
 }
 
-function initSchema() {
-  db.exec(`
+async function query(text, params) {
+  const client = await getPool().connect();
+  try {
+    const result = await client.query(text, params);
+    return result;
+  } finally {
+    client.release();
+  }
+}
+
+async function initSchema() {
+  await query(`
     CREATE TABLE IF NOT EXISTS usuarios (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id SERIAL PRIMARY KEY,
       nome TEXT NOT NULL,
       email TEXT UNIQUE NOT NULL,
       senha_hash TEXT NOT NULL,
       perfil TEXT NOT NULL CHECK(perfil IN ('student','teacher','admin')),
       ativo INTEGER DEFAULT 1,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     CREATE TABLE IF NOT EXISTS cursos (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id SERIAL PRIMARY KEY,
       titulo TEXT NOT NULL,
       descricao TEXT,
       professor_id INTEGER REFERENCES usuarios(id),
       categoria TEXT,
       imagem_url TEXT,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     CREATE TABLE IF NOT EXISTS aulas (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id SERIAL PRIMARY KEY,
       curso_id INTEGER NOT NULL REFERENCES cursos(id) ON DELETE CASCADE,
       titulo TEXT NOT NULL,
       conteudo TEXT,
       video_url TEXT,
       ordem INTEGER DEFAULT 0,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     CREATE TABLE IF NOT EXISTS matriculas (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id SERIAL PRIMARY KEY,
       aluno_id INTEGER NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
       curso_id INTEGER NOT NULL REFERENCES cursos(id) ON DELETE CASCADE,
       progresso INTEGER DEFAULT 0,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       UNIQUE(aluno_id, curso_id)
     );
     CREATE TABLE IF NOT EXISTS logs_acesso (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id SERIAL PRIMARY KEY,
       usuario_id INTEGER REFERENCES usuarios(id),
       ip TEXT,
-      data_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
+      data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       status_login TEXT,
       user_agent TEXT
     );
     CREATE TABLE IF NOT EXISTS auditoria (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id SERIAL PRIMARY KEY,
       usuario_id INTEGER,
       email TEXT,
       perfil TEXT,
       ip TEXT,
       user_agent TEXT,
-      data_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
+      data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       acao TEXT
     );
     CREATE TABLE IF NOT EXISTS certificados (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id SERIAL PRIMARY KEY,
       aluno_id INTEGER NOT NULL REFERENCES usuarios(id),
       curso_id INTEGER NOT NULL REFERENCES cursos(id),
       codigo TEXT UNIQUE NOT NULL,
-      emitido_em DATETIME DEFAULT CURRENT_TIMESTAMP
+      emitido_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
   `);
 }
 
-function seedAdmin() {
-  const row = db.prepare('SELECT id FROM usuarios WHERE email = ?').get('admin@mobiliza.com');
-  if (!row) {
-    const bcrypt = require('bcryptjs');
+async function seedAdmin() {
+  const { rows } = await query('SELECT id FROM usuarios WHERE email = $1', ['admin@mobiliza.com']);
+  if (rows.length === 0) {
     const hash = bcrypt.hashSync('admin123', 10);
-    db.prepare('INSERT INTO usuarios (nome, email, senha_hash, perfil) VALUES (?, ?, ?, ?)').run(
-      'Administrador', 'admin@mobiliza.com', hash, 'admin'
+    await query(
+      'INSERT INTO usuarios (nome, email, senha_hash, perfil) VALUES ($1, $2, $3, $4)',
+      ['Administrador', 'admin@mobiliza.com', hash, 'admin']
     );
   }
 }
 
-module.exports = { getDb };
+async function initDb() {
+  await initSchema();
+  await seedAdmin();
+}
+
+module.exports = { query, initDb };

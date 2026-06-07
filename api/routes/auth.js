@@ -1,27 +1,27 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const { getDb } = require('../database');
+const { query } = require('../database');
 const { autenticar, gerarToken } = require('../middleware/auth');
 
 const router = express.Router();
 
-function registrarAuditoria(usuario_id, email, perfil, ip, user_agent, acao) {
-  const db = getDb();
-  db.prepare(`
-    INSERT INTO auditoria (usuario_id, email, perfil, ip, user_agent, acao)
-    VALUES (?, ?, ?, ?, ?, ?)
-  `).run(usuario_id, email, perfil, ip, user_agent, acao);
+async function registrarAuditoria(usuario_id, email, perfil, ip, user_agent, acao) {
+  await query(
+    `INSERT INTO auditoria (usuario_id, email, perfil, ip,      user_agent, acao)
+     VALUES ($1, $2, $3, $4, $5, $6)`,
+    [usuario_id, email, perfil, ip, user_agent, acao]
+  );
 }
 
-function registrarLogAcesso(usuario_id, ip, status, user_agent) {
-  const db = getDb();
-  db.prepare(`
-    INSERT INTO logs_acesso (usuario_id, ip, status_login, user_agent)
-    VALUES (?, ?, ?, ?)
-  `).run(usuario_id, ip, status, user_agent);
+async function registrarLogAcesso(usuario_id, ip, status, user_agent) {
+  await query(
+    `INSERT INTO logs_acesso (usuario_id, ip, status_login,      user_agent)
+     VALUES ($1, $2, $3, $4)`,
+    [usuario_id, ip, status, user_agent]
+  );
 }
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   try {
     const { email, senha } = req.body;
     const ip = req.ip || req.connection?.remoteAddress || '';
@@ -31,29 +31,29 @@ router.post('/login', (req, res) => {
       return res.status(400).json({ erro: 'Email e senha são obrigatórios' });
     }
 
-    const db = getDb();
-    const usuario = db.prepare('SELECT * FROM usuarios WHERE email = ?').get(email.toLowerCase().trim());
+    const { rows } = await query('SELECT * FROM usuarios WHERE email = $1', [email.toLowerCase().trim()]);
+    const usuario = rows[0];
 
     if (!usuario) {
-      registrarAuditoria(null, email, null, ip, ua, 'Tentativa de login inválida');
+      await registrarAuditoria(null, email, null, ip, ua, 'Tentativa de login inválida');
       return res.status(401).json({ erro: 'Credenciais inválidas' });
     }
 
     if (!usuario.ativo) {
-      registrarAuditoria(usuario.id, usuario.email, usuario.perfil, ip, ua, 'Login bloqueado - usuário inativo');
+      await registrarAuditoria(usuario.id, usuario.email, usuario.perfil, ip, ua, 'Login bloqueado - usuário inativo');
       return res.status(403).json({ erro: 'Usuário desativado. Contate o administrador.' });
     }
 
     const senhaCorreta = bcrypt.compareSync(senha, usuario.senha_hash);
     if (!senhaCorreta) {
-      registrarLogAcesso(usuario.id, ip, 'falha', ua);
-      registrarAuditoria(usuario.id, usuario.email, usuario.perfil, ip, ua, 'Tentativa de login inválida');
+      await registrarLogAcesso(usuario.id, ip, 'falha', ua);
+      await registrarAuditoria(usuario.id, usuario.email, usuario.perfil, ip, ua, 'Tentativa de login inválida');
       return res.status(401).json({ erro: 'Credenciais inválidas' });
     }
 
     const token = gerarToken(usuario);
-    registrarLogAcesso(usuario.id, ip, 'sucesso', ua);
-    registrarAuditoria(usuario.id, usuario.email, usuario.perfil, ip, ua, 'Login realizado');
+    await registrarLogAcesso(usuario.id, ip, 'sucesso', ua);
+    await registrarAuditoria(usuario.id, usuario.email, usuario.perfil, ip, ua, 'Login realizado');
 
     res.json({
       token,
@@ -70,35 +70,36 @@ router.post('/login', (req, res) => {
   }
 });
 
-router.post('/logout', autenticar, (req, res) => {
+router.post('/logout', autenticar, async (req, res) => {
   const ip = req.ip || req.connection?.remoteAddress || '';
   const ua = req.headers['user-agent'] || '';
-  registrarAuditoria(req.usuario.id, req.usuario.email, req.usuario.perfil, ip, ua, 'Logout');
+  await registrarAuditoria(req.usuario.id, req.usuario.email, req.usuario.perfil, ip, ua, 'Logout');
   res.json({ mensagem: 'Logout registrado' });
 });
 
-router.get('/me', autenticar, (req, res) => {
-  const db = getDb();
-  const usuario = db.prepare('SELECT id, nome, email, perfil, ativo, created_at FROM usuarios WHERE id = ?').get(req.usuario.id);
-  if (!usuario) return res.status(404).json({ erro: 'Usuário não encontrado' });
-  res.json(usuario);
+router.get('/me', autenticar, async (req, res) => {
+  const { rows } = await query(
+    'SELECT id, nome, email, perfil, ativo, created_at FROM usuarios WHERE id = $1',
+    [req.usuario.id]
+  );
+  if (!rows[0]) return res.status(404).json({ erro: 'Usuário não encontrado' });
+  res.json(rows[0]);
 });
 
-router.post('/alterar-senha', autenticar, (req, res) => {
+router.post('/alterar-senha', autenticar, async (req, res) => {
   try {
     const { senha_atual, nova_senha } = req.body;
     const ip = req.ip || req.connection?.remoteAddress || '';
     const ua = req.headers['user-agent'] || '';
-    const db = getDb();
 
-    const usuario = db.prepare('SELECT * FROM usuarios WHERE id = ?').get(req.usuario.id);
-    if (!bcrypt.compareSync(senha_atual, usuario.senha_hash)) {
+    const { rows } = await query('SELECT * FROM usuarios WHERE id = $1', [req.usuario.id]);
+    if (!bcrypt.compareSync(senha_atual, rows[0].senha_hash)) {
       return res.status(400).json({ erro: 'Senha atual incorreta' });
     }
 
     const novaHash = bcrypt.hashSync(nova_senha, 10);
-    db.prepare('UPDATE usuarios SET senha_hash = ? WHERE id = ?').run(novaHash, req.usuario.id);
-    registrarAuditoria(req.usuario.id, req.usuario.email, req.usuario.perfil, ip, ua, 'Alteração de senha');
+    await query('UPDATE usuarios SET senha_hash = $1 WHERE id = $2', [novaHash, req.usuario.id]);
+    await registrarAuditoria(req.usuario.id, req.usuario.email, req.usuario.perfil, ip, ua, 'Alteração de senha');
     res.json({ mensagem: 'Senha alterada com sucesso' });
   } catch (err) {
     console.error('Erro ao alterar senha:', err);

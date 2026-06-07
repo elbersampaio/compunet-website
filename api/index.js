@@ -1,8 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
+const { initDb } = require('./database');
 
 const app = express();
+
+initDb().catch(err => console.error('[DB] Erro ao inicializar:', err));
 
 app.use(cors({ origin: '*' }));
 app.use(express.json({ limit: '10mb' }));
