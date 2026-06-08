@@ -56,7 +56,7 @@ process.on('unhandledRejection', (reason) => {
 const server = app.listen(PORT, () => {
   console.log(`\n  Mobiliza Server rodando em http://localhost:${PORT}`);
   console.log(`  API: http://localhost:${PORT}/api`);
-  console.log(`  Login padrão: admin@mobiliza.com / admin123\n`);
+  console.log(`  Acesse: http://localhost:${PORT}/login\n`);
 });
 
 function gracefulShutdown() {

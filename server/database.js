@@ -91,7 +91,8 @@ function seedAdmin() {
   const row = db.prepare('SELECT id FROM usuarios WHERE email = ?').get('admin@mobiliza.com');
   if (!row) {
     const bcrypt = require('bcryptjs');
-    const senhaInicial = process.env.ADMIN_SENHA || 'admin123';
+    const senhaInicial = process.env.ADMIN_SENHA;
+    if (!senhaInicial) throw new Error('ADMIN_SENHA environment variable is required');
     const hash = bcrypt.hashSync(senhaInicial, 10);
     db.prepare('INSERT INTO usuarios (nome, email, senha_hash, perfil) VALUES (?, ?, ?, ?)').run(
       'Administrador', 'admin@mobiliza.com', hash, 'admin'
