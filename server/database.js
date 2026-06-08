@@ -91,11 +91,11 @@ function seedAdmin() {
   const row = db.prepare('SELECT id FROM usuarios WHERE email = ?').get('admin@mobiliza.com');
   if (!row) {
     const bcrypt = require('bcryptjs');
-    const hash = bcrypt.hashSync('admin123', 10);
+    const senhaInicial = process.env.ADMIN_SENHA || 'admin123';
+    const hash = bcrypt.hashSync(senhaInicial, 10);
     db.prepare('INSERT INTO usuarios (nome, email, senha_hash, perfil) VALUES (?, ?, ?, ?)').run(
       'Administrador', 'admin@mobiliza.com', hash, 'admin'
     );
-    console.log('Admin padrão criado: admin@mobiliza.com / admin123');
   }
 }
 

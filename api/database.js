@@ -113,7 +113,8 @@ async function initSchema(client) {
 async function seedAdmin(client) {
   const { rows } = await client.query('SELECT id FROM usuarios WHERE email = $1', ['admin@mobiliza.com']);
   if (rows.length === 0) {
-    const hash = bcrypt.hashSync('admin123', 10);
+    const senhaInicial = process.env.ADMIN_SENHA || 'admin123';
+    const hash = bcrypt.hashSync(senhaInicial, 10);
     await client.query(
       'INSERT INTO usuarios (nome, email, senha_hash, perfil) VALUES ($1, $2, $3, $4)',
       ['Administrador', 'admin@mobiliza.com', hash, 'admin']

@@ -65,6 +65,3 @@ CREATE TABLE IF NOT EXISTS certificados (
   emitido_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO usuarios (nome, email, senha_hash, perfil)
-SELECT 'Administrador', 'admin@mobiliza.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'admin'
-WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE email = 'admin@mobiliza.com');

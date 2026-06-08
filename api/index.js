@@ -13,7 +13,8 @@ const app = express();
 initDb().catch(err => console.error('[DB] Erro ao inicializar:', err));
 
 app.set('trust proxy', 1);
-app.use(cors({ origin: '*' }));
+const ORIGINS = process.env.CORS_ORIGINS ? process.env.CORS_ORIGINS.split(',') : ['http://localhost:3000'];
+app.use(cors({ origin: ORIGINS }));
 app.use(express.json({ limit: '10mb' }));
 
 
