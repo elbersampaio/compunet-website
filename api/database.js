@@ -8,10 +8,10 @@ function getPool() {
   if (!pool) {
     pool = new Pool({
       connectionString: process.env.DATABASE_URL,
-      ssl: { rejectUnauthorized: false },
+      ssl: { require: true, rejectUnauthorized: false },
       max: 5,
       idleTimeoutMillis: 30000,
-      connectionTimeoutMillis: 5000,
+      connectionTimeoutMillis: 10000,
     });
   }
   return pool;
@@ -25,6 +25,9 @@ async function query(text, params) {
   try {
     const result = await client.query(text, params);
     return result;
+  } catch (err) {
+    console.error('[DB QUERY ERROR]', err.message, err.code, err.hint);
+    throw err;
   } finally {
     client.release();
   }
@@ -125,6 +128,10 @@ async function initDb() {
     try {
       await initSchema(client);
       await seedAdmin(client);
+    } catch (err) {
+      console.error('[DB INIT ERROR]', err.message, JSON.stringify({ code: err.code, hint: err.hint, detail: err.detail }));
+      initPromise = null;
+      throw err;
     } finally {
       client.release();
     }

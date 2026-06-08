@@ -331,7 +331,7 @@
     });
 
     async function toggleStatus(id, ativo) {
-      await apiFetch('/usuarios/' + id, { method: 'PUT', body: JSON.stringify({ ativo: ativo ? 0 : 1 }) });
+      await apiFetch('/usuarios/' + id, { method: 'PUT', body: JSON.stringify({ ativo: !ativo }) });
       carregarUsuarios();
     }
 

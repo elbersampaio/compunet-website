@@ -74,7 +74,7 @@ router.put('/:id', autenticar, autorizar('admin'), async (req, res) => {
     if (nome !== undefined) { updates.push(`nome = $${idx++}`); params.push(nome.trim()); }
     if (email !== undefined) { updates.push(`email = $${idx++}`); params.push(email.toLowerCase().trim()); }
     if (perfil !== undefined) { updates.push(`perfil = $${idx++}`); params.push(perfil); }
-    if (ativo !== undefined) { updates.push(`ativo = $${idx++}`); params.push(ativo ? 1 : 0); }
+    if (ativo !== undefined) { updates.push(`ativo = $${idx++}`); params.push(ativo); }
 
     if (updates.length === 0) return res.status(400).json({ erro: 'Nenhum campo para atualizar' });
 
@@ -113,14 +113,14 @@ router.delete('/:id', autenticar, autorizar('admin'), async (req, res) => {
 
 router.get('/professores', autenticar, async (req, res) => {
   const { rows } = await query(
-    'SELECT id, nome, email FROM usuarios WHERE perfil = $1 AND ativo = 1', ['teacher']
+    'SELECT id, nome, email FROM usuarios WHERE perfil = $1 AND ativo = true', ['teacher']
   );
   res.json(rows);
 });
 
 router.get('/alunos', autenticar, autorizar('admin', 'teacher'), async (req, res) => {
   const { rows } = await query(
-    'SELECT id, nome, email, created_at FROM usuarios WHERE perfil = $1 AND ativo = 1', ['student']
+    'SELECT id, nome, email, created_at FROM usuarios WHERE perfil = $1 AND ativo = true', ['student']
   );
   res.json(rows);
 });

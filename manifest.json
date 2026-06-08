@@ -1,6 +1,6 @@
 {
-  "name": "Compunet",
-  "short_name": "Compunet",
+  "name": "Mobiliza Inteligente",
+  "short_name": "Mobiliza",
   "description": "Plataforma de inteligência eleitoral e mobilização política",
   "start_url": "index.html",
   "display": "standalone",

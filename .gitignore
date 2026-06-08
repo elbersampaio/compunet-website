@@ -4,6 +4,7 @@ node_modules
 *.log
 *.bat
 *.ps1
+server/mobiliza.db
 server/mobiliza.db-shm
 server/mobiliza.db-wal
 

@@ -69,7 +69,7 @@ router.put('/:id', autenticar, autorizar('admin'), (req, res) => {
     if (nome !== undefined) { updates.push('nome = ?'); params.push(nome.trim()); }
     if (email !== undefined) { updates.push('email = ?'); params.push(email.toLowerCase().trim()); }
     if (perfil !== undefined) { updates.push('perfil = ?'); params.push(perfil); }
-    if (ativo !== undefined) { updates.push('ativo = ?'); params.push(ativo ? 1 : 0); }
+    if (ativo !== undefined) { updates.push('ativo = ?'); params.push(ativo); }
 
     if (updates.length === 0) return res.status(400).json({ erro: 'Nenhum campo para atualizar' });
 

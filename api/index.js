@@ -1,7 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
+
 const { initDb } = require('./database');
+const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/users');
+const courseRoutes = require('./routes/courses');
+const logRoutes = require('./routes/logs');
 
 const app = express();
 
@@ -11,24 +16,13 @@ app.set('trust proxy', 1);
 app.use(cors({ origin: '*' }));
 app.use(express.json({ limit: '10mb' }));
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 200,
-  message: { erro: 'Muitas requisições. Tente novamente em 15 minutos.' }
-});
-app.use('/api/', limiter);
 
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 10,
   message: { erro: 'Muitas tentativas de login. Tente novamente em 15 minutos.' }
 });
-app.use('/api/auth/login', loginLimiter);
 
-const authRoutes = require('./routes/auth');
-const userRoutes = require('./routes/users');
-const courseRoutes = require('./routes/courses');
-const logRoutes = require('./routes/logs');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/usuarios', userRoutes);

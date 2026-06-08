@@ -21,6 +21,56 @@ function registrarLogAcesso(usuario_id, ip, status, user_agent) {
   `).run(usuario_id, ip, status, user_agent);
 }
 
+router.post('/register', (req, res) => {
+  try {
+    const { nome, email, senha } = req.body;
+    const ip = req.ip || req.connection.remoteAddress;
+    const ua = req.headers['user-agent'] || '';
+
+    if (!nome || !email || !senha) {
+      return res.status(400).json({ erro: 'Nome, email e senha são obrigatórios' });
+    }
+    if (senha.length < 6) {
+      return res.status(400).json({ erro: 'A senha deve ter no mínimo 6 caracteres' });
+    }
+
+    const db = getDb();
+    const existente = db.prepare('SELECT id FROM usuarios WHERE email = ?').get(email.toLowerCase().trim());
+    if (existente) {
+      return res.status(409).json({ erro: 'Email já cadastrado' });
+    }
+
+    const hash = bcrypt.hashSync(senha, 10);
+    const result = db.prepare(
+      'INSERT INTO usuarios (nome, email, senha_hash, perfil) VALUES (?, ?, ?, ?)'
+    ).run(nome.trim(), email.toLowerCase().trim(), hash, 'student');
+
+    const usuario = {
+      id: result.lastInsertRowid,
+      nome: nome.trim(),
+      email: email.toLowerCase().trim(),
+      perfil: 'student'
+    };
+
+    const token = gerarToken(usuario);
+    registrarLogAcesso(usuario.id, ip, 'sucesso', ua);
+    registrarAuditoria(usuario.id, usuario.email, usuario.perfil, ip, ua, 'Cadastro realizado');
+
+    res.status(201).json({
+      token,
+      usuario: {
+        id: usuario.id,
+        nome: usuario.nome,
+        email: usuario.email,
+        perfil: usuario.perfil
+      }
+    });
+  } catch (err) {
+    console.error('Erro no cadastro:', err);
+    res.status(500).json({ erro: 'Erro interno do servidor' });
+  }
+});
+
 router.post('/login', (req, res) => {
   try {
     const { email, senha } = req.body;

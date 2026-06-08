@@ -12,7 +12,7 @@ const logRoutes = require('./routes/logs');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors({ origin: '*' }));
+app.use(cors({ origin: process.env.NODE_ENV === 'production' ? 'https://mobiliza-inteligente.vercel.app' : '*' }));
 app.use(express.json({ limit: '10mb' }));
 
 const limiter = rateLimit({
